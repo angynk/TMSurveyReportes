@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+    <body>
+	    <ui:composition>
+            <!--<div id="wrapper">-->
+            <!--<div style="background-color: #2e6da4">-->
+            <h:form id="formSideBar">
+
+                <div class="menu">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#"><span>
+                                <img src="../resources/images/user.png" height="24"/></span> TransmiSurvey <span class="text-danger"> Visualización </span></a>
+                        </div>
+                        <div>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a><p:outputLabel class="icon-camera-retro" style="font-style: italic" value="#{loginBean.nombreUsuario}">  </p:outputLabel></a></li>
+
+                                <li><p:commandButton action="#{loginBean.logout}" value="Desconectarse" styleClass="btn btn-danger btn-margin-right navbar-btn"
+                                                     icon="ui-icon-circle-arrow-e" >Desconectarse</p:commandButton></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <p:panel style="border:none;padding-top: 5px;">
+                    <p:megaMenu orientation="horizontal" style="margin-top:40px;">
+                        <p:submenu label="Datos Base" icon="ui-icon-script">
+                            <p:column>
+                                <p:submenu label="Datos Base">
+                                    <p:menuitem value="Ascensos y Descensos Abordo" action="#{menu.refreshAscDescAbordo}" />
+                                    <p:menuitem value="Frecuencia Ocupación" action="#{menu.refreshFrecuenciaOcupacion}" />
+                                </p:submenu>
+                            </p:column>
+                        </p:submenu>
+                        <p:submenu label="Reportes" icon="ui-icon-script">
+                            <p:column>
+                                <p:submenu label="Reporte">
+                                    <p:menuitem value="Reporte" action="#{menu.refreshAscDescAbordo}" />
+                                    <p:menuitem value="Prcesamiento de Datos" action="#{menu.refreshProcesamientoDatos}" />
+                                </p:submenu>
+                            </p:column>
+                        </p:submenu>
+                    </p:megaMenu>
+
+                </p:panel>
+
+            </h:form>
+            <!--</div>-->
+            <!--</div>-->
+	    </ui:composition>
+    </body>
+</html>
+
+
