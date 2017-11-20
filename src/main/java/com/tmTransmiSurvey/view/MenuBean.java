@@ -19,6 +19,15 @@ public class MenuBean {
             e.printStackTrace();
         }
     }
+    public void refreshAscDescPunto(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/visualizarAscDescPunto.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void refreshFrecuenciaOcupacion(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();

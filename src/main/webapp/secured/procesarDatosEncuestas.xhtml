@@ -17,10 +17,9 @@
 
                 <p:panel>
                     <p:panelGrid columns="4">
-                        <p:outputLabel value="Tipo de Procesamiento:"  />
-                        <p:selectOneMenu  value="#{procesView.tipoProcesamiento}" style="width:125px">
-                            <f:selectItem itemLabel="Por Archivo" itemValue="AR" />
-                            <f:selectItem itemLabel="Datos Almacenados" itemValue="DA" />
+                        <p:outputLabel value="Encuesta:"  />
+                        <p:selectOneMenu  value="#{procesView.encuesta}" style="width:125px">
+                            <f:selectItems value="#{procesView.encuestas}" var="encu"  itemLabel="#{encu}" itemValue="#{encu}" />
                         </p:selectOneMenu>
                         <p:commandButton value="Iniciar" action="#{procesView.habilitarTipoProcesamiento}" ajax="false" />
                     </p:panelGrid>

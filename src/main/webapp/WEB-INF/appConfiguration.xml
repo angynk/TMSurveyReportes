@@ -43,6 +43,8 @@
                 <value>com.tmTransmiSurvey.model.entity.ServicioEstacion</value>
                 <value>com.tmTransmiSurvey.model.entity.FOcupacionEncuesta</value>
                 <value>com.tmTransmiSurvey.model.entity.RegistroEncuestaFOcupacion</value>
+                <value>com.tmTransmiSurvey.model.entity.ADPuntoEncuesta</value>
+                <value>com.tmTransmiSurvey.model.entity.RegistroEncuestaADPunto</value>
 
             </list>
         </property>

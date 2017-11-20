@@ -3,6 +3,7 @@ package com.tmTransmiSurvey.controller.servicios;
 import com.tmTransmiSurvey.model.dao.EstacionDao;
 import com.tmTransmiSurvey.model.dao.ServicioDao;
 import com.tmTransmiSurvey.model.dao.ServicioEstacionDao;
+import com.tmTransmiSurvey.model.entity.Estacion;
 import com.tmTransmiSurvey.model.entity.ServicioTs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,4 +54,7 @@ public class ServicioEstacionServicio {
        return servicioDao.encontrarTodosLosServicios();
     }
 
+    public List<Estacion> encontrarTodasLasEstaciones() {
+        return estacionDao.encontrarTodasLasEstaciones();
+    }
 }

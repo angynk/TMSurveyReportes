@@ -1,13 +1,7 @@
 package com.tmTransmiSurvey.controller.servicios;
 
-import com.tmTransmiSurvey.model.dao.CuadroEncuestaDao;
-import com.tmTransmiSurvey.model.dao.FOcupacionEncuestaDao;
-import com.tmTransmiSurvey.model.dao.RegistroEncuestaAscDescDao;
-import com.tmTransmiSurvey.model.dao.RegistroEncuestaFOcupacionDao;
-import com.tmTransmiSurvey.model.entity.CuadroEncuesta;
-import com.tmTransmiSurvey.model.entity.FOcupacionEncuesta;
-import com.tmTransmiSurvey.model.entity.RegistroEncuestaAscDesc;
-import com.tmTransmiSurvey.model.entity.RegistroEncuestaFOcupacion;
+import com.tmTransmiSurvey.model.dao.*;
+import com.tmTransmiSurvey.model.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +19,10 @@ public class EncuestaAscDescServicio {
     private FOcupacionEncuestaDao fOcupacionEncuestaDao;
     @Autowired
     private RegistroEncuestaFOcupacionDao registroEncuestaFOcupacionDao;
+    @Autowired
+    private ADPuntoEncuestaDao adPuntoEncuestaDao;
+    @Autowired
+    private RegistroEncuestaAscDesPuntoDao registroEncuestaAscDesPuntoDao;
 
 
     public EncuestaAscDescServicio() {
@@ -69,5 +67,13 @@ public class EncuestaAscDescServicio {
 
     public List<RegistroEncuestaFOcupacion> getRegistrosFrecOcuByEncuesta(FOcupacionEncuesta encuesta) {
         return registroEncuestaFOcupacionDao.getRegistrosByEncuesta(encuesta);
+    }
+
+    public List<ADPuntoEncuesta> getEncuestasByFechaAndEstacion(Date fechaInicio, Date fechaFin, String estacion) {
+        return adPuntoEncuestaDao.getEncuestasByFechaAndEstacion(fechaInicio,fechaFin,estacion);
+    }
+
+    public List<RegistroEncuestaADPunto> getRegistrosByEncuesta(ADPuntoEncuesta encuesta){
+        return registroEncuestaAscDesPuntoDao.getRegistrosByEncuesta(encuesta);
     }
 }
