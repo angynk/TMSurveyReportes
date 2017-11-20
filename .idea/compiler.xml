@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="tmAdministracion" />
+        <module name="TMSurveyReportes" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="tmAdministracion" target="1.8" />
+      <module name="TMSurveyReportes" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

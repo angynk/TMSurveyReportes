@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="tmAdministracion:war exploded">
+  <artifact type="exploded-war" name="TMSurveyReportes:war exploded">
     <output-path>$PROJECT_DIR$/target/TMSurveyReportes-1.0</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
@@ -54,7 +54,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/TMSurveyReportes-1.0/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="tmAdministracion/web/Web" />
+      <element id="javaee-facet-resources" facet="TMSurveyReportes/web/Web" />
     </root>
   </artifact>
 </component>
