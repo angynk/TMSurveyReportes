@@ -16,10 +16,14 @@
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
                 <p:panel>
-                    <p:panelGrid columns="4">
+                    <p:panelGrid columns="2">
                         <p:outputLabel value="Encuesta:"  />
                         <p:selectOneMenu  value="#{procesView.encuesta}" style="width:125px">
                             <f:selectItems value="#{procesView.encuestas}" var="encu"  itemLabel="#{encu}" itemValue="#{encu}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Modo:"  />
+                        <p:selectOneMenu  value="#{procesView.modo}" style="width:125px">
+                            <f:selectItems value="#{procesView.modos}" var="modo"  itemLabel="#{modo}" itemValue="#{modo}" />
                         </p:selectOneMenu>
                         <p:commandButton value="Iniciar" action="#{procesView.habilitarTipoProcesamiento}" ajax="false" />
                     </p:panelGrid>
