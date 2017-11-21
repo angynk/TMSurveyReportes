@@ -1,8 +1,10 @@
 package com.tmTransmiSurvey.view;
 
 import com.tmTransmiSurvey.controller.TipoEncuesta;
+import com.tmTransmiSurvey.controller.processor.EncuestaADAbordoProcessor;
 import com.tmTransmiSurvey.controller.processor.ExportarADPuntoProcessor;
 import com.tmTransmiSurvey.model.entity.Estacion;
+import com.tmTransmiSurvey.model.entity.ServicioTs;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -25,12 +27,16 @@ public class ProcesamientoView {
     private Boolean botonHabilitado;
 
     private String estacion;
+    private Date horaInicio;
+    private Date horaFin;
     private List<String> estacionesRecords;
     private Date fechaInicio;
-    private Date fechaFin;
 
     @ManagedProperty(value="#{ExportarADPuntoProcessor}")
     private ExportarADPuntoProcessor exportarDatosProcessor;
+
+    @ManagedProperty(value="#{EncuestaADAbordoProcessor}")
+    private EncuestaADAbordoProcessor encuestaADAbordoProcessor;
 
     public ProcesamientoView() {
     }
@@ -44,7 +50,7 @@ public class ProcesamientoView {
         modo = TipoEncuesta.MODO_TRONCAL;
 
         adAVisible = false;
-        botonHabilitado = true;
+        botonHabilitado = false;
     }
 
     public String getTipoProcesamiento() {
@@ -58,22 +64,24 @@ public class ProcesamientoView {
     public void habilitarTipoProcesamiento(){
         if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO)){
             adAVisible = true;
-            botonHabilitado = false;
-            estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones());
+            botonHabilitado = true;
+            estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLosServicios());
         }
 
     }
 
-    private List<String> convertStringList(List<Estacion> estaciones) {
+    private List<String> convertStringList(List<ServicioTs> estaciones) {
         List<String> lista = new ArrayList<>();
-        for(Estacion ser:estaciones){
+        for(ServicioTs ser:estaciones){
             lista.add(ser.getNombre());
         }
         return lista;
     }
 
     public void procesarDatosEncuesta(){
-
+        if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO)){
+          boolean resultado =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,horaInicio,horaFin,estacion);
+        }
     }
 
     public String getEncuesta() {
@@ -140,14 +148,6 @@ public class ProcesamientoView {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
     public ExportarADPuntoProcessor getExportarDatosProcessor() {
         return exportarDatosProcessor;
     }
@@ -162,5 +162,29 @@ public class ProcesamientoView {
 
     public void setBotonHabilitado(Boolean botonHabilitado) {
         this.botonHabilitado = botonHabilitado;
+    }
+
+    public EncuestaADAbordoProcessor getEncuestaADAbordoProcessor() {
+        return encuestaADAbordoProcessor;
+    }
+
+    public void setEncuestaADAbordoProcessor(EncuestaADAbordoProcessor encuestaADAbordoProcessor) {
+        this.encuestaADAbordoProcessor = encuestaADAbordoProcessor;
+    }
+
+    public Date getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(Date horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public Date getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(Date horaFin) {
+        this.horaFin = horaFin;
     }
 }

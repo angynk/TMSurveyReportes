@@ -34,6 +34,10 @@ public class ExportarADPuntoProcessor {
         return servicioEstacionServicio.encontrarTodasLasEstaciones();
     }
 
+    public List<ServicioTs> encontrarTodosLosServicios(){
+        return servicioEstacionServicio.encontrarTodosLosServicios();
+    }
+
     public boolean exportarDatosEncuesta(Date fechaInicio, Date fechaFin, String estacion){
         List<ADPuntoEncuesta> encuestasByFechaAndServicio = encuestaAscDescServicio.getEncuestasByFechaAndEstacion(fechaInicio, fechaFin, estacion);
         createExcelDiaADia(encuestasByFechaAndServicio);

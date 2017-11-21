@@ -45,6 +45,9 @@
                 <value>com.tmTransmiSurvey.model.entity.RegistroEncuestaFOcupacion</value>
                 <value>com.tmTransmiSurvey.model.entity.ADPuntoEncuesta</value>
                 <value>com.tmTransmiSurvey.model.entity.RegistroEncuestaADPunto</value>
+                <value>com.tmTransmiSurvey.model.entity.Estudio</value>
+                <value>com.tmTransmiSurvey.model.entity.ADabordoProcesada</value>
+                <value>com.tmTransmiSurvey.model.entity.ADabordoRegProcesada</value>
 
             </list>
         </property>

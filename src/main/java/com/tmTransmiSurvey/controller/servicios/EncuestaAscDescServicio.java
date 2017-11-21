@@ -55,6 +55,9 @@ public class EncuestaAscDescServicio {
     public List<CuadroEncuesta> getEncuestasByFechaAndServicio(Date fechaInicio, Date fechaFin, String servicio){
         return cuadroEncuestaDao.getEncuestasByFechaAndServicio(fechaInicio,fechaFin,servicio);
     }
+    public List<CuadroEncuesta> getEncuestasByFechaAndServicio(Date fechaInicio, String servicio){
+        return cuadroEncuestaDao.getEncuestasByFechaAndServicio(fechaInicio,servicio);
+    }
 
     public List<RegistroEncuestaAscDesc> getRegistrosByEncuesta(CuadroEncuesta encuesta){
         return registroEncuestaAscDescDao.getRegistrosByEncuesta(encuesta);
@@ -75,5 +78,13 @@ public class EncuestaAscDescServicio {
 
     public List<RegistroEncuestaADPunto> getRegistrosByEncuesta(ADPuntoEncuesta encuesta){
         return registroEncuestaAscDesPuntoDao.getRegistrosByEncuesta(encuesta);
+    }
+
+    public List<AuxNumBus> getNumBusGroupBy(Date fechaInicio, String servicio) {
+        return cuadroEncuestaDao.getNumBusGroupBy(fechaInicio,servicio);
+    }
+
+    public List<CuadroEncuesta> getEncuestasByFechaAndServicio(Date fechaInicio, String servicio, String numBus, Integer recorrido) {
+        return cuadroEncuestaDao.getEncuestasByFechaAndServicio(fechaInicio,servicio,numBus,recorrido);
     }
 }

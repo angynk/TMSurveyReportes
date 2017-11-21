@@ -29,7 +29,7 @@
                     </p:panelGrid>
                 </p:panel>
 
-                <p:panel  header="Ascensos/Descensos Abordo"  style="margin-bottom:20px" visible="#{procesView.adAVisible}">
+                <p:panel  header="Ascensos/Descensos Abordo Procesamiento"  style="margin-bottom:20px" visible="#{procesView.adAVisible}">
                     <p:panelGrid columns="2">
                         <p:outputLabel value="Estación:"  />
                         <p:selectOneMenu id="advanced" value="#{procesView.estacion}"  panelStyle="width:180px"
@@ -42,14 +42,17 @@
                             </p:column>
 
                         </p:selectOneMenu>
-                        <p:outputLabel for="button" value="Fecha Inicio (DD-MM-AAAA):" />
+                        <p:outputLabel for="button" value="Fecha Encuesta (DD-MM-AAAA):" />
                         <p:calendar id="button" value="#{procesView.fechaInicio}" showOn="button" pattern="dd-MM-yyyy"/>
-                        <p:outputLabel for="buttonV" value="Fecha Fin (DD-MM-AAAA):" />
-                        <p:calendar id="buttonV" value="#{procesView.fechaFin}" showOn="button" pattern="dd-MM-yyyy"/>
+                        <p:outputLabel  value="Hora Inicio" />
+                        <p:calendar  value="#{procesView.horaInicio}" pattern="HH:mm" timeOnly="true"/>
+                        <p:outputLabel  value="Hora Fin" />
+                        <p:calendar  value="#{procesView.horaFin}" pattern="HH:mm" timeOnly="true"/>
 
                     </p:panelGrid>
 
-                    <p:commandButton value="Procesar" action="#{procesView.procesarDatosEncuesta}" ajax="false"/>
+                    <p:commandButton value="Procesar" action="#{procesView.procesarDatosEncuesta}" ajax="false" onclick="PF('dlg2').show();" global="false"
+                                     oncomplete="PF('dlg2').hide()"/>
                 </p:panel>
 
 
