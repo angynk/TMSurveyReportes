@@ -20,6 +20,9 @@ public class Estudio {
     @Column(name = "tipo_encuesta")
     private String tipoEncuesta;
 
+    @Column(name = "identificador")
+    private String identificador;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estudio", cascade = CascadeType.REMOVE)
     private List<ADabordoProcesada> registros;
 
@@ -59,5 +62,13 @@ public class Estudio {
 
     public void setRegistros(List<ADabordoProcesada> registros) {
         this.registros = registros;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
     }
 }
