@@ -3,13 +3,13 @@ package com.tmTransmiSurvey.controller.processor;
 import com.tmTransmiSurvey.controller.TipoEncuesta;
 import com.tmTransmiSurvey.controller.servicios.ADabordoServicio;
 import com.tmTransmiSurvey.controller.servicios.EncuestaAscDescServicio;
-import com.tmTransmiSurvey.model.entity.ADabordoProcesada;
-import com.tmTransmiSurvey.model.entity.AuxNumBus;
-import com.tmTransmiSurvey.model.entity.CuadroEncuesta;
-import com.tmTransmiSurvey.model.entity.Estudio;
+import com.tmTransmiSurvey.model.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service("EncuestaADAbordoProcessor")
@@ -49,8 +49,7 @@ public class EncuestaADAbordoProcessor {
                 {
                     int recorrido = entry.getKey();
                     List<CuadroEncuesta> encuestas =entry.getValue();
-                    procesarRecorrido(recorrido,encuestas);
-
+                    procesarRecorrido(recorrido,encuestas,estudio);
                 }
             }else{
                 return false;
@@ -61,20 +60,99 @@ public class EncuestaADAbordoProcessor {
 
     }
 
-    private void procesarRecorrido(int recorrido, List<CuadroEncuesta> encuestas) {
+    private void procesarRecorrido(int recorrido, List<CuadroEncuesta> encuestas, Estudio estudio) {
         // Informacion Base encuesta
         ADabordoProcesada aDabordoProcesada = new ADabordoProcesada();
         CuadroEncuesta cuadroEncuesta = encuestas.get(0);
         aDabordoProcesada.setRecorrido(recorrido);
         aDabordoProcesada.setNumBus(cuadroEncuesta.getNum_bus());
         aDabordoProcesada.setServicio(cuadroEncuesta.getServicio());
+        aDabordoProcesada.setEstudio(estudio);
         aDabordoServicio.addADabordoProcesada(aDabordoProcesada);
 
         // Procesamiento
-
+        List<List<RegistroEncuestaAscDesc>> mapaAProcesar = cargarInformacionRegistros(encuestas);
+        if(mapaAProcesar.size()>0){
+            List<RegistroEncuestaAscDesc> listaBase = mapaAProcesar.get(0);
+            ADabordoRegProcesada registroAnterior = null;
+            for(int x=0; x< listaBase.size();x++){
+                if( x == 0 ){
+                    registroAnterior = calcularPrimerRegistro(x,mapaAProcesar,aDabordoProcesada);
+                }else{
+                    registroAnterior = calcularRegistro(x,listaBase.get(x),mapaAProcesar,registroAnterior.getPasBus(),aDabordoProcesada);
+                }
+            }
+        }
 
 
     }
+
+    private ADabordoRegProcesada calcularRegistro(int pos, RegistroEncuestaAscDesc base, List<List<RegistroEncuestaAscDesc>> mapaAProcesar, Integer pasBus, ADabordoProcesada aDabordoProcesada) {
+
+        for(int x=0; x< mapaAProcesar.size();x++){
+            pasBus = pasBus + mapaAProcesar.get(x).get(pos).getSuben() - mapaAProcesar.get(x).get(pos).getBajan();
+        }
+
+        ADabordoRegProcesada nuevoRegistro = insertarRegistro(base.getEstacion(),
+                base.getHora_llegada(),
+                base.getHora_salida(),
+                aDabordoProcesada, pasBus);
+
+        return nuevoRegistro;
+
+    }
+
+    private ADabordoRegProcesada calcularPrimerRegistro(int valor, List<List<RegistroEncuestaAscDesc>> mapaAProcesar, ADabordoProcesada aDabordoProcesada) {
+
+        int numPasajeros = 0;
+        for(int x=0; x< mapaAProcesar.size();x++){
+          numPasajeros = numPasajeros + mapaAProcesar.get(x).get(valor).getSuben();
+        }
+        ADabordoRegProcesada nuevoRegistro = insertarRegistro(mapaAProcesar.get(0).get(0).getEstacion(),
+                mapaAProcesar.get(0).get(0).getHora_llegada(),
+                mapaAProcesar.get(0).get(0).getHora_salida(),
+                aDabordoProcesada, numPasajeros);
+
+        return nuevoRegistro;
+    }
+
+    private ADabordoRegProcesada insertarRegistro(String estacion, String horaLLegada,String horaSalida, ADabordoProcesada aDabordoProcesada, int numPasajeros) {
+        ADabordoRegProcesada nuevoRegistro = new ADabordoRegProcesada();
+        nuevoRegistro.setPasBus(numPasajeros);
+        nuevoRegistro.setEstacion(estacion);
+        nuevoRegistro.setHoraLlegada(convertirATime(horaLLegada));
+        nuevoRegistro.setHoraSalida(convertirATime(horaSalida));
+        nuevoRegistro.setAdBase(aDabordoProcesada);
+
+        aDabordoServicio.addADabordoRegProcesada(nuevoRegistro);
+
+        return nuevoRegistro;
+    }
+
+    public static Time convertirATime(String stringCellValue) {
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm:ss");
+        if(!stringCellValue.equals("")){
+            try {
+                Date date = parser.parse(stringCellValue);
+                return new Time(date.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
+    private List<List<RegistroEncuestaAscDesc>> cargarInformacionRegistros(List<CuadroEncuesta> encuestas) {
+        List<List<RegistroEncuestaAscDesc>> datos = new ArrayList<List<RegistroEncuestaAscDesc>>();
+        for(CuadroEncuesta encuesta:encuestas){
+            List<RegistroEncuestaAscDesc> registrosByEncuesta = encuestaAscDescServicio.getRegistrosByEncuesta(encuesta);
+            datos.add(registrosByEncuesta);
+        }
+        encuestas.clear();// Limipar memoria
+        return datos;
+    }
+
 
     private Estudio crearEstudio(Date fechaInicio) {
         try{
@@ -109,7 +187,7 @@ public class EncuestaADAbordoProcessor {
         if(encuestas.size()>0){
             CuadroEncuesta encuA = encuestas.get(0);
             for(int i=1;i<encuestas.size();i++){
-                CuadroEncuesta encuB = encuestas.get(1);
+                CuadroEncuesta encuB = encuestas.get(i);
                 if(encuA.getNum_puerta()== encuB.getNum_puerta()){
                     return false;
                 }

@@ -38,6 +38,9 @@ public class ProcesamientoView {
     @ManagedProperty(value="#{EncuestaADAbordoProcessor}")
     private EncuestaADAbordoProcessor encuestaADAbordoProcessor;
 
+    @ManagedProperty("#{MessagesView}")
+    private MessagesView messagesView;
+
     public ProcesamientoView() {
     }
 
@@ -81,6 +84,11 @@ public class ProcesamientoView {
     public void procesarDatosEncuesta(){
         if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO)){
           boolean resultado =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,horaInicio,horaFin,estacion);
+          if(resultado){
+                messagesView.info("Procesamiento Existoso","");
+          }else{
+              messagesView.info("Procesamiento Fallo","Revisar Log");
+          }
         }
     }
 
@@ -186,5 +194,13 @@ public class ProcesamientoView {
 
     public void setHoraFin(Date horaFin) {
         this.horaFin = horaFin;
+    }
+
+    public MessagesView getMessagesView() {
+        return messagesView;
+    }
+
+    public void setMessagesView(MessagesView messagesView) {
+        this.messagesView = messagesView;
     }
 }
