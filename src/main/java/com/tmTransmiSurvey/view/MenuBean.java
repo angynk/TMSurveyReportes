@@ -49,6 +49,16 @@ public class MenuBean {
         }
     }
 
+    public void refreshDatosProcesados(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/visualizarEncuestasProcesadas.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void refreshVisualizarReporte(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {

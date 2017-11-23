@@ -9,6 +9,8 @@ import com.tmTransmiSurvey.model.entity.Estudio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ADabordoServicio {
 
@@ -56,5 +58,9 @@ public class ADabordoServicio {
 
     public void setaDabordoRegProcesadaDao(ADabordoRegProcesadaDao aDabordoRegProcesadaDao) {
         this.aDabordoRegProcesadaDao = aDabordoRegProcesadaDao;
+    }
+
+    public List<Estudio> getEstudios(String encuesta, String modo) {
+        return estudioDao.getEstudios(encuesta,modo);
     }
 }
