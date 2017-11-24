@@ -50,7 +50,7 @@ public class ReporteFrecOcupacionBean {
     public void descargar(){
         String path = PathFiles.PATH+""+ PathFiles.FREC_OCU;
         try {
-            Util.descargarArchivo(path);
+            Util.descargarArchivo(path,"frecuenciaOcupacion.xls");
         } catch (IOException e) {
             e.printStackTrace();
         }

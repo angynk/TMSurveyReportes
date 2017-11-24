@@ -29,14 +29,19 @@
                     </p:panelGrid>
                 </p:panel>
 
+
+
                 <p:panel  header="Encuestas Procesadas"  style="margin-bottom:20px" visible="#{viewProView.tablaDatos}">
                     <p:dataTable id="prog" var="est" value="#{viewProView.estudios}" widgetVar="ProgTable"
                                  emptyMessage="No hay registros relacionados a la busqueda"
-                                 scrollable="true" scrollWidth="98%" scrollHeight="410" >
+                                 scrollable="true" scrollWidth="98%" scrollHeight="410"
+                                 selection="#{viewProView.selectedEstudio}" rowKey="#{est.id}">
+
+                        <p:column selectionMode="single" style="width:40px;text-align:center"/>
 
                         <p:column  headerText="Fecha"  filterMatchMode="contains" sortBy="#{est.fechaEstudio}"
                                  >
-                            <h:outputText value="#{est.fechaEstudio}"  />
+                            <h:outputText value="#{est.fechaFormatted}"  />
                         </p:column>
 
                         <p:column headerText="Tipo Encuesta"  filterMatchMode="contains" sortBy="#{est.tipoEncuesta}"
@@ -49,16 +54,37 @@
                             <h:outputText value="#{est.identificador}" />
                         </p:column>
 
+                        <f:facet name="footer">
+                            <p:commandButton process="@form"
+                                             styleClass="boton"
+                                             async="true"
+                                             icon="ui-icon-search" value="Descargar" onclick="PF('dlg2').show();" global="false"
+                                             oncomplete="PF('dlg2').hide(); PF('dlg3').show();" action="#{viewProView.procesarExcel()}" />
+                        </f:facet>
 
                     </p:dataTable>
+
                 </p:panel>
 
 
-                <p:dialog  widgetVar="dlg2" modal="true" height="100" closable="false" resizable="false"
-                           minHeight="40" style="height: 40px">
-                    <h:outputText value="En Proceso.." />
-                    <p:graphicImage name="images/ajaxloadingbar.gif" />
+                <p:dialog  widgetVar="dlg3" modal="true" height="100" closable="false" resizable="false"
+                           minHeight="40" style="height: 40px" >
+                    <h:outputText value="Reporte Generado" />
+                    <h:commandButton  value="Descargar"  action="#{viewProView.descargar()}"
+                                      onclick="PF('dlg3').hide();"
+                                      oncomplete="PF('dlg3').hide(); " >
+
+                    </h:commandButton>
                 </p:dialog>
+
+
+                <p:dialog  widgetVar="dlg2" modal="true" height="100" closable="false" resizable="false"
+                           minHeight="40" style="height: 40px" >
+                        <h:outputText value="En Proceso.." />
+                        <p:graphicImage name="images/ajaxloadingbar.gif" />
+                </p:dialog>
+
+
 
 
             </h:form>

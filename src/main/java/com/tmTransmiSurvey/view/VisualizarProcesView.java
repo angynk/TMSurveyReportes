@@ -1,14 +1,18 @@
 package com.tmTransmiSurvey.view;
 
+import com.tmTransmiSurvey.controller.PathFiles;
 import com.tmTransmiSurvey.controller.TipoEncuesta;
+import com.tmTransmiSurvey.controller.Util;
 import com.tmTransmiSurvey.controller.processor.EncuestaADAbordoProcessor;
 import com.tmTransmiSurvey.controller.processor.VisualizarEstudiosProcessor;
 import com.tmTransmiSurvey.model.entity.Estudio;
+import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +27,13 @@ public class VisualizarProcesView {
     private List<String> modos;
     private Boolean tablaDatos;
     private List<Estudio> estudios;
+    private Estudio selectedEstudio;
+    private boolean visibleDescarga;
+    private String nombreArchivo;
 
     @ManagedProperty(value="#{VisualizarEstudiosProcessor}")
     private VisualizarEstudiosProcessor visualizarEstudiosProcessor;
+
 
 
     public VisualizarProcesView() {
@@ -40,13 +48,35 @@ public class VisualizarProcesView {
         modos = TipoEncuesta.listaModos();
         modo = TipoEncuesta.MODO_TRONCAL;
         estudios = new ArrayList<>();
-
+        visibleDescarga = false;
         tablaDatos = false;
     }
 
     public void buscar(){
         tablaDatos = true;
         estudios = visualizarEstudiosProcessor.getEstudios(encuesta,modo);
+    }
+
+    public void procesarExcel(){
+        visibleDescarga = true;
+        nombreArchivo = visualizarEstudiosProcessor.exportarEstudio(selectedEstudio);
+        if(nombreArchivo!=null){
+//            descargar();
+        }
+
+    }
+
+
+
+    public void descargar(){
+//        RequestContext.getCurrentInstance().execute("PF('dlg2').hide();");
+        String path = PathFiles.PATH+""+ nombreArchivo;
+        try {
+            Util.descargarArchivo(path,nombreArchivo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        RequestContext.getCurrentInstance().execute("PF('dlg3').hide();");
     }
 
     public String getEncuesta() {
@@ -103,5 +133,21 @@ public class VisualizarProcesView {
 
     public void setVisualizarEstudiosProcessor(VisualizarEstudiosProcessor visualizarEstudiosProcessor) {
         this.visualizarEstudiosProcessor = visualizarEstudiosProcessor;
+    }
+
+    public Estudio getSelectedEstudio() {
+        return selectedEstudio;
+    }
+
+    public void setSelectedEstudio(Estudio selectedEstudio) {
+        this.selectedEstudio = selectedEstudio;
+    }
+
+    public boolean isVisibleDescarga() {
+        return visibleDescarga;
+    }
+
+    public void setVisibleDescarga(boolean visibleDescarga) {
+        this.visibleDescarga = visibleDescarga;
     }
 }

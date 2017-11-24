@@ -40,6 +40,7 @@ public class ReporteAdPuntoBean {
         visibleDescarga = false;
 //        estacion = "B11";
         estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones());
+        visibleDescarga = false;
 
     }
 
@@ -68,7 +69,7 @@ public class ReporteAdPuntoBean {
     public void descargar(){
         String path = PathFiles.PATH+""+ PathFiles.ASC_DES_PUNTO;
         try {
-            Util.descargarArchivo(path);
+            Util.descargarArchivo(path,"AscDescPuntoFijo");
         } catch (IOException e) {
             e.printStackTrace();
         }

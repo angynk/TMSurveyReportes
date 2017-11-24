@@ -63,4 +63,12 @@ public class ADabordoServicio {
     public List<Estudio> getEstudios(String encuesta, String modo) {
         return estudioDao.getEstudios(encuesta,modo);
     }
+
+    public List<ADabordoProcesada> getRecorridosByEstudio(Estudio estudio) {
+        return aDabordoProcesadaDao.getRecorridosByEstudio(estudio);
+    }
+
+    public List<ADabordoRegProcesada> getRegistrosByRecorrido(ADabordoProcesada recorrido) {
+        return aDabordoRegProcesadaDao.getRegistrosByRecorrido(recorrido);
+    }
 }

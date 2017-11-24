@@ -47,7 +47,7 @@ public class Util {
         return tipoGrafica;
     }
 
-    public static void descargarArchivo(String path) throws IOException {
+    public static void descargarArchivo(String path,String nombreFile) throws IOException {
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletResponse response = (HttpServletResponse) fc.getExternalContext().getResponse();
         File file = new File(path);
@@ -55,7 +55,7 @@ public class Util {
         FileInputStream fileIn = new FileInputStream(file);
         ServletOutputStream out = response.getOutputStream();
         response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment; filename=ascensosDescensosTroncal.xls");
+        response.setHeader("Content-Disposition", "attachment; filename="+nombreFile);
 
 
         byte[] outputByte = new byte[4096];

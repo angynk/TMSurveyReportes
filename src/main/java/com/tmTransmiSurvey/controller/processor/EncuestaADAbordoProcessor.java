@@ -35,9 +35,7 @@ public class EncuestaADAbordoProcessor {
               paquetesEncuesta = encontrarPaqueteDatosEncuesta(fechaInicio,servicio,numBus,paquetesEncuesta);
           }
 
-          procesarPaquetesDatos(paquetesEncuesta,fechaInicio);
-
-        return false;
+       return    procesarPaquetesDatos(paquetesEncuesta,fechaInicio);
     }
 
     private boolean procesarPaquetesDatos(Map<Integer, List<CuadroEncuesta>> paquetesEncuesta, Date fechaInicio) {

@@ -52,7 +52,9 @@ public class ReporteEncuestasBean {
     public void exportarDatosEncuesta(){
         if(genracionValida()){
             boolean resultado= exportarDatosProcessor.exportarDatosEncuesta(fechaInicio,fechaFin,servicio);
-            if(resultado) visibleDescarga = true;
+            if(resultado){
+                visibleDescarga = true;
+            }
         }else{
 
         }
@@ -66,7 +68,7 @@ public class ReporteEncuestasBean {
     public void descargar(){
        String path = PathFiles.PATH+""+ PathFiles.ASC_DES_TRONCAL;
         try {
-            Util.descargarArchivo(path);
+            Util.descargarArchivo(path,"AscDescAbordo.xls");
         } catch (IOException e) {
             e.printStackTrace();
         }

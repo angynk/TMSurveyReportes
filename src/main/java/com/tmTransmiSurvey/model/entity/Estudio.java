@@ -1,6 +1,7 @@
 package com.tmTransmiSurvey.model.entity;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class Estudio {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estudio", cascade = CascadeType.REMOVE)
     private List<ADabordoProcesada> registros;
+
+    @Transient
+    private String fechaFormatted;
 
 
     public Estudio() {
@@ -70,5 +74,17 @@ public class Estudio {
 
     public void setIdentificador(String identificador) {
         this.identificador = identificador;
+    }
+
+    public String getFechaFormatted() {
+        if(fechaEstudio!=null){
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
+            return dt1.format(fechaEstudio);
+        }
+        return "";
+    }
+
+    public void setFechaFormatted(String fechaFormatted) {
+        this.fechaFormatted = fechaFormatted;
     }
 }
