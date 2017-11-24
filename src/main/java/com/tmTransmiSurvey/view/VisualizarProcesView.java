@@ -50,6 +50,7 @@ public class VisualizarProcesView {
         estudios = new ArrayList<>();
         visibleDescarga = false;
         tablaDatos = false;
+        nombreArchivo = null;
     }
 
     public void buscar(){
@@ -57,12 +58,21 @@ public class VisualizarProcesView {
         estudios = visualizarEstudiosProcessor.getEstudios(encuesta,modo);
     }
 
+    public boolean esVisible(){
+        if(nombreArchivo!=null) return true;
+        return false;
+    }
+
     public void procesarExcel(){
-        visibleDescarga = true;
-        nombreArchivo = visualizarEstudiosProcessor.exportarEstudio(selectedEstudio);
-        if(nombreArchivo!=null){
-//            descargar();
+        nombreArchivo = null;
+        if(selectedEstudio!=null){
+
+            nombreArchivo = visualizarEstudiosProcessor.exportarEstudio(selectedEstudio);
+            if(nombreArchivo!=null){
+                visibleDescarga = true;
+            }
         }
+
 
     }
 
@@ -70,12 +80,15 @@ public class VisualizarProcesView {
 
     public void descargar(){
 //        RequestContext.getCurrentInstance().execute("PF('dlg2').hide();");
-        String path = PathFiles.PATH+""+ nombreArchivo;
-        try {
-            Util.descargarArchivo(path,nombreArchivo);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(nombreArchivo!=null){
+            String path = PathFiles.PATH+""+ nombreArchivo;
+            try {
+                Util.descargarArchivo(path,nombreArchivo);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
         RequestContext.getCurrentInstance().execute("PF('dlg3').hide();");
     }
 

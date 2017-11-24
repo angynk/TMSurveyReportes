@@ -26,7 +26,7 @@ public class EncuestaADAbordoProcessor {
     private String identificadorEstudio;
 
 
-    public boolean procesarDatosEncuesta(Date fechaInicio, Date horaInicio, Date horaFin, String servicio) {
+    public boolean procesarDatosEncuesta(Date fechaInicio, Date horaInicio, Date horaFin, String servicio,String modo) {
 //        List<CuadroEncuesta> encuestas = encuestaAscDescServicio.getEncuestasByFechaAndServicio(fechaInicio, servicio);
           int recorridoID = 1;
           List<AuxNumBus> recorridos =  encuestaAscDescServicio.getNumBusGroupBy(fechaInicio, servicio);
@@ -35,13 +35,13 @@ public class EncuestaADAbordoProcessor {
               paquetesEncuesta = encontrarPaqueteDatosEncuesta(fechaInicio,servicio,numBus,paquetesEncuesta);
           }
 
-       return    procesarPaquetesDatos(paquetesEncuesta,fechaInicio);
+       return    procesarPaquetesDatos(paquetesEncuesta,fechaInicio,modo);
     }
 
-    private boolean procesarPaquetesDatos(Map<Integer, List<CuadroEncuesta>> paquetesEncuesta, Date fechaInicio) {
+    private boolean procesarPaquetesDatos(Map<Integer, List<CuadroEncuesta>> paquetesEncuesta, Date fechaInicio, String modo) {
 
         if(paquetesEncuesta.size()>0){
-            Estudio estudio = crearEstudio(fechaInicio);
+            Estudio estudio = crearEstudio(fechaInicio,modo);
             if(estudio!=null){
                 for (Map.Entry<Integer, List<CuadroEncuesta>> entry : paquetesEncuesta.entrySet())
                 {
@@ -152,12 +152,13 @@ public class EncuestaADAbordoProcessor {
     }
 
 
-    private Estudio crearEstudio(Date fechaInicio) {
+    private Estudio crearEstudio(Date fechaInicio,String modo) {
         try{
             Estudio estudio = new Estudio();
             estudio.setFechaEstudio(fechaInicio);
             estudio.setIdentificador(identificadorEstudio);
             estudio.setTipoEncuesta(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO);
+            estudio.setModo(modo);
             aDabordoServicio.addEstudio(estudio);
             return estudio;
         }catch (Exception e){

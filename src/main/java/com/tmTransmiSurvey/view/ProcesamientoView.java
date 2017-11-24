@@ -83,7 +83,7 @@ public class ProcesamientoView {
 
     public void procesarDatosEncuesta(){
         if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO)){
-          boolean resultado =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,horaInicio,horaFin,estacion);
+          boolean resultado =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,horaInicio,horaFin,estacion,modo);
           if(resultado){
                 messagesView.info("Procesamiento Existoso","");
           }else{

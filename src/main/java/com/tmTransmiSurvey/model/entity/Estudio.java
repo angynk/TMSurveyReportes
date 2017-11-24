@@ -24,6 +24,9 @@ public class Estudio {
     @Column(name = "identificador")
     private String identificador;
 
+    @Column(name = "modo")
+    private String modo;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estudio", cascade = CascadeType.REMOVE)
     private List<ADabordoProcesada> registros;
 
@@ -86,5 +89,13 @@ public class Estudio {
 
     public void setFechaFormatted(String fechaFormatted) {
         this.fechaFormatted = fechaFormatted;
+    }
+
+    public String getModo() {
+        return modo;
+    }
+
+    public void setModo(String modo) {
+        this.modo = modo;
     }
 }

@@ -36,6 +36,7 @@ public class EstudioDao {
     public List<Estudio> getEstudios(String encuesta, String modo) {
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Estudio.class);
         criteria.add(Restrictions.eq("tipoEncuesta", encuesta));
+        criteria.add(Restrictions.eq("modo", modo));
         return (List<Estudio>) criteria.list();
     }
 }
