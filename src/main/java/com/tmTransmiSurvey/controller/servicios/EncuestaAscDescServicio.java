@@ -80,8 +80,8 @@ public class EncuestaAscDescServicio {
         return registroEncuestaAscDesPuntoDao.getRegistrosByEncuesta(encuesta);
     }
 
-    public List<AuxNumBus> getNumBusGroupBy(Date fechaInicio, String servicio) {
-        return cuadroEncuestaDao.getNumBusGroupBy(fechaInicio,servicio);
+    public List<AuxNumBus> getNumBusGroupBy(Date fechaInicio, Date fechaFin, String servicio) {
+        return cuadroEncuestaDao.getNumBusGroupBy(fechaInicio,fechaFin,servicio);
     }
 
     public List<CuadroEncuesta> getEncuestasByFechaAndServicio(Date fechaInicio, String servicio, String numBus, Integer recorrido) {

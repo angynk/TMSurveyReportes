@@ -55,10 +55,10 @@ public class CuadroEncuestaDao {
         return (List<CuadroEncuesta>) criteria.list();
     }
 
-    public List<AuxNumBus> getNumBusGroupBy(Date fechaInicio, String servicio) {
+    public List<AuxNumBus> getNumBusGroupBy(Date fechaInicio, Date fechaFin, String servicio) {
         List<AuxNumBus> resultados = new ArrayList<>();
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(CuadroEncuesta.class);
-        criteria.add(Restrictions.eq("fecha_encuesta", fechaInicio));
+        criteria.add(Restrictions.between("fecha_encuesta", fechaInicio,fechaFin));
         criteria.add(Restrictions.eq("servicio",servicio));
         criteria.setProjection( Projections.projectionList()
                 .add( Projections.groupProperty("num_bus") )

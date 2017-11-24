@@ -26,11 +26,13 @@ public class ProcesamientoView {
     private Boolean adAVisible;
     private Boolean botonHabilitado;
 
+    private String identificadorEstudio;
     private String estacion;
     private Date horaInicio;
     private Date horaFin;
     private List<String> estacionesRecords;
     private Date fechaInicio;
+    private Date fechaFin;
 
     @ManagedProperty(value="#{ExportarADPuntoProcessor}")
     private ExportarADPuntoProcessor exportarDatosProcessor;
@@ -83,7 +85,7 @@ public class ProcesamientoView {
 
     public void procesarDatosEncuesta(){
         if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO)){
-          boolean resultado =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,horaInicio,horaFin,estacion,modo);
+          boolean resultado =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,horaInicio,horaFin,estacion,modo,identificadorEstudio);
           if(resultado){
                 messagesView.info("Procesamiento Existoso","");
           }else{
@@ -202,5 +204,21 @@ public class ProcesamientoView {
 
     public void setMessagesView(MessagesView messagesView) {
         this.messagesView = messagesView;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public String getIdentificadorEstudio() {
+        return identificadorEstudio;
+    }
+
+    public void setIdentificadorEstudio(String identificadorEstudio) {
+        this.identificadorEstudio = identificadorEstudio;
     }
 }

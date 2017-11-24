@@ -26,22 +26,22 @@ public class EncuestaADAbordoProcessor {
     private String identificadorEstudio;
 
 
-    public boolean procesarDatosEncuesta(Date fechaInicio, Date horaInicio, Date horaFin, String servicio,String modo) {
+    public boolean procesarDatosEncuesta(Date fechaInicio, Date fechaFin, Date horaInicio, Date horaFin, String servicio, String modo, String identificadorEstudio) {
 //        List<CuadroEncuesta> encuestas = encuestaAscDescServicio.getEncuestasByFechaAndServicio(fechaInicio, servicio);
           int recorridoID = 1;
-          List<AuxNumBus> recorridos =  encuestaAscDescServicio.getNumBusGroupBy(fechaInicio, servicio);
+          List<AuxNumBus> recorridos =  encuestaAscDescServicio.getNumBusGroupBy(fechaInicio,fechaFin, servicio);
           Map<Integer,List<CuadroEncuesta>> paquetesEncuesta = new HashMap<Integer,List<CuadroEncuesta>>();
           for(AuxNumBus numBus: recorridos){
               paquetesEncuesta = encontrarPaqueteDatosEncuesta(fechaInicio,servicio,numBus,paquetesEncuesta);
           }
 
-       return    procesarPaquetesDatos(paquetesEncuesta,fechaInicio,modo);
+       return    procesarPaquetesDatos(paquetesEncuesta,fechaInicio,modo,identificadorEstudio);
     }
 
-    private boolean procesarPaquetesDatos(Map<Integer, List<CuadroEncuesta>> paquetesEncuesta, Date fechaInicio, String modo) {
+    private boolean procesarPaquetesDatos(Map<Integer, List<CuadroEncuesta>> paquetesEncuesta, Date fechaInicio, String modo, String identificadorEstudio) {
 
         if(paquetesEncuesta.size()>0){
-            Estudio estudio = crearEstudio(fechaInicio,modo);
+            Estudio estudio = crearEstudio(fechaInicio,modo,identificadorEstudio);
             if(estudio!=null){
                 for (Map.Entry<Integer, List<CuadroEncuesta>> entry : paquetesEncuesta.entrySet())
                 {
@@ -152,7 +152,7 @@ public class EncuestaADAbordoProcessor {
     }
 
 
-    private Estudio crearEstudio(Date fechaInicio,String modo) {
+    private Estudio crearEstudio(Date fechaInicio, String modo, String identificadorEstudio) {
         try{
             Estudio estudio = new Estudio();
             estudio.setFechaEstudio(fechaInicio);
