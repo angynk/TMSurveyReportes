@@ -71,13 +71,23 @@ public class CuadroEncuestaDao {
         return resultados;
     }
 
-    public List<CuadroEncuesta> getEncuestasByFechaAndServicio(Date fechaInicio, String servicio, String numBus, Integer recorrido) {
+    public List<CuadroEncuesta> getEncuestasByFechaAndServicio(Date fechaInicio,Date fechaFin, String servicio, String numBus, Integer recorrido) {
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(CuadroEncuesta.class);
-        criteria.add(Restrictions.eq("fecha_encuesta", fechaInicio));
+        criteria.add(Restrictions.between("fecha_encuesta", fechaInicio,fechaFin));
         criteria.add(Restrictions.eq("servicio",servicio));
         criteria.add(Restrictions.eq("num_bus",numBus));
         criteria.add(Restrictions.eq("recorrido",recorrido));
         criteria.addOrder(Order.asc("num_puerta"));
+        return (List<CuadroEncuesta>) criteria.list();
+    }
+
+    public List<CuadroEncuesta> getEncuestasByFechaAndServicioOrderTime(Date fechaInicio,Date fechaFin, String servicio, String numBus, Integer recorrido) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(CuadroEncuesta.class);
+        criteria.add(Restrictions.between("fecha_encuesta", fechaInicio,fechaFin));
+        criteria.add(Restrictions.eq("servicio",servicio));
+        criteria.add(Restrictions.eq("num_bus",numBus));
+        criteria.add(Restrictions.eq("recorrido",recorrido));
+        criteria.addOrder(Order.asc("hora_inicio"));
         return (List<CuadroEncuesta>) criteria.list();
     }
 }

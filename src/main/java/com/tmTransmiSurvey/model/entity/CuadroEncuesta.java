@@ -2,6 +2,7 @@ package com.tmTransmiSurvey.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class CuadroEncuesta implements Serializable {
     private int recorrido;
     @Column(name = "num_puerta")
     private int num_puerta;
+
+    @Column(name = "hora_inicio")
+    private Time horaInicio;
 
     @Transient
     private int id_realm;
@@ -131,5 +135,13 @@ public class CuadroEncuesta implements Serializable {
 
     public void setAforador(String aforador) {
         this.aforador = aforador;
+    }
+
+    public Time getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(Time horaInicio) {
+        this.horaInicio = horaInicio;
     }
 }

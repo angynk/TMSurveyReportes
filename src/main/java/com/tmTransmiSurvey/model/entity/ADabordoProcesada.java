@@ -1,6 +1,7 @@
 package com.tmTransmiSurvey.model.entity;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,8 @@ public class ADabordoProcesada {
 
     @Column(name = "recorrido")
     private int recorrido;
+
+
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "estudio", nullable = false)
@@ -80,4 +83,5 @@ public class ADabordoProcesada {
     public void setRegistros(List<ADabordoRegProcesada> registros) {
         this.registros = registros;
     }
+
 }

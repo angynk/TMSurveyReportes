@@ -23,16 +23,14 @@ public class EncuestaADAbordoProcessor {
     @Autowired
     public ADabordoServicio aDabordoServicio;
 
-    private String identificadorEstudio;
 
-
-    public boolean procesarDatosEncuesta(Date fechaInicio, Date fechaFin, Date horaInicio, Date horaFin, String servicio, String modo, String identificadorEstudio) {
+    public boolean procesarDatosEncuesta(Date fechaInicio, Date fechaFin, String servicio, String modo, String identificadorEstudio) {
 //        List<CuadroEncuesta> encuestas = encuestaAscDescServicio.getEncuestasByFechaAndServicio(fechaInicio, servicio);
           int recorridoID = 1;
           List<AuxNumBus> recorridos =  encuestaAscDescServicio.getNumBusGroupBy(fechaInicio,fechaFin, servicio);
           Map<Integer,List<CuadroEncuesta>> paquetesEncuesta = new HashMap<Integer,List<CuadroEncuesta>>();
           for(AuxNumBus numBus: recorridos){
-              paquetesEncuesta = encontrarPaqueteDatosEncuesta(fechaInicio,servicio,numBus,paquetesEncuesta);
+              paquetesEncuesta = encontrarPaqueteDatosEncuesta(fechaInicio,fechaFin,servicio,numBus,paquetesEncuesta);
           }
 
        return    procesarPaquetesDatos(paquetesEncuesta,fechaInicio,modo,identificadorEstudio);
@@ -167,19 +165,39 @@ public class EncuestaADAbordoProcessor {
     }
 
 
-    private Map<Integer, List<CuadroEncuesta>> encontrarPaqueteDatosEncuesta(Date fechaInicio, String servicio, AuxNumBus numBus, Map<Integer, List<CuadroEncuesta>> paquetesEncuesta) {
+    private Map<Integer, List<CuadroEncuesta>> encontrarPaqueteDatosEncuesta(Date fechaInicio,Date fechaFin, String servicio, AuxNumBus numBus, Map<Integer, List<CuadroEncuesta>> paquetesEncuesta) {
         int idPaquete = paquetesEncuesta.size()+1;
-        List<CuadroEncuesta> encuestas = encuestaAscDescServicio.getEncuestasByFechaAndServicio(fechaInicio, servicio,numBus.getNumBus(),numBus.getRecorrido());
-        if(encuestas.size()>0){
-            identificadorEstudio = encuestas.get(0).getDia_semana()+" - "+encuestas.get(0).getServicio();
-        }
+        List<CuadroEncuesta> encuestas = encuestaAscDescServicio.getEncuestasByFechaAndServicio(fechaInicio,fechaFin, servicio,numBus.getNumBus(),numBus.getRecorrido());
         if(noSeRepitePuerta(encuestas)){
             paquetesEncuesta.put(idPaquete,encuestas);
         }else{
                 //Anñadir logica cuando se repite
-
+            List<CuadroEncuesta> encuestasOrdenadas = encuestaAscDescServicio.getEncuestasByFechaAndServicioOrderTime(fechaInicio,fechaFin, servicio,numBus.getNumBus(),numBus.getRecorrido());
+            List<CuadroEncuesta> seleccionEncuestas = new ArrayList<>();
+            List<Integer> numeroPuertas = new ArrayList<>();
+            for(int x =0; x<encuestasOrdenadas.size();x++){
+                CuadroEncuesta cuadro = encuestasOrdenadas.get(x);
+                    if(!numeroPuertas.contains(cuadro.getNum_puerta())){
+                        numeroPuertas.add(cuadro.getNum_puerta());
+                        seleccionEncuestas.add(cuadro);
+                    }else{
+                        paquetesEncuesta.put(idPaquete,copiarLista(seleccionEncuestas));
+                        idPaquete = idPaquete +1;
+                        numeroPuertas.clear();
+                        seleccionEncuestas.clear();
+                        x--;
+                    }
+            }
         }
         return paquetesEncuesta;
+    }
+
+    private List<CuadroEncuesta> copiarLista(List<CuadroEncuesta> seleccionEncuestas) {
+        List<CuadroEncuesta> nuevaLista = new ArrayList<>();
+        for(CuadroEncuesta cuadroEncuesta:seleccionEncuestas){
+            nuevaLista.add(cuadroEncuesta);
+        }
+        return nuevaLista;
     }
 
     private boolean noSeRepitePuerta(List<CuadroEncuesta> encuestas) {

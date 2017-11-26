@@ -84,7 +84,11 @@ public class EncuestaAscDescServicio {
         return cuadroEncuestaDao.getNumBusGroupBy(fechaInicio,fechaFin,servicio);
     }
 
-    public List<CuadroEncuesta> getEncuestasByFechaAndServicio(Date fechaInicio, String servicio, String numBus, Integer recorrido) {
-        return cuadroEncuestaDao.getEncuestasByFechaAndServicio(fechaInicio,servicio,numBus,recorrido);
+    public List<CuadroEncuesta> getEncuestasByFechaAndServicio(Date fechaInicio,Date fechaFin, String servicio, String numBus, Integer recorrido) {
+        return cuadroEncuestaDao.getEncuestasByFechaAndServicio(fechaInicio,fechaFin,servicio,numBus,recorrido);
+    }
+
+    public List<CuadroEncuesta> getEncuestasByFechaAndServicioOrderTime(Date fechaInicio,Date fechaFin, String servicio, String numBus, Integer recorrido) {
+        return cuadroEncuestaDao.getEncuestasByFechaAndServicioOrderTime(fechaInicio,fechaFin,servicio,numBus,recorrido);
     }
 }

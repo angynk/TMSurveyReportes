@@ -28,8 +28,6 @@ public class ProcesamientoView {
 
     private String identificadorEstudio;
     private String estacion;
-    private Date horaInicio;
-    private Date horaFin;
     private List<String> estacionesRecords;
     private Date fechaInicio;
     private Date fechaFin;
@@ -85,7 +83,7 @@ public class ProcesamientoView {
 
     public void procesarDatosEncuesta(){
         if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO)){
-          boolean resultado =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,horaInicio,horaFin,estacion,modo,identificadorEstudio);
+          boolean resultado =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,estacion,modo,identificadorEstudio);
           if(resultado){
                 messagesView.info("Procesamiento Existoso","");
           }else{
@@ -182,21 +180,6 @@ public class ProcesamientoView {
         this.encuestaADAbordoProcessor = encuestaADAbordoProcessor;
     }
 
-    public Date getHoraInicio() {
-        return horaInicio;
-    }
-
-    public void setHoraInicio(Date horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-    public Date getHoraFin() {
-        return horaFin;
-    }
-
-    public void setHoraFin(Date horaFin) {
-        this.horaFin = horaFin;
-    }
 
     public MessagesView getMessagesView() {
         return messagesView;
