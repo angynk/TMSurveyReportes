@@ -180,6 +180,9 @@ public class EncuestaADAbordoProcessor {
                     if(!numeroPuertas.contains(cuadro.getNum_puerta())){
                         numeroPuertas.add(cuadro.getNum_puerta());
                         seleccionEncuestas.add(cuadro);
+                        if(x+1 == encuestasOrdenadas.size() ){
+                            paquetesEncuesta.put(idPaquete,copiarLista(seleccionEncuestas));
+                        }
                     }else{
                         paquetesEncuesta.put(idPaquete,copiarLista(seleccionEncuestas));
                         idPaquete = idPaquete +1;

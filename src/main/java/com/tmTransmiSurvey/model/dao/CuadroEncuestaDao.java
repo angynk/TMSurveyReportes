@@ -87,7 +87,7 @@ public class CuadroEncuestaDao {
         criteria.add(Restrictions.eq("servicio",servicio));
         criteria.add(Restrictions.eq("num_bus",numBus));
         criteria.add(Restrictions.eq("recorrido",recorrido));
-        criteria.addOrder(Order.asc("hora_inicio"));
+        criteria.addOrder(Order.asc("horaInicio"));
         return (List<CuadroEncuesta>) criteria.list();
     }
 }
