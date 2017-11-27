@@ -86,8 +86,8 @@ public class VisualizarEstudiosProcessor {
         ExcelUtilProcessor.createCellResultados(rowInfo1, recorrido.getServicio(), ProcesadoAscDesADEF.col_servicio);
         ExcelUtilProcessor.createCellNumberResultados(rowInfo1, recorrido.getRecorrido(), ProcesadoAscDesADEF.col_recorrido);
         ExcelUtilProcessor.createCellResultados(rowInfo1, recorrido.getNumBus(), ProcesadoAscDesADEF.col_num_bus);
-        ExcelUtilProcessor.createCellResultados(rowInfo1, recorrido.getEstudio().getFechaFormatted(), ProcesadoAscDesADEF.col_fecha);
-        ExcelUtilProcessor.createCellResultados(rowInfo1, "Dia", ProcesadoAscDesADEF.col_dia);
+        ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getAdBase().getFechaFormatted(), ProcesadoAscDesADEF.col_fecha);
+        ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getAdBase().getDiaSemana(), ProcesadoAscDesADEF.col_dia);
         return rowNumber+1;
     }
 

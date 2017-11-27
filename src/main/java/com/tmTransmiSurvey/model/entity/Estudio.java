@@ -24,6 +24,8 @@ public class Estudio {
     @Column(name = "identificador")
     private String identificador;
 
+
+
     @Column(name = "modo")
     private String modo;
 
@@ -98,4 +100,5 @@ public class Estudio {
     public void setModo(String modo) {
         this.modo = modo;
     }
+
 }

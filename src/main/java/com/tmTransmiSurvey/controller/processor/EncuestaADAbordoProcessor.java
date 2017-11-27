@@ -1,6 +1,7 @@
 package com.tmTransmiSurvey.controller.processor;
 
 import com.tmTransmiSurvey.controller.TipoEncuesta;
+import com.tmTransmiSurvey.controller.Util;
 import com.tmTransmiSurvey.controller.servicios.ADabordoServicio;
 import com.tmTransmiSurvey.controller.servicios.EncuestaAscDescServicio;
 import com.tmTransmiSurvey.model.entity.*;
@@ -64,6 +65,8 @@ public class EncuestaADAbordoProcessor {
         aDabordoProcesada.setNumBus(cuadroEncuesta.getNum_bus());
         aDabordoProcesada.setServicio(cuadroEncuesta.getServicio());
         aDabordoProcesada.setEstudio(estudio);
+        aDabordoProcesada.setDiaSemana(cuadroEncuesta.getDia_semana());
+        aDabordoProcesada.setFecha(cuadroEncuesta.getFecha_encuesta());
         aDabordoServicio.addADabordoProcesada(aDabordoProcesada);
 
         // Procesamiento

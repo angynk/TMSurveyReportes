@@ -2,6 +2,8 @@ package com.tmTransmiSurvey.model.entity;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,6 +24,12 @@ public class ADabordoProcesada {
 
     @Column(name = "recorrido")
     private int recorrido;
+
+    @Column(name = "dia_semana")
+    private String diaSemana;
+
+    @Column(name = "fecha")
+    private Date fecha;
 
 
 
@@ -84,4 +92,28 @@ public class ADabordoProcesada {
         this.registros = registros;
     }
 
+    public String getDiaSemana() {
+        return diaSemana;
+    }
+
+    public void setDiaSemana(String diaSemana) {
+        this.diaSemana = diaSemana;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+
+    public String getFechaFormatted() {
+        if(fecha!=null){
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
+            return dt1.format(fecha);
+        }
+        return "";
+    }
 }

@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -84,4 +86,27 @@ public class Util {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+
+    public static String obtenerDiaDeLaSemana(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+        switch (day){
+            case Calendar.MONDAY:
+                return "Lunes";
+            case Calendar.TUESDAY:
+                return "Martes";
+            case Calendar.WEDNESDAY:
+                return "Miercoles";
+            case Calendar.THURSDAY:
+                return "Jueves";
+            case Calendar.FRIDAY:
+                return "Viernes";
+            case Calendar.SATURDAY:
+                return "Sabado";
+            default:
+                return "Domingo";
+        }
+    }
+
 }
