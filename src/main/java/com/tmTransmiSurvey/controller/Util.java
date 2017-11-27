@@ -109,4 +109,9 @@ public class Util {
         }
     }
 
+    public static Date obtenerFecha(String hora_salida) {
+
+
+        return null;
+    }
 }

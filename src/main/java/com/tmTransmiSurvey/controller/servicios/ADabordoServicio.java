@@ -3,9 +3,11 @@ package com.tmTransmiSurvey.controller.servicios;
 import com.tmTransmiSurvey.model.dao.ADabordoProcesadaDao;
 import com.tmTransmiSurvey.model.dao.ADabordoRegProcesadaDao;
 import com.tmTransmiSurvey.model.dao.EstudioDao;
+import com.tmTransmiSurvey.model.dao.TipoFranjaDao;
 import com.tmTransmiSurvey.model.entity.ADabordoProcesada;
 import com.tmTransmiSurvey.model.entity.ADabordoRegProcesada;
 import com.tmTransmiSurvey.model.entity.Estudio;
+import com.tmTransmiSurvey.model.entity.TipoFranja;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ public class ADabordoServicio {
     private ADabordoProcesadaDao aDabordoProcesadaDao;
     @Autowired
     private ADabordoRegProcesadaDao aDabordoRegProcesadaDao;
+    @Autowired
+    private TipoFranjaDao tipoFranjaDao;
 
     public ADabordoServicio() {
     }
@@ -70,5 +74,10 @@ public class ADabordoServicio {
 
     public List<ADabordoRegProcesada> getRegistrosByRecorrido(ADabordoProcesada recorrido) {
         return aDabordoRegProcesadaDao.getRegistrosByRecorrido(recorrido);
+    }
+
+
+    public List<TipoFranja> obtenerFranjas() {
+        return tipoFranjaDao.getTipoFranjaAll();
     }
 }

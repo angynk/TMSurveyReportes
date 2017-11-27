@@ -24,9 +24,12 @@ public class EncuestaADAbordoProcessor {
     @Autowired
     public ADabordoServicio aDabordoServicio;
 
+    private List<TipoFranja> franjas;
+
 
     public boolean procesarDatosEncuesta(Date fechaInicio, Date fechaFin, String servicio, String modo, String identificadorEstudio) {
 //        List<CuadroEncuesta> encuestas = encuestaAscDescServicio.getEncuestasByFechaAndServicio(fechaInicio, servicio);
+          franjas = aDabordoServicio.obtenerFranjas();
           int recorridoID = 1;
           List<AuxNumBus> recorridos =  encuestaAscDescServicio.getNumBusGroupBy(fechaInicio,fechaFin, servicio);
           Map<Integer,List<CuadroEncuesta>> paquetesEncuesta = new HashMap<Integer,List<CuadroEncuesta>>();
@@ -111,8 +114,21 @@ public class EncuestaADAbordoProcessor {
                 mapaAProcesar.get(0).get(0).getHora_llegada(),
                 mapaAProcesar.get(0).get(0).getHora_salida(),
                 aDabordoProcesada, numPasajeros);
+        nuevoRegistro.setFranja(obtenerFranjaHoraria(mapaAProcesar.get(0).get(0).getHora_salida()));
 
         return nuevoRegistro;
+    }
+
+    private String obtenerFranjaHoraria(String horaSalidaTexto) {
+
+        Date horaSalida = Util.obtenerFecha(horaSalidaTexto);
+        for(TipoFranja franja:franjas){
+            Date horaInicio = Util.obtenerFecha(franja.getHoraInicio());
+            Date horaFin = Util.obtenerFecha(franja.getHoraFin());
+
+        }
+        return "AM";
+
     }
 
     private ADabordoRegProcesada insertarRegistro(String estacion, String horaLLegada,String horaSalida, ADabordoProcesada aDabordoProcesada, int numPasajeros) {

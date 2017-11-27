@@ -16,6 +16,9 @@ public class ADabordoRegProcesada {
     @Column(name = "estacion")
     private String estacion;
 
+    @Column(name = "franja")
+    private String franja;
+
     @Column(name = "hora_llegada")
     private Time horaLlegada;
 
@@ -78,5 +81,13 @@ public class ADabordoRegProcesada {
 
     public void setAdBase(ADabordoProcesada adBase) {
         this.adBase = adBase;
+    }
+
+    public String getFranja() {
+        return franja;
+    }
+
+    public void setFranja(String franja) {
+        this.franja = franja;
     }
 }
