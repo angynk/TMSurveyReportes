@@ -1,6 +1,8 @@
 package com.tmTransmiSurvey.controller.processor;
 
+import com.tmTransmiSurvey.controller.LogDatos;
 import com.tmTransmiSurvey.controller.TipoEncuesta;
+import com.tmTransmiSurvey.controller.TipoLog;
 import com.tmTransmiSurvey.controller.Util;
 import com.tmTransmiSurvey.controller.servicios.ADabordoServicio;
 import com.tmTransmiSurvey.controller.servicios.EncuestaAscDescServicio;
@@ -25,22 +27,28 @@ public class EncuestaADAbordoProcessor {
     public ADabordoServicio aDabordoServicio;
 
     private List<TipoFranja> franjas;
+    private boolean procesamientoExitoso;
 
 
-    public boolean procesarDatosEncuesta(Date fechaInicio, Date fechaFin, String servicio, String modo, String identificadorEstudio) {
-//        List<CuadroEncuesta> encuestas = encuestaAscDescServicio.getEncuestasByFechaAndServicio(fechaInicio, servicio);
+    public List<LogDatos> procesarDatosEncuesta(Date fechaInicio, Date fechaFin, String servicio, String modo, String identificadorEstudio) {
+          procesamientoExitoso = true;
+          List<LogDatos> logDatos = new ArrayList<>();
+          logDatos.add(new LogDatos("<<Procesamiento Encuesta "+TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO+">>", TipoLog.INFO));
           franjas = aDabordoServicio.obtenerFranjas();
-          int recorridoID = 1;
+          if(franjas.size()==0){
+              logDatos.add(new LogDatos("No existe informaciòn sobre franja horarias", TipoLog.ERROR));
+          }
           List<AuxNumBus> recorridos =  encuestaAscDescServicio.getNumBusGroupBy(fechaInicio,fechaFin, servicio);
           Map<Integer,List<CuadroEncuesta>> paquetesEncuesta = new HashMap<Integer,List<CuadroEncuesta>>();
           for(AuxNumBus numBus: recorridos){
               paquetesEncuesta = encontrarPaqueteDatosEncuesta(fechaInicio,fechaFin,servicio,numBus,paquetesEncuesta);
           }
-
-       return    procesarPaquetesDatos(paquetesEncuesta,fechaInicio,modo,identificadorEstudio);
+        logDatos = procesarPaquetesDatos(paquetesEncuesta,fechaInicio,modo,identificadorEstudio,logDatos);
+        logDatos.add(new LogDatos("<<Finalizaciòn del procesamiento>>", TipoLog.INFO));
+       return logDatos;
     }
 
-    private boolean procesarPaquetesDatos(Map<Integer, List<CuadroEncuesta>> paquetesEncuesta, Date fechaInicio, String modo, String identificadorEstudio) {
+    private List<LogDatos> procesarPaquetesDatos(Map<Integer, List<CuadroEncuesta>> paquetesEncuesta, Date fechaInicio, String modo, String identificadorEstudio, List<LogDatos> logDatos) {
 
         if(paquetesEncuesta.size()>0){
             Estudio estudio = crearEstudio(fechaInicio,modo,identificadorEstudio);
@@ -49,18 +57,23 @@ public class EncuestaADAbordoProcessor {
                 {
                     int recorrido = entry.getKey();
                     List<CuadroEncuesta> encuestas =entry.getValue();
-                    procesarRecorrido(recorrido,encuestas,estudio);
+                    procesarRecorrido(recorrido,encuestas,estudio,logDatos);
                 }
             }else{
-                return false;
+                procesamientoExitoso = false;
+                logDatos.add(new LogDatos("No se pudo crear el estudio", TipoLog.ERROR));
+                return logDatos;
             }
+        }else{
+            procesamientoExitoso = false;
+            logDatos.add(new LogDatos("No se encontro información sobre el estudio seleccionado", TipoLog.ERROR));
         }
 
-        return true;
+        return logDatos;
 
     }
 
-    private void procesarRecorrido(int recorrido, List<CuadroEncuesta> encuestas, Estudio estudio) {
+    private void procesarRecorrido(int recorrido, List<CuadroEncuesta> encuestas, Estudio estudio, List<LogDatos> logDatos) {
         // Informacion Base encuesta
         ADabordoProcesada aDabordoProcesada = new ADabordoProcesada();
         CuadroEncuesta cuadroEncuesta = encuestas.get(0);
@@ -84,6 +97,9 @@ public class EncuestaADAbordoProcessor {
                     registroAnterior = calcularRegistro(x,listaBase.get(x),mapaAProcesar,registroAnterior.getPasBus(),aDabordoProcesada);
                 }
             }
+        }else{
+            procesamientoExitoso = false;
+            logDatos.add(new LogDatos("No hay registros sobre el estudio seleccionado", TipoLog.ERROR));
         }
 
 
@@ -247,5 +263,13 @@ public class EncuestaADAbordoProcessor {
         }
 
         return true;
+    }
+
+    public boolean isProcesamientoExitoso() {
+        return procesamientoExitoso;
+    }
+
+    public void setProcesamientoExitoso(boolean procesamientoExitoso) {
+        this.procesamientoExitoso = procesamientoExitoso;
     }
 }

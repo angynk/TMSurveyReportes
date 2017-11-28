@@ -1,8 +1,9 @@
 package com.tmTransmiSurvey.view;
 
-import com.tmTransmiSurvey.controller.TipoEncuesta;
+import com.tmTransmiSurvey.controller.*;
 import com.tmTransmiSurvey.controller.processor.EncuestaADAbordoProcessor;
 import com.tmTransmiSurvey.controller.processor.ExportarADPuntoProcessor;
+import com.tmTransmiSurvey.controller.processor.VisualizarEstudiosProcessor;
 import com.tmTransmiSurvey.model.entity.Estacion;
 import com.tmTransmiSurvey.model.entity.ServicioTs;
 
@@ -10,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,8 @@ public class ProcesamientoView {
     private List<String> modos;
     private Boolean adAVisible;
     private Boolean botonHabilitado;
+    private List<LogDatos> logDatos;
+    private boolean resultadosVisibles;
 
     private String identificadorEstudio;
     private String estacion;
@@ -37,6 +41,9 @@ public class ProcesamientoView {
 
     @ManagedProperty(value="#{EncuestaADAbordoProcessor}")
     private EncuestaADAbordoProcessor encuestaADAbordoProcessor;
+
+    @ManagedProperty(value="#{VisualizarEstudiosProcessor}")
+    private VisualizarEstudiosProcessor visualizarEstudiosProcessor;
 
     @ManagedProperty("#{MessagesView}")
     private MessagesView messagesView;
@@ -51,7 +58,8 @@ public class ProcesamientoView {
         encuesta = TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO;
         modos = TipoEncuesta.listaModos();
         modo = TipoEncuesta.MODO_TRONCAL;
-
+        logDatos = new ArrayList<LogDatos>();
+        resultadosVisibles = false;
         adAVisible = false;
         botonHabilitado = false;
     }
@@ -81,14 +89,16 @@ public class ProcesamientoView {
         return lista;
     }
 
+
     public void procesarDatosEncuesta(){
         if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO)){
-          boolean resultado =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,estacion,modo,identificadorEstudio);
-          if(resultado){
+          logDatos =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,estacion,modo,identificadorEstudio);
+          if(encuestaADAbordoProcessor.isProcesamientoExitoso()){
                 messagesView.info("Procesamiento Existoso","");
           }else{
-              messagesView.info("Procesamiento Fallo","Revisar Log");
+              messagesView.error("Procesamiento Fallo","Revisar Log");
           }
+          resultadosVisibles = true;
         }
     }
 
@@ -203,5 +213,29 @@ public class ProcesamientoView {
 
     public void setIdentificadorEstudio(String identificadorEstudio) {
         this.identificadorEstudio = identificadorEstudio;
+    }
+
+    public List<LogDatos> getLogDatos() {
+        return logDatos;
+    }
+
+    public void setLogDatos(List<LogDatos> logDatos) {
+        this.logDatos = logDatos;
+    }
+
+    public boolean isResultadosVisibles() {
+        return resultadosVisibles;
+    }
+
+    public void setResultadosVisibles(boolean resultadosVisibles) {
+        this.resultadosVisibles = resultadosVisibles;
+    }
+
+    public VisualizarEstudiosProcessor getVisualizarEstudiosProcessor() {
+        return visualizarEstudiosProcessor;
+    }
+
+    public void setVisualizarEstudiosProcessor(VisualizarEstudiosProcessor visualizarEstudiosProcessor) {
+        this.visualizarEstudiosProcessor = visualizarEstudiosProcessor;
     }
 }

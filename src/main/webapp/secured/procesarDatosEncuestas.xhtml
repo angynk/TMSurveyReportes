@@ -30,24 +30,22 @@
                 </p:panel>
 
                 <p:panel  header="Ascensos/Descensos Abordo Procesamiento"  style="margin-bottom:20px" visible="#{procesView.adAVisible}">
-                    <p:panelGrid columns="2">
+                    <p:panelGrid columns="4">
                         <p:outputLabel value="Estación:"  />
                         <p:selectOneMenu id="advanced" value="#{procesView.estacion}"  panelStyle="width:180px"
                                          effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
                             <f:selectItems value="#{procesView.estacionesRecords}" var="estacion"
                                            itemLabel="#{estacion}" itemValue="#{estacion}" />
-
                             <p:column>
                                 <h:outputText value="#{t}" />
                             </p:column>
-
                         </p:selectOneMenu>
+                        <p:outputLabel  value="Identificador Estudio" />
+                        <p:inputText  value="#{procesView.identificadorEstudio}"  />
                         <p:outputLabel for="button" value="Fecha Inicio (DD-MM-AAAA):" />
                         <p:calendar id="button" value="#{procesView.fechaInicio}" showOn="button" pattern="dd-MM-yyyy"/>
                         <p:outputLabel  value="Fecha Fin (DD-MM-AAAA):" />
                         <p:calendar  value="#{procesView.fechaFin}" showOn="button" pattern="dd-MM-yyyy"/>
-                        <p:outputLabel  value="Identificador Estudio" />
-                        <p:inputText  value="#{procesView.identificadorEstudio}"  />
 
                     </p:panelGrid>
 
@@ -62,6 +60,20 @@
                     <p:graphicImage name="images/ajaxloadingbar.gif" />
                 </p:dialog>
 
+                <p:panel visible="#{procesView.resultadosVisibles}">
+                    <p:accordionPanel style="width: 100%" activeIndex="null">
+                        <p:tab title="Resultados">
+                            <h:panelGrid columns="2" cellpadding="10" style="width: 100%">
+                                <p:dataList value="#{procesView.logDatos}" var="log" type="ordered" style="width: 100%">
+                                    <f:facet name="header">
+                                        Log
+                                    </f:facet>
+                                    #{log.tipoLog} : #{log.mensaje}
+                                </p:dataList>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
+                </p:panel>
 
             </h:form>
 
