@@ -57,4 +57,8 @@ public class ServicioEstacionServicio {
     public List<Estacion> encontrarTodasLasEstaciones() {
         return estacionDao.encontrarTodasLasEstaciones();
     }
+
+    public List<ServicioTs> encontrarTodosLosServicios(String modo) {
+        return servicioDao.encontrarTodosLosServicios(modo);
+    }
 }

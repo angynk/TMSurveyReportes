@@ -1,6 +1,7 @@
 package com.tmTransmiSurvey.view;
 
 import com.tmTransmiSurvey.controller.PathFiles;
+import com.tmTransmiSurvey.controller.TipoEncuesta;
 import com.tmTransmiSurvey.controller.Util;
 import com.tmTransmiSurvey.controller.processor.ExportarDatosProcessor;
 import com.tmTransmiSurvey.model.entity.ServicioTs;
@@ -23,6 +24,8 @@ public class ReporteEncuestasBean {
     private Date fechaInicio;
     private Date fechaFin;
     private boolean visibleDescarga;
+    private String modo;
+    private List<String> modos;
 
     @ManagedProperty(value="#{ExportarProcessor}")
     private ExportarDatosProcessor exportarDatosProcessor;
@@ -37,8 +40,15 @@ public class ReporteEncuestasBean {
     public void init() {
         visibleDescarga = false;
         servicio = "B11";
-        serviciosRecords = convertStringList (exportarDatosProcessor.encontrarTodosLosServicios());
+        modos = TipoEncuesta.listaModos();
+        modo = TipoEncuesta.MODO_TRONCAL;
+        serviciosRecords = convertStringList (exportarDatosProcessor.encontrarTodosLosServicios(validarModo(modo)));
 
+    }
+
+    private String validarModo(String modo) {
+        if(modo.equals(TipoEncuesta.MODO_TRONCAL)) return "tro";
+        return "ali";
     }
 
     private List<String> convertStringList(List<ServicioTs> servicioTs) {
@@ -72,6 +82,10 @@ public class ReporteEncuestasBean {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void updateServicios(){
+        serviciosRecords = convertStringList (exportarDatosProcessor.encontrarTodosLosServicios(validarModo(modo)));
     }
 
     public String getServicio() {
@@ -128,5 +142,21 @@ public class ReporteEncuestasBean {
 
     public void setMessagesView(MessagesView messagesView) {
         this.messagesView = messagesView;
+    }
+
+    public String getModo() {
+        return modo;
+    }
+
+    public void setModo(String modo) {
+        this.modo = modo;
+    }
+
+    public List<String> getModos() {
+        return modos;
+    }
+
+    public void setModos(List<String> modos) {
+        this.modos = modos;
     }
 }

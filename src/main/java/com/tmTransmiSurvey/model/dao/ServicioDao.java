@@ -4,6 +4,7 @@ import com.tmTransmiSurvey.model.entity.ServicioTs;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,13 @@ public class ServicioDao {
 
     public List<ServicioTs> encontrarTodosLosServicios(){
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(ServicioTs.class);
+        criteria.addOrder(Order.asc("nombre"));
+        return  criteria.list();
+    }
+
+    public List<ServicioTs> encontrarTodosLosServicios(String modo){
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(ServicioTs.class);
+        criteria.add(Restrictions.eq("tipo", modo));
         criteria.addOrder(Order.asc("nombre"));
         return  criteria.list();
     }

@@ -4,7 +4,6 @@ import com.tmTransmiSurvey.controller.PathFiles;
 import com.tmTransmiSurvey.controller.servicios.EncuestaAscDescServicio;
 import com.tmTransmiSurvey.controller.servicios.ServicioEstacionServicio;
 import com.tmTransmiSurvey.model.entity.CuadroEncuesta;
-import com.tmTransmiSurvey.model.entity.Estacion;
 import com.tmTransmiSurvey.model.entity.RegistroEncuestaAscDesc;
 import com.tmTransmiSurvey.model.entity.ServicioTs;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -117,8 +116,8 @@ public class ExportarDatosProcessor {
 
 
 
-    public List<ServicioTs> encontrarTodosLosServicios(){
-        return servicioEstacionServicio.encontrarTodosLosServicios();
+    public List<ServicioTs> encontrarTodosLosServicios(String modo){
+        return servicioEstacionServicio.encontrarTodosLosServicios(modo);
     }
 
 

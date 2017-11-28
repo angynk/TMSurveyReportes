@@ -16,8 +16,12 @@
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
                 <p:panel id="basic" header="Ascensos/Descensos Abordo"  style="margin-bottom:20px">
-                    <h:panelGrid columns="6" style="margin-bottom:10px;margin-top: 10px" cellpadding="5" cellspacing="15">
-
+                    <h:panelGrid columns="4" style="margin-bottom:10px;margin-top: 10px" cellpadding="5" cellspacing="15">
+                        <p:outputLabel value="Modo:"  />
+                        <p:selectOneMenu  value="#{reporteBean.modo}" style="width:125px">
+                            <f:selectItems value="#{reporteBean.modos}" var="modo"  itemLabel="#{modo}" itemValue="#{modo}" />
+                            <p:ajax update="@form" listener="#{reporteBean.updateServicios}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="Servicio:"  />
                         <p:selectOneMenu id="advanced" value="#{reporteBean.servicio}"  panelStyle="width:180px"
                                          effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
