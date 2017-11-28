@@ -1,6 +1,7 @@
 package com.tmTransmiSurvey.view;
 
 import com.tmTransmiSurvey.controller.PathFiles;
+import com.tmTransmiSurvey.controller.TipoEncuesta;
 import com.tmTransmiSurvey.controller.Util;
 import com.tmTransmiSurvey.controller.processor.ExportarADPuntoProcessor;
 import com.tmTransmiSurvey.model.entity.Estacion;
@@ -23,6 +24,8 @@ public class ReporteAdPuntoBean {
     private Date fechaInicio;
     private Date fechaFin;
     private boolean visibleDescarga;
+    private String modo;
+    private List<String> modos;
 
 
 
@@ -38,10 +41,15 @@ public class ReporteAdPuntoBean {
     @PostConstruct
     public void init() {
         visibleDescarga = false;
-//        estacion = "B11";
-        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones());
+        modos = TipoEncuesta.listaModos();
+        modo = TipoEncuesta.MODO_TRONCAL;
+        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(validarModo(modo)));
         visibleDescarga = false;
 
+    }
+
+    public void updateServicios(){
+        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(validarModo(modo)));
     }
 
     private List<String> convertStringList(List<Estacion> estaciones) {
@@ -73,6 +81,11 @@ public class ReporteAdPuntoBean {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String validarModo(String modo) {
+        if(modo.equals(TipoEncuesta.MODO_TRONCAL)) return "tro";
+        return "ali";
     }
 
     public String getEstacion() {
@@ -129,5 +142,21 @@ public class ReporteAdPuntoBean {
 
     public void setMessagesView(MessagesView messagesView) {
         this.messagesView = messagesView;
+    }
+
+    public String getModo() {
+        return modo;
+    }
+
+    public void setModo(String modo) {
+        this.modo = modo;
+    }
+
+    public List<String> getModos() {
+        return modos;
+    }
+
+    public void setModos(List<String> modos) {
+        this.modos = modos;
     }
 }

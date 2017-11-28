@@ -34,6 +34,10 @@ public class ExportarADPuntoProcessor {
         return servicioEstacionServicio.encontrarTodasLasEstaciones();
     }
 
+    public List<Estacion> encontrarTodosLasEstaciones(String modo){
+        return servicioEstacionServicio.encontrarTodasLasEstaciones(modo);
+    }
+
     public List<ServicioTs> encontrarTodosLosServicios(){
         return servicioEstacionServicio.encontrarTodosLosServicios();
     }

@@ -21,6 +21,9 @@ public class Estacion {
     @Column(name = "codigo")
     private String codigo;
 
+    @Column(name = "modo")
+    private String modo;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estacion", cascade = CascadeType.REMOVE)
     private List<ServicioEstacion> registros;
 
@@ -57,5 +60,13 @@ public class Estacion {
 
     public void setRegistros(List<ServicioEstacion> registros) {
         this.registros = registros;
+    }
+
+    public String getModo() {
+        return modo;
+    }
+
+    public void setModo(String modo) {
+        this.modo = modo;
     }
 }
