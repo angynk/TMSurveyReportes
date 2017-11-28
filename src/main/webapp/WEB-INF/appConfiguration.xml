@@ -48,6 +48,7 @@
                 <value>com.tmTransmiSurvey.model.entity.Estudio</value>
                 <value>com.tmTransmiSurvey.model.entity.ADabordoProcesada</value>
                 <value>com.tmTransmiSurvey.model.entity.ADabordoRegProcesada</value>
+                <value>com.tmTransmiSurvey.model.entity.TipoFranja</value>
 
             </list>
         </property>

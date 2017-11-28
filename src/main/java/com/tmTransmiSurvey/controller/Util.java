@@ -10,6 +10,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -109,8 +112,16 @@ public class Util {
         }
     }
 
-    public static Date obtenerFecha(String hora_salida) {
-
+    public static Time obtenerFecha(String fechaTexto) {
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm:ss");
+        if(!fechaTexto.equals("")){
+            try {
+                Date date = parser.parse(fechaTexto);
+                return new Time(date.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
         return null;
     }

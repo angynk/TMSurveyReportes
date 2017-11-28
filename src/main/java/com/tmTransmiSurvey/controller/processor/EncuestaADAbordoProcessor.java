@@ -100,6 +100,8 @@ public class EncuestaADAbordoProcessor {
                 base.getHora_salida(),
                 aDabordoProcesada, pasBus);
 
+
+
         return nuevoRegistro;
 
     }
@@ -114,21 +116,30 @@ public class EncuestaADAbordoProcessor {
                 mapaAProcesar.get(0).get(0).getHora_llegada(),
                 mapaAProcesar.get(0).get(0).getHora_salida(),
                 aDabordoProcesada, numPasajeros);
-        nuevoRegistro.setFranja(obtenerFranjaHoraria(mapaAProcesar.get(0).get(0).getHora_salida()));
 
         return nuevoRegistro;
     }
 
-    private String obtenerFranjaHoraria(String horaSalidaTexto) {
-
-        Date horaSalida = Util.obtenerFecha(horaSalidaTexto);
+    private String obtenerFranjaHoraria(Time horaSalida) {
         for(TipoFranja franja:franjas){
-            Date horaInicio = Util.obtenerFecha(franja.getHoraInicio());
-            Date horaFin = Util.obtenerFecha(franja.getHoraFin());
-
+            Time horaInicio = Util.obtenerFecha(franja.getHoraInicio());
+            Time horaFin = Util.obtenerFecha(franja.getHoraFin());
+            if(despuesHoraInicio(horaSalida,horaInicio) && antesHoraFin(horaSalida,horaFin)){
+                return franja.getNombre();
+            }
         }
-        return "AM";
+        return "NA";
 
+    }
+
+    private boolean antesHoraFin(Date horaSalida, Date horaFin) {
+        if(horaSalida.compareTo(horaFin) == 0 || horaSalida.before(horaFin)) return true;
+        return false;
+    }
+
+    private boolean despuesHoraInicio(Date horaSalida, Date horaInicio) {
+        if(horaSalida.compareTo(horaInicio) == 0 || horaSalida.after(horaInicio)) return true;
+        return false;
     }
 
     private ADabordoRegProcesada insertarRegistro(String estacion, String horaLLegada,String horaSalida, ADabordoProcesada aDabordoProcesada, int numPasajeros) {
@@ -138,6 +149,7 @@ public class EncuestaADAbordoProcessor {
         nuevoRegistro.setHoraLlegada(convertirATime(horaLLegada));
         nuevoRegistro.setHoraSalida(convertirATime(horaSalida));
         nuevoRegistro.setAdBase(aDabordoProcesada);
+        nuevoRegistro.setFranja(obtenerFranjaHoraria(nuevoRegistro.getHoraSalida()));
 
         aDabordoServicio.addADabordoRegProcesada(nuevoRegistro);
 

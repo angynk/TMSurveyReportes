@@ -79,7 +79,7 @@ public class VisualizarEstudiosProcessor {
         SimpleDateFormat sdfDate = new SimpleDateFormat("HH:mm:ss");
         ExcelUtilProcessor.createCellNumberResultados(rowInfo1, regNumber, ProcesadoAscDesADEF.col_orden);
         ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getEstacion(), ProcesadoAscDesADEF.col_estacion);
-        ExcelUtilProcessor.createCellResultados(rowInfo1, "NA", ProcesadoAscDesADEF.col_franja);
+        ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getFranja(), ProcesadoAscDesADEF.col_franja);
         ExcelUtilProcessor.createCellResultados(rowInfo1, sdfDate.format(registro.getHoraLlegada()), ProcesadoAscDesADEF.col_hora_llegada);
         ExcelUtilProcessor.createCellNumberResultados(rowInfo1, registro.getPasBus(), ProcesadoAscDesADEF.col_pas_bus);
         ExcelUtilProcessor.createCellResultados(rowInfo1, sdfDate.format(registro.getHoraSalida()), ProcesadoAscDesADEF.col_hora_salida);
