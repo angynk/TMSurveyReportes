@@ -1,11 +1,10 @@
 package com.tmTransmiSurvey.view;
 
-import com.tmTransmiSurvey.controller.PathFiles;
-import com.tmTransmiSurvey.controller.TipoEncuesta;
-import com.tmTransmiSurvey.controller.Util;
-import com.tmTransmiSurvey.controller.processor.EncuestaADAbordoProcessor;
+import com.tmTransmiSurvey.controller.util.PathFiles;
+import com.tmTransmiSurvey.controller.util.TipoEncuesta;
+import com.tmTransmiSurvey.controller.util.Util;
 import com.tmTransmiSurvey.controller.processor.VisualizarEstudiosProcessor;
-import com.tmTransmiSurvey.model.entity.Estudio;
+import com.tmTransmiSurvey.model.entity.procesamiento.Estudio;
 import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;

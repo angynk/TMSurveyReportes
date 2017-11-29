@@ -1,10 +1,10 @@
 package com.tmTransmiSurvey.controller.servicios;
 
 
-import com.tmTransmiSurvey.model.dao.RoleDao;
-import com.tmTransmiSurvey.model.dao.UsuarioDao;
-import com.tmTransmiSurvey.model.entity.Role;
-import com.tmTransmiSurvey.model.entity.Usuario;
+import com.tmTransmiSurvey.model.dao.apoyo.RoleDao;
+import com.tmTransmiSurvey.model.dao.apoyo.UsuarioDao;
+import com.tmTransmiSurvey.model.entity.apoyo.Role;
+import com.tmTransmiSurvey.model.entity.apoyo.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

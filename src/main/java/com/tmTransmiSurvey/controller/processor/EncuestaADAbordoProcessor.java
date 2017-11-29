@@ -1,12 +1,18 @@
 package com.tmTransmiSurvey.controller.processor;
 
-import com.tmTransmiSurvey.controller.LogDatos;
-import com.tmTransmiSurvey.controller.TipoEncuesta;
-import com.tmTransmiSurvey.controller.TipoLog;
-import com.tmTransmiSurvey.controller.Util;
+import com.tmTransmiSurvey.controller.util.LogDatos;
+import com.tmTransmiSurvey.controller.util.TipoEncuesta;
+import com.tmTransmiSurvey.controller.util.TipoLog;
+import com.tmTransmiSurvey.controller.util.Util;
 import com.tmTransmiSurvey.controller.servicios.ADabordoServicio;
 import com.tmTransmiSurvey.controller.servicios.EncuestaAscDescServicio;
-import com.tmTransmiSurvey.model.entity.*;
+import com.tmTransmiSurvey.model.entity.apoyo.AuxNumBus;
+import com.tmTransmiSurvey.model.entity.apoyo.TipoFranja;
+import com.tmTransmiSurvey.model.entity.base.CuadroEncuesta;
+import com.tmTransmiSurvey.model.entity.base.RegistroEncuestaAscDesc;
+import com.tmTransmiSurvey.model.entity.procesamiento.ADabordoProcesada;
+import com.tmTransmiSurvey.model.entity.procesamiento.ADabordoRegProcesada;
+import com.tmTransmiSurvey.model.entity.procesamiento.Estudio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,13 +1,13 @@
 package com.tmTransmiSurvey.controller.servicios;
 
-import com.tmTransmiSurvey.model.dao.ADabordoProcesadaDao;
-import com.tmTransmiSurvey.model.dao.ADabordoRegProcesadaDao;
-import com.tmTransmiSurvey.model.dao.EstudioDao;
-import com.tmTransmiSurvey.model.dao.TipoFranjaDao;
-import com.tmTransmiSurvey.model.entity.ADabordoProcesada;
-import com.tmTransmiSurvey.model.entity.ADabordoRegProcesada;
-import com.tmTransmiSurvey.model.entity.Estudio;
-import com.tmTransmiSurvey.model.entity.TipoFranja;
+import com.tmTransmiSurvey.model.dao.procesamiento.ADabordoProcesadaDao;
+import com.tmTransmiSurvey.model.dao.procesamiento.ADabordoRegProcesadaDao;
+import com.tmTransmiSurvey.model.dao.procesamiento.EstudioDao;
+import com.tmTransmiSurvey.model.dao.apoyo.TipoFranjaDao;
+import com.tmTransmiSurvey.model.entity.procesamiento.ADabordoProcesada;
+import com.tmTransmiSurvey.model.entity.procesamiento.ADabordoRegProcesada;
+import com.tmTransmiSurvey.model.entity.procesamiento.Estudio;
+import com.tmTransmiSurvey.model.entity.apoyo.TipoFranja;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

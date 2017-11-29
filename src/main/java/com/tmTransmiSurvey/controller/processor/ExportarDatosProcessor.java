@@ -1,11 +1,13 @@
 package com.tmTransmiSurvey.controller.processor;
 
-import com.tmTransmiSurvey.controller.PathFiles;
+import com.tmTransmiSurvey.controller.util.ExcelUtilProcessor;
+import com.tmTransmiSurvey.controller.util.PathFiles;
+import com.tmTransmiSurvey.controller.processor.excelDEF.EncuestaAscDescDEF;
 import com.tmTransmiSurvey.controller.servicios.EncuestaAscDescServicio;
 import com.tmTransmiSurvey.controller.servicios.ServicioEstacionServicio;
-import com.tmTransmiSurvey.model.entity.CuadroEncuesta;
-import com.tmTransmiSurvey.model.entity.RegistroEncuestaAscDesc;
-import com.tmTransmiSurvey.model.entity.ServicioTs;
+import com.tmTransmiSurvey.model.entity.base.CuadroEncuesta;
+import com.tmTransmiSurvey.model.entity.base.RegistroEncuestaAscDesc;
+import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;

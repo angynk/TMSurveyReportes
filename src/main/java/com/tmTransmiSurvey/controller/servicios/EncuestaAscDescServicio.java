@@ -1,7 +1,8 @@
 package com.tmTransmiSurvey.controller.servicios;
 
-import com.tmTransmiSurvey.model.dao.*;
-import com.tmTransmiSurvey.model.entity.*;
+import com.tmTransmiSurvey.model.dao.base.*;
+import com.tmTransmiSurvey.model.entity.apoyo.AuxNumBus;
+import com.tmTransmiSurvey.model.entity.base.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

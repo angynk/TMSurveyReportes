@@ -1,17 +1,18 @@
 package com.tmTransmiSurvey.view;
 
-import com.tmTransmiSurvey.controller.*;
 import com.tmTransmiSurvey.controller.processor.EncuestaADAbordoProcessor;
+import com.tmTransmiSurvey.controller.processor.EncuestaFOVProcessor;
 import com.tmTransmiSurvey.controller.processor.ExportarADPuntoProcessor;
 import com.tmTransmiSurvey.controller.processor.VisualizarEstudiosProcessor;
-import com.tmTransmiSurvey.model.entity.Estacion;
-import com.tmTransmiSurvey.model.entity.ServicioTs;
+import com.tmTransmiSurvey.controller.util.LogDatos;
+import com.tmTransmiSurvey.controller.util.TipoEncuesta;
+import com.tmTransmiSurvey.controller.util.TipoLog;
+import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,7 @@ public class ProcesamientoView {
     private String modo;
     private List<String> modos;
     private Boolean adAVisible;
+    private Boolean frecOcuVisual;
     private Boolean botonHabilitado;
     private List<LogDatos> logDatos;
     private boolean resultadosVisibles;
@@ -45,6 +47,11 @@ public class ProcesamientoView {
     @ManagedProperty(value="#{VisualizarEstudiosProcessor}")
     private VisualizarEstudiosProcessor visualizarEstudiosProcessor;
 
+    @ManagedProperty(value="#{EncuestaFOVProcessor}")
+    private EncuestaFOVProcessor encuestaFOVProcessor;
+
+
+
     @ManagedProperty("#{MessagesView}")
     private MessagesView messagesView;
 
@@ -61,6 +68,7 @@ public class ProcesamientoView {
         logDatos = new ArrayList<LogDatos>();
         resultadosVisibles = false;
         adAVisible = false;
+        frecOcuVisual = false;
         botonHabilitado = false;
     }
 
@@ -75,8 +83,12 @@ public class ProcesamientoView {
     public void habilitarTipoProcesamiento(){
         if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO)){
             adAVisible = true;
+            frecOcuVisual = false;
             botonHabilitado = true;
             estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLosServicios());
+        }else if (encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION)){
+            adAVisible = false;
+            frecOcuVisual = true;
         }
 
     }
@@ -91,15 +103,31 @@ public class ProcesamientoView {
 
 
     public void procesarDatosEncuesta(){
+        boolean procesamientoExitoso = false;
         if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO)){
-          logDatos =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,estacion,modo,identificadorEstudio);
-          if(encuestaADAbordoProcessor.isProcesamientoExitoso()){
-                messagesView.info("Procesamiento Existoso","");
-          }else{
-              messagesView.error("Procesamiento Fallo","Revisar Log");
-          }
-          resultadosVisibles = true;
+            if(datosCompletos()){
+                logDatos =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,estacion,modo,identificadorEstudio);
+                procesamientoExitoso = encuestaADAbordoProcessor.isProcesamientoExitoso();
+            }
+
+        }else if(encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION)){
+            logDatos = encuestaFOVProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,identificadorEstudio);
         }
+
+        if(procesamientoExitoso){
+            messagesView.info("Procesamiento Existoso","");
+        }else{
+            messagesView.error("Procesamiento Fallo","Revisar Log");
+        }
+        resultadosVisibles = true;
+    }
+
+    private boolean datosCompletos() {
+        if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO) || encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION) ){
+            if( fechaInicio!=null && fechaFin!=null && identificadorEstudio!=null) return true;
+        }
+        logDatos.add(new LogDatos("Información incompleta", TipoLog.ERROR));
+        return false;
     }
 
     public String getEncuesta() {
@@ -237,5 +265,21 @@ public class ProcesamientoView {
 
     public void setVisualizarEstudiosProcessor(VisualizarEstudiosProcessor visualizarEstudiosProcessor) {
         this.visualizarEstudiosProcessor = visualizarEstudiosProcessor;
+    }
+
+    public EncuestaFOVProcessor getEncuestaFOVProcessor() {
+        return encuestaFOVProcessor;
+    }
+
+    public void setEncuestaFOVProcessor(EncuestaFOVProcessor encuestaFOVProcessor) {
+        this.encuestaFOVProcessor = encuestaFOVProcessor;
+    }
+
+    public Boolean getFrecOcuVisual() {
+        return frecOcuVisual;
+    }
+
+    public void setFrecOcuVisual(Boolean frecOcuVisual) {
+        this.frecOcuVisual = frecOcuVisual;
     }
 }

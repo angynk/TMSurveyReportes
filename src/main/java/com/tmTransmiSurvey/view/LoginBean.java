@@ -2,9 +2,9 @@ package com.tmTransmiSurvey.view;
 
 
 
-import com.tmTransmiSurvey.controller.Util;
+import com.tmTransmiSurvey.controller.util.Util;
 import com.tmTransmiSurvey.controller.servicios.UsuarioServicios;
-import com.tmTransmiSurvey.model.entity.Usuario;
+import com.tmTransmiSurvey.model.entity.apoyo.Usuario;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;

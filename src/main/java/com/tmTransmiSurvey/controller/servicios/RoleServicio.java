@@ -1,7 +1,7 @@
 package com.tmTransmiSurvey.controller.servicios;
 
-import com.tmTransmiSurvey.model.dao.RoleDao;
-import com.tmTransmiSurvey.model.entity.Role;
+import com.tmTransmiSurvey.model.dao.apoyo.RoleDao;
+import com.tmTransmiSurvey.model.entity.apoyo.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;

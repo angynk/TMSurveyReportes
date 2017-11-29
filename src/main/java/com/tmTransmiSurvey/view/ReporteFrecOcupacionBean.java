@@ -1,7 +1,7 @@
 package com.tmTransmiSurvey.view;
 
-import com.tmTransmiSurvey.controller.PathFiles;
-import com.tmTransmiSurvey.controller.Util;
+import com.tmTransmiSurvey.controller.util.PathFiles;
+import com.tmTransmiSurvey.controller.util.Util;
 import com.tmTransmiSurvey.controller.processor.ExportarFrecOcupacion;
 
 import javax.annotation.PostConstruct;

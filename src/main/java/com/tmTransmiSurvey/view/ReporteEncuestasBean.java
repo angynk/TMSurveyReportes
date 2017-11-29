@@ -1,10 +1,10 @@
 package com.tmTransmiSurvey.view;
 
-import com.tmTransmiSurvey.controller.PathFiles;
-import com.tmTransmiSurvey.controller.TipoEncuesta;
-import com.tmTransmiSurvey.controller.Util;
+import com.tmTransmiSurvey.controller.util.PathFiles;
+import com.tmTransmiSurvey.controller.util.TipoEncuesta;
+import com.tmTransmiSurvey.controller.util.Util;
 import com.tmTransmiSurvey.controller.processor.ExportarDatosProcessor;
-import com.tmTransmiSurvey.model.entity.ServicioTs;
+import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;

@@ -34,21 +34,24 @@
 
         <property name="annotatedClasses">
             <list>
-                <value>com.tmTransmiSurvey.model.entity.Usuario</value>
-                <value>com.tmTransmiSurvey.model.entity.Role</value>
-                <value>com.tmTransmiSurvey.model.entity.CuadroEncuesta</value>
-                <value>com.tmTransmiSurvey.model.entity.RegistroEncuestaAscDesc</value>
-                <value>com.tmTransmiSurvey.model.entity.ServicioTs</value>
-                <value>com.tmTransmiSurvey.model.entity.Estacion</value>
-                <value>com.tmTransmiSurvey.model.entity.ServicioEstacion</value>
-                <value>com.tmTransmiSurvey.model.entity.FOcupacionEncuesta</value>
-                <value>com.tmTransmiSurvey.model.entity.RegistroEncuestaFOcupacion</value>
-                <value>com.tmTransmiSurvey.model.entity.ADPuntoEncuesta</value>
-                <value>com.tmTransmiSurvey.model.entity.RegistroEncuestaADPunto</value>
-                <value>com.tmTransmiSurvey.model.entity.Estudio</value>
-                <value>com.tmTransmiSurvey.model.entity.ADabordoProcesada</value>
-                <value>com.tmTransmiSurvey.model.entity.ADabordoRegProcesada</value>
-                <value>com.tmTransmiSurvey.model.entity.TipoFranja</value>
+                <value>com.tmTransmiSurvey.model.entity.apoyo.Usuario</value>
+                <value>com.tmTransmiSurvey.model.entity.apoyo.Role</value>
+                <value>com.tmTransmiSurvey.model.entity.base.CuadroEncuesta</value>
+                <value>com.tmTransmiSurvey.model.entity.base.RegistroEncuestaAscDesc</value>
+                <value>com.tmTransmiSurvey.model.entity.apoyo.ServicioTs</value>
+                <value>com.tmTransmiSurvey.model.entity.apoyo.Estacion</value>
+                <value>com.tmTransmiSurvey.model.entity.apoyo.ServicioEstacion</value>
+                <value>com.tmTransmiSurvey.model.entity.base.FOcupacionEncuesta</value>
+                <value>com.tmTransmiSurvey.model.entity.base.RegistroEncuestaFOcupacion</value>
+                <value>com.tmTransmiSurvey.model.entity.base.ADPuntoEncuesta</value>
+                <value>com.tmTransmiSurvey.model.entity.base.RegistroEncuestaADPunto</value>
+                <value>com.tmTransmiSurvey.model.entity.procesamiento.Estudio</value>
+                <value>com.tmTransmiSurvey.model.entity.procesamiento.ADabordoProcesada</value>
+                <value>com.tmTransmiSurvey.model.entity.procesamiento.ADabordoRegProcesada</value>
+                <value>com.tmTransmiSurvey.model.entity.procesamiento.FocupacionProcesada</value>
+                <value>com.tmTransmiSurvey.model.entity.procesamiento.FocupacionRegProcesada</value>
+                <value>com.tmTransmiSurvey.model.entity.apoyo.TipoFranja</value>
+                <value>com.tmTransmiSurvey.model.entity.apoyo.IntervalosProgramacion</value>
 
             </list>
         </property>
