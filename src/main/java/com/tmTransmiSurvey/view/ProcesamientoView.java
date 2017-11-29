@@ -111,7 +111,7 @@ public class ProcesamientoView {
             }
 
         }else if(encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION)){
-            logDatos = encuestaFOVProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,identificadorEstudio);
+            logDatos = encuestaFOVProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,identificadorEstudio,modo);
         }
 
         if(procesamientoExitoso){
