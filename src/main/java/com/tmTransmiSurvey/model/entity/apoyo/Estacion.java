@@ -24,8 +24,14 @@ public class Estacion {
     @Column(name = "modo")
     private String modo;
 
+    @Column(name = "zona")
+    private String zona;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estacion", cascade = CascadeType.REMOVE)
     private List<ServicioEstacion> registros;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estacion", cascade = CascadeType.REMOVE)
+    private List<FovCodigos> codigos;
 
     public Estacion() {
     }
@@ -68,5 +74,21 @@ public class Estacion {
 
     public void setModo(String modo) {
         this.modo = modo;
+    }
+
+    public String getZona() {
+        return zona;
+    }
+
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
+
+    public List<FovCodigos> getCodigos() {
+        return codigos;
+    }
+
+    public void setCodigos(List<FovCodigos> codigos) {
+        this.codigos = codigos;
     }
 }
