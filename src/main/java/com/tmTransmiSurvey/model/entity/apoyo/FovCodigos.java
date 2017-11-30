@@ -19,8 +19,9 @@ public class FovCodigos {
     @Column(name = "codigo")
     private String codigo;
 
-    @Column(name = "tipologia")
-    private String tipologia;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "tipologia", nullable = false)
+    private Tipologia tipologia;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "servicio", nullable = false)
@@ -57,14 +58,6 @@ public class FovCodigos {
         this.codigo = codigo;
     }
 
-    public String getTipologia() {
-        return tipologia;
-    }
-
-    public void setTipologia(String tipologia) {
-        this.tipologia = tipologia;
-    }
-
     public ServicioTs getServicio() {
         return servicio;
     }
@@ -79,5 +72,13 @@ public class FovCodigos {
 
     public void setEstacion(Estacion estacion) {
         this.estacion = estacion;
+    }
+
+    public Tipologia getTipologia() {
+        return tipologia;
+    }
+
+    public void setTipologia(Tipologia tipologia) {
+        this.tipologia = tipologia;
     }
 }

@@ -22,4 +22,11 @@ public class ExcelUtilProcessor {
         resultadoHoraIni.setCellType(Cell.CELL_TYPE_NUMERIC);
         resultadoHoraIni.setCellValue(valor);
     }
+
+    public static void createCellNumberResultados(Row row, double valor,int num) {
+        Cell resultadoHoraIni= row.createCell(num);
+        resultadoHoraIni.setCellValue(valor);
+        resultadoHoraIni.setCellType(Cell.CELL_TYPE_NUMERIC);
+        resultadoHoraIni.setCellValue(valor);
+    }
 }

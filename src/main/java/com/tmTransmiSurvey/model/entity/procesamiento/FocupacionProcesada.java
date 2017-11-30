@@ -17,6 +17,9 @@ public class FocupacionProcesada {
     @Column(name = "estacion")
     private String estacion;
 
+    @Column(name = "sentido")
+    private String sentido;
+
     @Column(name = "zona")
     private String zona;
 
@@ -81,5 +84,13 @@ public class FocupacionProcesada {
 
     public void setRegistros(List<FocupacionRegProcesada> registros) {
         this.registros = registros;
+    }
+
+    public String getSentido() {
+        return sentido;
+    }
+
+    public void setSentido(String sentido) {
+        this.sentido = sentido;
     }
 }

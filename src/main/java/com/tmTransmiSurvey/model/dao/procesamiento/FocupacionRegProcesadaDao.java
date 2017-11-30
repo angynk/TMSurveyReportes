@@ -35,7 +35,7 @@ public class FocupacionRegProcesadaDao {
 
     public List<FocupacionRegProcesada> getRegistrosByFov(FocupacionProcesada focupacionProcesada) {
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(FocupacionRegProcesada.class);
-        criteria.add(Restrictions.eq("focupacion", focupacionProcesada));
+        criteria.add(Restrictions.eq("focupacionProcesada", focupacionProcesada));
         return criteria.list();
     }
 }

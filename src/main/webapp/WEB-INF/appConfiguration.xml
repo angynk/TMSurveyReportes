@@ -53,6 +53,7 @@
                 <value>com.tmTransmiSurvey.model.entity.apoyo.TipoFranja</value>
                 <value>com.tmTransmiSurvey.model.entity.apoyo.IntervalosProgramacion</value>
                 <value>com.tmTransmiSurvey.model.entity.apoyo.FovCodigos</value>
+                <value>com.tmTransmiSurvey.model.entity.apoyo.Tipologia</value>
 
             </list>
         </property>
