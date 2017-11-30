@@ -19,6 +19,9 @@ public class FocupacionRegProcesada {
     @Column(name = "servicio")
     private String servicio;
 
+    @Column(name = "tipologia")
+    private String tipologia;
+
     @Column(name = "hora")
     private Time hora;
 
@@ -95,5 +98,13 @@ public class FocupacionRegProcesada {
 
     public void setFocupacionProcesada(FocupacionProcesada focupacionProcesada) {
         this.focupacionProcesada = focupacionProcesada;
+    }
+
+    public String getTipologia() {
+        return tipologia;
+    }
+
+    public void setTipologia(String tipologia) {
+        this.tipologia = tipologia;
     }
 }

@@ -15,6 +15,7 @@ public class ProcesadoFovDEF {
     public static int col_num_ocupacion = 6;
     public static int col_por_ocupacion = 7;
     public static int col_franja = 8;
+    public static int col_tipologia = 9;
 
     //Columns
     public static String fecha = "Fecha";
@@ -26,5 +27,6 @@ public class ProcesadoFovDEF {
     public static String num_ocupacion = "Ocupacion";
     public static String por_ocupacion = "% Ocupacion";
     public static String franja = "Franja";
+    public static String tipologia = "Tipologia";
 
 }

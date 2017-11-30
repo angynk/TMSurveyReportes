@@ -93,6 +93,7 @@ public class EncuestaFOVProcessor {
             regProcesada.setPorOcupacion(porOcupacion);
             regProcesada.setServicio(fovCodigos.getServicio().getNombre());
             regProcesada.setHora(horaPaso);
+            regProcesada.setTipologia(fovCodigos.getTipologia().getNombre());
             fovServicio.addFocupacionRegProcesada(regProcesada);
 
         }else{
@@ -126,6 +127,7 @@ public class EncuestaFOVProcessor {
             focupacionProcesada.setEstudio(estudio);
             focupacionProcesada.setFecha(encuesta.getFecha_encuesta());
             focupacionProcesada.setZona(encuesta.getZona());
+            focupacionProcesada.setSentido(encuesta.getSentido());
             fovServicio.addFovcupacionProcesada(focupacionProcesada);
             return focupacionProcesada;
         }catch (Exception e){

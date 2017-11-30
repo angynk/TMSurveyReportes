@@ -129,6 +129,7 @@ public class VisualizarEstudiosProcessor {
         ExcelUtilProcessor.createCellNumberResultados(rowInfo1, registro.getNumOcupacion(), ProcesadoFovDEF.col_num_ocupacion);
         ExcelUtilProcessor.createCellNumberResultados(rowInfo1, registro.getPorOcupacion(), ProcesadoFovDEF.col_por_ocupacion);
         ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getIntervalo().getInicio().toString()+"-"+registro.getIntervalo().getFin().toString(), ProcesadoFovDEF.col_franja);
+        ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getTipologia(), ProcesadoFovDEF.col_tipologia);
         return rowNumber+1;
     }
 
@@ -160,6 +161,7 @@ public class VisualizarEstudiosProcessor {
         ExcelUtilProcessor.createCellResultados(rowInfo1, ProcesadoFovDEF.num_ocupacion, ProcesadoFovDEF.col_num_ocupacion);
         ExcelUtilProcessor.createCellResultados(rowInfo1, ProcesadoFovDEF.por_ocupacion, ProcesadoFovDEF.col_por_ocupacion);
         ExcelUtilProcessor.createCellResultados(rowInfo1, ProcesadoFovDEF.franja, ProcesadoFovDEF.col_franja);
+        ExcelUtilProcessor.createCellResultados(rowInfo1, ProcesadoFovDEF.tipologia, ProcesadoFovDEF.col_tipologia);
     }
 
     private void crearRowsIniciales(HSSFSheet worksheet) {
