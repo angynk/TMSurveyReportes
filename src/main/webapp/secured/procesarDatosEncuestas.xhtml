@@ -56,11 +56,11 @@
                 <p:panel  header="Frecuencia Ocupación Visual Procesamiento"  style="margin-bottom:20px" visible="#{procesView.frecOcuVisual}">
                     <p:panelGrid columns="4">
                         <p:outputLabel  value="Fecha Inicio (DD-MM-AAAA):" />
-                        <p:calendar  value="#{procesView.fechaInicio}" showOn="button" pattern="dd-MM-yyyy"/>
+                        <p:calendar  value="#{procesView.fechaInicioFOV}" showOn="button" pattern="dd-MM-yyyy"/>
                         <p:outputLabel  value="Fecha Fin (DD-MM-AAAA):" />
-                        <p:calendar  value="#{procesView.fechaFin}" showOn="button" pattern="dd-MM-yyyy"/>
+                        <p:calendar  value="#{procesView.fechaFinFOV}" showOn="button" pattern="dd-MM-yyyy"/>
                         <p:outputLabel  value="Identificador Estudio" />
-                        <p:inputText  value="#{procesView.identificadorEstudio}"  />
+                        <p:inputText  value="#{procesView.identificadorEstudioFOV}"  />
                     </p:panelGrid>
                     <p:commandButton value="Procesar" action="#{procesView.procesarDatosEncuesta}" ajax="false" onclick="PF('dlg2').show();" global="false"
                                      oncomplete="PF('dlg2').hide()"/>

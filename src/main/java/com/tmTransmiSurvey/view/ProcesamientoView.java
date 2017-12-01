@@ -33,10 +33,13 @@ public class ProcesamientoView {
     private boolean resultadosVisibles;
 
     private String identificadorEstudio;
+    private String identificadorEstudioFOV;
     private String estacion;
     private List<String> estacionesRecords;
     private Date fechaInicio;
+    private Date fechaInicioFOV;
     private Date fechaFin;
+    private Date fechaFinFOV;
 
     @ManagedProperty(value="#{ExportarADPuntoProcessor}")
     private ExportarADPuntoProcessor exportarDatosProcessor;
@@ -282,5 +285,29 @@ public class ProcesamientoView {
 
     public void setFrecOcuVisual(Boolean frecOcuVisual) {
         this.frecOcuVisual = frecOcuVisual;
+    }
+
+    public Date getFechaInicioFOV() {
+        return fechaInicioFOV;
+    }
+
+    public void setFechaInicioFOV(Date fechaInicioFOV) {
+        this.fechaInicioFOV = fechaInicioFOV;
+    }
+
+    public String getIdentificadorEstudioFOV() {
+        return identificadorEstudioFOV;
+    }
+
+    public void setIdentificadorEstudioFOV(String identificadorEstudioFOV) {
+        this.identificadorEstudioFOV = identificadorEstudioFOV;
+    }
+
+    public Date getFechaFinFOV() {
+        return fechaFinFOV;
+    }
+
+    public void setFechaFinFOV(Date fechaFinFOV) {
+        this.fechaFinFOV = fechaFinFOV;
     }
 }
