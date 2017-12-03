@@ -79,7 +79,6 @@ public class ExportarDatosProcessor {
             ExcelUtilProcessor.createCellNumberResultados(rowInfo1,encuesta.getRecorrido(), EncuestaAscDescDEF.col_recorrido);
             ExcelUtilProcessor.createCellResultados(rowInfo1,encuesta.getNum_bus(), EncuestaAscDescDEF.col_num_bus);
             ExcelUtilProcessor. createCellNumberResultados(rowInfo1,encuesta.getNum_puerta(), EncuestaAscDescDEF.col_num_puerta);
-            ExcelUtilProcessor.createCellResultados(rowInfo1,"N", EncuestaAscDescDEF.col_observador);
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getEstacion(), EncuestaAscDescDEF.col_estacion);
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getHora_llegada(), EncuestaAscDescDEF.col_hora_llegada);
             ExcelUtilProcessor.createCellNumberResultados(rowInfo1,registro.getBajan(), EncuestaAscDescDEF.col_pas_bajan);
@@ -105,7 +104,6 @@ public class ExportarDatosProcessor {
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaAscDescDEF.recorrido, EncuestaAscDescDEF.col_recorrido);
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaAscDescDEF.NoBus, EncuestaAscDescDEF.col_num_bus);
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaAscDescDEF.NoPuerta, EncuestaAscDescDEF.col_num_puerta);
-        ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaAscDescDEF.operador, EncuestaAscDescDEF.col_observador);
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaAscDescDEF.estacion, EncuestaAscDescDEF.col_estacion);
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaAscDescDEF.horaLlegada, EncuestaAscDescDEF.col_hora_llegada);
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaAscDescDEF.pasBajan, EncuestaAscDescDEF.col_pas_bajan);

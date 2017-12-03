@@ -77,7 +77,7 @@ public class ReporteAdPuntoBean {
     public void descargar(){
         String path = PathFiles.PATH+""+ PathFiles.ASC_DES_PUNTO;
         try {
-            Util.descargarArchivo(path,"AscDescPuntoFijo");
+            Util.descargarArchivo(path,"AscDescPuntoFijo.xls");
         } catch (IOException e) {
             e.printStackTrace();
         }

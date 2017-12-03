@@ -74,7 +74,6 @@ public class ExportarFrecOcupacion {
             ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getHora_paso(), EncuestaFrecOcuDEF.col_hora_paso);
             ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getCodigo(), EncuestaFrecOcuDEF.col_codigo);
             ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getOcupacion()+"", EncuestaFrecOcuDEF.col_ocupacion);
-            ExcelUtilProcessor.createCellResultados(rowInfo1, "5", EncuestaFrecOcuDEF.col_porcentaje);
             rows++;
         }
         return rows;
@@ -91,7 +90,6 @@ public class ExportarFrecOcupacion {
         ExcelUtilProcessor.createCellResultados(rowInfo1,EncuestaFrecOcuDEF.hora_paso,EncuestaFrecOcuDEF.col_hora_paso);
         ExcelUtilProcessor.createCellResultados(rowInfo1,EncuestaFrecOcuDEF.codigo,EncuestaFrecOcuDEF.col_codigo);
         ExcelUtilProcessor.createCellResultados(rowInfo1,EncuestaFrecOcuDEF.ocupacion,EncuestaFrecOcuDEF.col_ocupacion);
-        ExcelUtilProcessor.createCellResultados(rowInfo1,EncuestaFrecOcuDEF.porcentaje,EncuestaFrecOcuDEF.col_porcentaje);
     }
 
     private void crearHeader(HSSFSheet worksheet) {

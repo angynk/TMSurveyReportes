@@ -23,6 +23,7 @@ public class ServicioTs {
     private String tipo;
 
 
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "servicio", cascade = CascadeType.REMOVE)
     private List<ServicioEstacion> registros;
 
