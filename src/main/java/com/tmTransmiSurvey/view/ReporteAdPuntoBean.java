@@ -43,13 +43,13 @@ public class ReporteAdPuntoBean {
         visibleDescarga = false;
         modos = TipoEncuesta.listaModos();
         modo = TipoEncuesta.MODO_TRONCAL;
-        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(validarModo(modo)));
+        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(Util.validarModo(modo)));
         visibleDescarga = false;
 
     }
 
     public void updateServicios(){
-        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(validarModo(modo)));
+        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(Util.validarModo(modo)));
     }
 
     private List<String> convertStringList(List<Estacion> estaciones) {
@@ -83,10 +83,7 @@ public class ReporteAdPuntoBean {
         }
     }
 
-    private String validarModo(String modo) {
-        if(modo.equals(TipoEncuesta.MODO_TRONCAL)) return "tro";
-        return "ali";
-    }
+
 
     public String getEstacion() {
         return estacion;

@@ -33,6 +33,13 @@ public class FOcupacionEncuestaDao {
 
     }
 
+    public List<FOcupacionEncuesta> getInfoBase(Date fechaInicio, Date fechaFin,String estacion) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(FOcupacionEncuesta.class);
+        criteria.add(Restrictions.between("fecha_encuesta", fechaInicio,fechaFin));
+        criteria.add(Restrictions.eq("estacion", estacion));
+        return (List<FOcupacionEncuesta>) criteria.list();
+    }
+
     public List<FOcupacionEncuesta> getInfoBase(Date fechaInicio, Date fechaFin) {
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(FOcupacionEncuesta.class);
         criteria.add(Restrictions.between("fecha_encuesta", fechaInicio,fechaFin));

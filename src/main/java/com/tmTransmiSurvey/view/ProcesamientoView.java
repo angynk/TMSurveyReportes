@@ -7,6 +7,7 @@ import com.tmTransmiSurvey.controller.processor.VisualizarEstudiosProcessor;
 import com.tmTransmiSurvey.controller.util.LogDatos;
 import com.tmTransmiSurvey.controller.util.TipoEncuesta;
 import com.tmTransmiSurvey.controller.util.TipoLog;
+import com.tmTransmiSurvey.controller.util.Util;
 import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
 
 import javax.annotation.PostConstruct;
@@ -35,7 +36,9 @@ public class ProcesamientoView {
     private String identificadorEstudio;
     private String identificadorEstudioFOV;
     private String estacion;
+    private String servicio;
     private List<String> estacionesRecords;
+    private List<String> serviciosRecords;
     private Date fechaInicio;
     private Date fechaInicioFOV;
     private Date fechaFin;
@@ -88,34 +91,32 @@ public class ProcesamientoView {
             adAVisible = true;
             frecOcuVisual = false;
             botonHabilitado = true;
-            estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLosServicios());
+            serviciosRecords = Util.convertStringList (exportarDatosProcessor.encontrarTodosLosServicios());
         }else if (encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION)){
             adAVisible = false;
             frecOcuVisual = true;
+            estacionesRecords = Util.convertStringListEstaciones (exportarDatosProcessor.encontrarTodosLasEstaciones(Util.validarModo(modo)));
         }
 
     }
 
-    private List<String> convertStringList(List<ServicioTs> estaciones) {
-        List<String> lista = new ArrayList<>();
-        for(ServicioTs ser:estaciones){
-            lista.add(ser.getNombre());
-        }
-        return lista;
-    }
+
 
 
     public void procesarDatosEncuesta(){
         boolean procesamientoExitoso = false;
         if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO)){
             if(datosCompletos()){
-                logDatos =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,estacion,modo,identificadorEstudio);
+                logDatos =  encuestaADAbordoProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,servicio,modo,identificadorEstudio);
                 procesamientoExitoso = encuestaADAbordoProcessor.isProcesamientoExitoso();
             }
 
         }else if(encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION)){
-            logDatos = encuestaFOVProcessor.procesarDatosEncuesta(fechaInicio,fechaFin,identificadorEstudio,modo);
-            procesamientoExitoso = encuestaFOVProcessor.isProcesamientoValido();
+            if(datosCompletos()){
+                logDatos = encuestaFOVProcessor.procesarDatosEncuesta(fechaInicioFOV,fechaFinFOV,identificadorEstudioFOV,modo,estacion);
+                procesamientoExitoso = encuestaFOVProcessor.isProcesamientoValido();
+            }
+
         }
 
         if(procesamientoExitoso){
@@ -127,8 +128,10 @@ public class ProcesamientoView {
     }
 
     private boolean datosCompletos() {
-        if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO) || encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION) ){
+        if(encuesta.equals(TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO) ){
             if( fechaInicio!=null && fechaFin!=null && identificadorEstudio!=null) return true;
+        }else if (  encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION) ){
+            if( fechaInicioFOV!=null && fechaFinFOV!=null && identificadorEstudioFOV!=null) return true;
         }
         logDatos.add(new LogDatos("Información incompleta", TipoLog.ERROR));
         return false;
@@ -309,5 +312,21 @@ public class ProcesamientoView {
 
     public void setFechaFinFOV(Date fechaFinFOV) {
         this.fechaFinFOV = fechaFinFOV;
+    }
+
+    public String getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
+    }
+
+    public List<String> getServiciosRecords() {
+        return serviciosRecords;
+    }
+
+    public void setServiciosRecords(List<String> serviciosRecords) {
+        this.serviciosRecords = serviciosRecords;
     }
 }

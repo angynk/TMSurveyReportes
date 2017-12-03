@@ -1,5 +1,8 @@
 package com.tmTransmiSurvey.controller.util;
 
+import com.tmTransmiSurvey.model.entity.apoyo.Estacion;
+import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -124,5 +127,26 @@ public class Util {
         }
 
         return null;
+    }
+
+    public static String validarModo(String modo) {
+        if(modo.equals(TipoEncuesta.MODO_TRONCAL)) return "tro";
+        return "ali";
+    }
+
+    public static List<String> convertStringList(List<ServicioTs> estaciones) {
+        List<String> lista = new ArrayList<>();
+        for(ServicioTs ser:estaciones){
+            lista.add(ser.getNombre());
+        }
+        return lista;
+    }
+
+    public static List<String> convertStringListEstaciones(List<Estacion> estacions) {
+        List<String> lista = new ArrayList<>();
+        for(Estacion ser:estacions){
+            lista.add(ser.getNombre());
+        }
+        return lista;
     }
 }

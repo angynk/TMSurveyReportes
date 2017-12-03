@@ -34,10 +34,10 @@ public class EncuestaFOVProcessor {
     }
 
 
-    public List<LogDatos> procesarDatosEncuesta(Date fechaInicio, Date fechaFin, String identificadorEstudio,String modo) {
+    public List<LogDatos> procesarDatosEncuesta(Date fechaInicio, Date fechaFin, String identificadorEstudio, String modo,String estacion) {
         procesamientoValido = true;
         List<LogDatos> logDatos = new ArrayList<>();
-        List<FOcupacionEncuesta> encuestas = fovServicio.obtenerEncuestasFOVByFecha(fechaInicio,fechaFin);// TODO Incluir Modo
+        List<FOcupacionEncuesta> encuestas = fovServicio.obtenerEncuestasFOVByFecha(fechaInicio,fechaFin,estacion);// TODO Incluir Modo
         if(encuestas.size()>0){
             Estudio estudio = crearEstudio(fechaInicio,identificadorEstudio,modo);
             for(FOcupacionEncuesta encuesta:encuestas){

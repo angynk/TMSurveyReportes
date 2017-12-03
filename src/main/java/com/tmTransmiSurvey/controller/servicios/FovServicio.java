@@ -46,8 +46,8 @@ public class FovServicio {
     }
 
 
-    public List<FOcupacionEncuesta> obtenerEncuestasFOVByFecha(Date fechaInicio, Date fechaFin) {
-        return fOcupacionEncuestaDao.getInfoBase(fechaInicio,fechaFin);
+    public List<FOcupacionEncuesta> obtenerEncuestasFOVByFecha(Date fechaInicio, Date fechaFin,String estacion) {
+        return fOcupacionEncuestaDao.getInfoBase(fechaInicio,fechaFin,estacion);
     }
 
     public void addEstudio(Estudio estudio) {
