@@ -14,14 +14,13 @@ public class EncuestaAscDescDEF {
     public static int col_recorrido = 4;
     public static int col_num_bus = 5;
     public static int col_num_puerta = 6;
-    public static int col_observador = 7;
-    public static int col_estacion = 8;
-    public static int col_hora_llegada = 9;
-    public static int col_pas_bajan = 10;
-    public static int col_pas_suben = 11;
-    public static int col_pas_quedan = 12;
-    public static int col_hora_salida = 13;
-    public static int col_observacion = 14;
+    public static int col_estacion = 7;
+    public static int col_hora_llegada = 8;
+    public static int col_pas_bajan = 9;
+    public static int col_pas_suben = 10;
+    public static int col_pas_quedan = 10;
+    public static int col_hora_salida = 12;
+    public static int col_observacion = 13;
 
 
     //Valores Defecto

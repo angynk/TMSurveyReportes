@@ -42,6 +42,8 @@
                 <value>com.tmTransmiSurvey.model.entity.apoyo.Estacion</value>
                 <value>com.tmTransmiSurvey.model.entity.apoyo.ServicioEstacion</value>
                 <value>com.tmTransmiSurvey.model.entity.base.FOcupacionEncuesta</value>
+                <value>com.tmTransmiSurvey.model.entity.base.CoDespachosEncuesta</value>
+                <value>com.tmTransmiSurvey.model.entity.base.RegistroConteoDespacho</value>
                 <value>com.tmTransmiSurvey.model.entity.base.RegistroEncuestaFOcupacion</value>
                 <value>com.tmTransmiSurvey.model.entity.base.ADPuntoEncuesta</value>
                 <value>com.tmTransmiSurvey.model.entity.base.RegistroEncuestaADPunto</value>

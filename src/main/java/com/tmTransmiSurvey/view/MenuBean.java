@@ -28,6 +28,15 @@ public class MenuBean {
             e.printStackTrace();
         }
     }
+    public void refreshConteoDespachos(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/visualizarConteoDespachos.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void refreshFrecuenciaOcupacion(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();

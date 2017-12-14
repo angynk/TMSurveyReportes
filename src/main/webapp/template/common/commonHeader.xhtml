@@ -30,12 +30,13 @@
 
                 <p:panel style="border:none;padding-top: 5px;">
                     <p:megaMenu orientation="horizontal" style="margin-top:40px;">
-                        <p:submenu label="Datos Base" icon="ui-icon-script">
+                        <p:submenu label="Datos Base" icon="ui-icon-script" >
                             <p:column>
                                 <p:submenu label="Datos Base">
                                     <p:menuitem value="Ascensos y Descensos Abordo" action="#{menu.refreshAscDescAbordo}" />
                                     <p:menuitem value="Frecuencia Ocupación" action="#{menu.refreshFrecuenciaOcupacion}" />
                                     <p:menuitem value="Ascensos y Descensos Punto Fijo" action="#{menu.refreshAscDescPunto}" />
+                                    <p:menuitem value="Conteo Despachos" action="#{menu.refreshConteoDespachos}" />
                                 </p:submenu>
                             </p:column>
                         </p:submenu>

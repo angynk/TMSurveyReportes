@@ -24,6 +24,10 @@ public class EncuestaAscDescServicio {
     private ADPuntoEncuestaDao adPuntoEncuestaDao;
     @Autowired
     private RegistroEncuestaAscDesPuntoDao registroEncuestaAscDesPuntoDao;
+    @Autowired
+    private CoDespachosEncuestaDao coDespachosEncuestaDao;
+    @Autowired
+    private RegistroConteoDesDao registroConteoDesDao;
 
 
     public EncuestaAscDescServicio() {
@@ -91,5 +95,13 @@ public class EncuestaAscDescServicio {
 
     public List<CuadroEncuesta> getEncuestasByFechaAndServicioOrderTime(Date fechaInicio,Date fechaFin, String servicio, String numBus, Integer recorrido) {
         return cuadroEncuestaDao.getEncuestasByFechaAndServicioOrderTime(fechaInicio,fechaFin,servicio,numBus,recorrido);
+    }
+
+    public List<CoDespachosEncuesta> getConteoEncuestasByFechaAndEstacion(Date fechaInicio, Date fechaFin, String estacion) {
+        return coDespachosEncuestaDao.getConteoEncuestasByFechaAndEstacion(fechaInicio,fechaFin, estacion);
+    }
+
+    public List<RegistroConteoDespacho> getRegistrosConteoByEncuesta(CoDespachosEncuesta encuesta) {
+        return registroConteoDesDao.getRegistrosConteoByEncuesta(encuesta);
     }
 }
