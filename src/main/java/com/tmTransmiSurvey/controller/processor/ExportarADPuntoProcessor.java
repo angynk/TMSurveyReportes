@@ -99,7 +99,7 @@ public class ExportarADPuntoProcessor {
             ExcelUtilProcessor.createCellNumberResultados(rowInfo1,registro.getPas_suben(), EncuestaAscDesPDEF.col_pas_suben);
             ExcelUtilProcessor.createCellNumberResultados(rowInfo1,12, EncuestaAscDesPDEF.col_pas_quedan);
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getHora_salida(), EncuestaAscDesPDEF.col_hora_salida);
-//            ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getObservacion(), EncuestaAscDesPDEF.col_observacion);
+            ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getObservacion(), EncuestaAscDesPDEF.col_observacion);
             rows++;
         }
         return rows;

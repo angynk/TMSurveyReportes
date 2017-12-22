@@ -25,6 +25,9 @@ public class RegistroEncuestaADPunto {
     @Column(name = "pas_suben")
     private int pas_suben;
 
+    @Column(name = "observacion")
+    private String observacion;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ad_punto", nullable = false)
     private ADPuntoEncuesta adPuntoEncuesta;
@@ -86,5 +89,13 @@ public class RegistroEncuestaADPunto {
 
     public void setAdPuntoEncuesta(ADPuntoEncuesta adPuntoEncuesta) {
         this.adPuntoEncuesta = adPuntoEncuesta;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 }

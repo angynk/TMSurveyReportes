@@ -18,7 +18,7 @@ public class EncuestaAscDescDEF {
     public static int col_hora_llegada = 8;
     public static int col_pas_bajan = 9;
     public static int col_pas_suben = 10;
-    public static int col_pas_quedan = 10;
+    public static int col_pas_quedan = 11;
     public static int col_hora_salida = 12;
     public static int col_observacion = 13;
 
