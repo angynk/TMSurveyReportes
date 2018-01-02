@@ -1,5 +1,6 @@
 package com.tmTransmiSurvey.controller.processor;
 
+import com.sun.org.apache.regexp.internal.RE;
 import com.tmTransmiSurvey.controller.util.LogDatos;
 import com.tmTransmiSurvey.controller.util.TipoEncuesta;
 import com.tmTransmiSurvey.controller.util.TipoLog;
@@ -49,10 +50,23 @@ public class EncuestaADAbordoProcessor {
           for(AuxNumBus numBus: recorridos){
               paquetesEncuesta = encontrarPaqueteDatosEncuesta(fechaInicio,fechaFin,servicio,numBus,paquetesEncuesta);
           }
+        logDatos = validarPaquetesDatos(paquetesEncuesta,logDatos);
         logDatos = procesarPaquetesDatos(paquetesEncuesta,fechaInicio,modo,identificadorEstudio,logDatos);
         logDatos.add(new LogDatos("<<Finalizaciòn del procesamiento>>", TipoLog.INFO));
        return logDatos;
     }
+
+    private List<LogDatos> validarPaquetesDatos(Map<Integer, List<CuadroEncuesta>> paquetesEncuesta, List<LogDatos> logDatos) {
+
+        for (Map.Entry<Integer, List<CuadroEncuesta>> entry : paquetesEncuesta.entrySet()) {
+            if(entry.getValue().size() >= 3){
+
+            }
+            System.out.println("clave=" + entry.getKey() + ", valor=" + entry.getValue());
+        }
+        return logDatos;
+    }
+
 
     private List<LogDatos> procesarPaquetesDatos(Map<Integer, List<CuadroEncuesta>> paquetesEncuesta, Date fechaInicio, String modo, String identificadorEstudio, List<LogDatos> logDatos) {
 
@@ -80,51 +94,82 @@ public class EncuestaADAbordoProcessor {
     }
 
     private void procesarRecorrido(int recorrido, List<CuadroEncuesta> encuestas, Estudio estudio, List<LogDatos> logDatos) {
-        // Informacion Base encuesta
-        ADabordoProcesada aDabordoProcesada = new ADabordoProcesada();
-        CuadroEncuesta cuadroEncuesta = encuestas.get(0);
-        aDabordoProcesada.setRecorrido(recorrido);
-        aDabordoProcesada.setNumBus(cuadroEncuesta.getNum_bus());
-        aDabordoProcesada.setServicio(cuadroEncuesta.getServicio());
-        aDabordoProcesada.setEstudio(estudio);
-        aDabordoProcesada.setDiaSemana(cuadroEncuesta.getDia_semana());
-        aDabordoProcesada.setFecha(cuadroEncuesta.getFecha_encuesta());
-        aDabordoServicio.addADabordoProcesada(aDabordoProcesada);
 
         // Procesamiento
         List<List<RegistroEncuestaAscDesc>> mapaAProcesar = cargarInformacionRegistros(encuestas);
-        if(mapaAProcesar.size()>0){
-            List<RegistroEncuestaAscDesc> listaBase = mapaAProcesar.get(0);
-            ADabordoRegProcesada registroAnterior = null;
-            for(int x=0; x< listaBase.size();x++){
-                if( x == 0 ){
-                    registroAnterior = calcularPrimerRegistro(x,mapaAProcesar,aDabordoProcesada);
-                }else{
-                    registroAnterior = calcularRegistro(x,listaBase.get(x),mapaAProcesar,registroAnterior.getPasBus(),aDabordoProcesada);
-                }
+        if(mapaAProcesar.size()>0) {
+            if (mapaValido(mapaAProcesar)) {
+                // Informacion Base encuesta
+                ADabordoProcesada aDabordoProcesada = new ADabordoProcesada();
+                CuadroEncuesta cuadroEncuesta = encuestas.get(0);
+                aDabordoProcesada.setRecorrido(recorrido);
+                aDabordoProcesada.setNumBus(cuadroEncuesta.getNum_bus());
+                aDabordoProcesada.setServicio(cuadroEncuesta.getServicio());
+                aDabordoProcesada.setEstudio(estudio);
+                aDabordoProcesada.setDiaSemana(cuadroEncuesta.getDia_semana());
+                aDabordoProcesada.setFecha(cuadroEncuesta.getFecha_encuesta());
+                aDabordoServicio.addADabordoProcesada(aDabordoProcesada);
+
+                    List<RegistroEncuestaAscDesc> listaBase = mapaAProcesar.get(0);
+                    ADabordoRegProcesada registroAnterior = null;
+                    for (int x = 0; x < listaBase.size(); x++) {
+                        if (x == 0) {
+                            registroAnterior = calcularPrimerRegistro(x, mapaAProcesar, aDabordoProcesada);
+                        } else {
+                            registroAnterior = calcularRegistro(x, listaBase.get(x), mapaAProcesar, registroAnterior.getPasBus(), aDabordoProcesada);
+                        }
+                    }
+            } else {
+                procesamientoExitoso = false;
+                logDatos.add(new LogDatos("Validar datos con numero de Bus: "+getDatosAValidar(mapaAProcesar), TipoLog.ERROR));
             }
+
         }else{
             procesamientoExitoso = false;
             logDatos.add(new LogDatos("No hay registros sobre el estudio seleccionado", TipoLog.ERROR));
         }
 
 
+
+
+    }
+
+    private String getDatosAValidar(List<List<RegistroEncuestaAscDesc>> mapaAProcesar) {
+        List<RegistroEncuestaAscDesc> registros = mapaAProcesar.get(0);
+        if( registros.size() > 0){
+            return registros.get(0).getCuadroEncuesta().getNum_bus();
+        }
+        return " N/A";
+    }
+
+    private boolean mapaValido(List<List<RegistroEncuestaAscDesc>> mapaAProcesar) {
+
+        int numMap = mapaAProcesar.get(0).size();
+        for (List<RegistroEncuestaAscDesc> lista: mapaAProcesar) {
+            if(numMap != lista.size()){
+                return false;
+            }
+        }
+        return true;
     }
 
     private ADabordoRegProcesada calcularRegistro(int pos, RegistroEncuestaAscDesc base, List<List<RegistroEncuestaAscDesc>> mapaAProcesar, Integer pasBus, ADabordoProcesada aDabordoProcesada) {
+        try{
+            for(int x=0; x< mapaAProcesar.size();x++){
+                pasBus = pasBus + mapaAProcesar.get(x).get(pos).getSuben() - mapaAProcesar.get(x).get(pos).getBajan();
+            }
 
-        for(int x=0; x< mapaAProcesar.size();x++){
-            pasBus = pasBus + mapaAProcesar.get(x).get(pos).getSuben() - mapaAProcesar.get(x).get(pos).getBajan();
+            ADabordoRegProcesada nuevoRegistro = insertarRegistro(base.getEstacion(),
+                    base.getHora_llegada(),
+                    base.getHora_salida(),
+                    aDabordoProcesada, pasBus);
+
+            return nuevoRegistro;
+        }catch (Exception e){
+            System.out.println("aa");
         }
 
-        ADabordoRegProcesada nuevoRegistro = insertarRegistro(base.getEstacion(),
-                base.getHora_llegada(),
-                base.getHora_salida(),
-                aDabordoProcesada, pasBus);
-
-
-
-        return nuevoRegistro;
+        return null;
 
     }
 
@@ -198,7 +243,7 @@ public class EncuestaADAbordoProcessor {
             List<RegistroEncuestaAscDesc> registrosByEncuesta = encuestaAscDescServicio.getRegistrosByEncuesta(encuesta);
             datos.add(registrosByEncuesta);
         }
-        encuestas.clear();// Limipar memoria
+//        encuestas.clear();// Limipar memoria
         return datos;
     }
 

@@ -81,4 +81,16 @@ public class FovServicio {
     public List<FocupacionRegProcesada> getRegistrosByEstacion(FocupacionProcesada recorrido) {
         return focupacionRegProcesadaDao.getRegistrosByFov(recorrido);
     }
+
+    public List<FovCodigos> encontrarFovByEstacion(String estacion) {
+        return fovCodigosDao.encontrarFovByEstacion(estacion);
+    }
+
+    public void eliminarFovCodigo(FovCodigos selectedFov) {
+        fovCodigosDao.eliminarFovCodigo(selectedFov);
+    }
+
+    public void agregarFovCodigo(FovCodigos nuevoFov) {
+        fovCodigosDao.agregarFovCodigo(nuevoFov);
+    }
 }

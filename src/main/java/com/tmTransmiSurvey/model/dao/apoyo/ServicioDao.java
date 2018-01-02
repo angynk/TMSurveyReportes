@@ -40,4 +40,9 @@ public class ServicioDao {
         return  criteria.list();
     }
 
+    public ServicioTs encontrarServicioByNombre(String servicio) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(ServicioTs.class);
+        criteria.add(Restrictions.eq("nombre", servicio));
+        return (ServicioTs) criteria.uniqueResult();
+    }
 }

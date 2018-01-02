@@ -39,4 +39,10 @@ public class EstacionDao {
         criteria.addOrder(Order.asc("nombre"));
         return  criteria.list();
     }
+
+    public Estacion encontrarEstacionByNombre(String estacion) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Estacion.class);
+        criteria.add(Restrictions.eq("nombre",estacion));
+        return (Estacion) criteria.uniqueResult();
+    }
 }

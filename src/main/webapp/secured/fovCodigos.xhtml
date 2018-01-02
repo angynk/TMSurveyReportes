@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="content">
+
+
+
+            <h:form  id="form">
+                <p:growl id="message" showDetail="true" />
+                <p:panel id="basic" header="Cargar códigos para procesamiento FOV"  style="margin-bottom:20px">
+                    <h:panelGrid columns="5" style="margin-bottom:10px;margin-top: 10px" cellpadding="5">
+                        <p:outputLabel  value="Modo" />
+                        <p:selectOneMenu  value="#{fovCodBean.modo}" style="width:90%">
+                            <f:selectItems value="#{fovCodBean.modos}" var="modo" itemLabel="#{modo}" itemValue="#{modo}"/>
+                            <p:ajax update="@form" listener="#{fovCodBean.updateEstaciones}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel  value="Estación:" />
+                        <p:selectOneMenu id="advanced" value="#{fovCodBean.estacion}"  panelStyle="width:180px"
+                                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="contains">
+                            <f:selectItems value="#{fovCodBean.estacionesRecords}" var="estacion"
+                                           itemLabel="#{estacion}" itemValue="#{estacion}" />
+
+                            <p:column>
+                                <h:outputText value="#{t}" />
+                            </p:column>
+
+                        </p:selectOneMenu>
+                        <p:commandButton value="Buscar" action="#{fovCodBean.buscar}" ajax="false"
+                                         icon="ui-icon ui-icon-disk" id="withIcon" styleClass="boton">
+                        </p:commandButton>
+                    </h:panelGrid>
+
+
+
+
+                    <div style="height: 10px"></div>
+
+                    <p:panel visible="#{fovCodBean.visibleDatos}">
+                        <div style="margin-top:10px"/>
+                        <p:commandButton actionListener="#{fovCodBean.incluirServicio}" update=":form:nuevoServicio" value="Nuevo Servicio"
+                                         oncomplete="PF('nuevoServicio').show()" icon="ui-icon-plus" title="View" >
+                        </p:commandButton>
+                        <p:dataTable id="prog" var="fov" value="#{fovCodBean.fovCodigosServicio}" widgetVar="ProgTable"
+                                     emptyMessage="No hay registros relacionados a la busqueda" filteredValue="#{fovCodBean.fovCodigosServicioFiltered}"
+                                     scrollable="true" scrollWidth="98%" scrollHeight="410"
+                                     editable="true" >
+
+                            <p:column filterBy="#{fov.servicio.nombre}" headerText="Servicio"  filterMatchMode="contains" sortBy="#{fov.servicio.nombre}"
+                                      style="width: 50px">
+                                <h:outputText value="#{fov.servicio.nombre}" style="width: 50px" />
+                            </p:column>
+
+                            <p:column filterBy="#{fov.codigo}" headerText="Código"  filterMatchMode="contains" sortBy="#{fov.codigo}"
+                                      style="width: 50px">
+                                <h:outputText value="#{fov.codigo}" style="width: 50px" />
+                            </p:column>
+
+                            <p:column filterBy="#{fov.sentido}" headerText="Sentido"  filterMatchMode="contains" sortBy="#{fov.sentido}"
+                                      style="width: 75px">
+                                <h:outputText value="#{fov.sentido}"  style="width: 75px"/>
+                            </p:column>
+
+                            <p:column filterBy="#{fov.tipologia.nombre}" headerText="Tipología"  filterMatchMode="contains" sortBy="#{fov.tipologia.nombre}"
+                                      style="width: 75px">
+                                <h:outputText value="#{fov.tipologia.nombre}"  style="width: 75px"/>
+                            </p:column>
+
+                            <p:column style="width:32px;text-align: center" exportable="false"  >
+                                <p:commandButton id="delete"
+                                                 icon="ui-icon ui-icon-trash"
+                                                 title="GDeleteButton"
+                                                 onclick="PF('groupDeleteConfirm').show()">
+                                    <f:setPropertyActionListener value="#{fov}" target="#{fovCodBean.selectedFov}" />
+                                </p:commandButton>
+
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:dialog header="Incluir Servicio" widgetVar="nuevoServicio" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="nuevoServicio" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty fovCodBean.nuevoFov}" columnClasses="label">
+
+                                    <h:outputText value="Servicio:" style="color:black" />
+
+                                    <p:selectOneMenu  value="#{fovCodBean.servicio}"  panelStyle="width:180px"
+                                                     effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="contains">
+                                        <f:selectItems value="#{fovCodBean.servicios}" var="serv"
+                                                       itemLabel="#{serv}" itemValue="#{serv}" />
+
+                                        <p:column>
+                                            <h:outputText value="#{t}" />
+                                        </p:column>
+
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Código:" style="color:black"/>
+                                    <h:inputText value="#{fovCodBean.nuevoFov.codigo}"  />
+
+                                    <h:outputText value="Sentido:" style="color:black"/>
+                                    <p:selectOneMenu  value="#{fovCodBean.nuevoFov.sentido}" style="width:90%">
+                                        <f:selectItems value="#{fovCodBean.sentidos}" var="sen" itemLabel="#{sen}" itemValue="#{sen}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Tipología:" style="color:black"/>
+                                    <p:selectOneMenu  value="#{fovCodBean.tipologia}" style="width:90%">
+                                        <f:selectItems value="#{fovCodBean.tipologias}" var="tip" itemLabel="#{tip}" itemValue="#{tip}"/>
+                                    </p:selectOneMenu>
+
+                                </p:panelGrid>
+                                <p:panelGrid columns="2">
+                                    <p:commandButton value="Nuevo" action="#{fovCodBean.nuevofovCodigo}" ajax="false"
+                                                     icon="ui-icon ui-icon-disk" id="nuevoV"
+                                                     async="true" />
+
+                                    <p:commandButton value="Cancelar" action="#{fovCodBean.cancelar}" ajax="false"
+                                                     icon="ui-icon ui-icon-disk" id="cancelarsV"
+                                                     async="true" />
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+
+
+                        <p:confirmDialog message="¿Esta seguro de eliminar esta asociación?"
+                                         showEffect="fade"
+                                         hideEffect="explode"
+                                         widgetVar="groupDeleteConfirm">
+                            <p:commandButton title="GDelYesButton"
+                                             value="Si"
+                                             action="#{fovCodBean.eliminarFov}"
+                                             oncomplete="PF('groupDeleteConfirm').hide()" update="@form" ajax="true"
+                            />
+                            <p:commandButton title="GDelNoButton"
+                                             value="No"
+                                             oncomplete="PF('groupDeleteConfirm').hide()"/>
+                        </p:confirmDialog>
+
+                    </p:panel>
+
+
+
+
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</h:body>
+
+</html>
+

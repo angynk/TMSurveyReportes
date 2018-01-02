@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Repository
@@ -40,5 +41,24 @@ public class FovCodigosDao {
         }
 
         return  null;
+    }
+
+    public List<FovCodigos> encontrarFovByEstacion(String estacion) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Estacion.class);
+        criteria.add(Restrictions.eq("nombre",estacion));
+        Estacion estacionObj = (Estacion) criteria.uniqueResult();
+
+
+        Criteria criteriaFov = getSessionFactory().getCurrentSession().createCriteria(FovCodigos.class);
+        criteriaFov.add(Restrictions.eq("estacion",estacionObj));
+        return  criteriaFov.list();
+    }
+
+    public void eliminarFovCodigo(FovCodigos selectedFov) {
+        getSessionFactory().getCurrentSession().delete(selectedFov);
+    }
+
+    public void agregarFovCodigo(FovCodigos nuevoFov) {
+        Serializable save = getSessionFactory().getCurrentSession().save(nuevoFov);
     }
 }

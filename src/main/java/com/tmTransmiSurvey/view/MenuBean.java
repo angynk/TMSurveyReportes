@@ -58,6 +58,16 @@ public class MenuBean {
         }
     }
 
+    public void refreshFovCodigos(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/fovCodigos.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void refreshDatosProcesados(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {

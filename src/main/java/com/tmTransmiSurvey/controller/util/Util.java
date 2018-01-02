@@ -149,4 +149,13 @@ public class Util {
         }
         return lista;
     }
+
+    public static List<String> obtenerSentidos() {
+        List<String> sentidos = new ArrayList<>();
+        sentidos.add("NORTE-SUR");
+        sentidos.add("SUR-NORTE");
+        sentidos.add("OCCIDENTE-ORIENTE");
+        sentidos.add("ORIENTE-OCCIDENTE");
+        return sentidos;
+    }
 }
