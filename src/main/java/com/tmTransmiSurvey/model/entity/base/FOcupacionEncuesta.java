@@ -19,6 +19,9 @@ public class FOcupacionEncuesta implements Serializable {
     @Column(name = "aforador")
     private String aforador;
 
+    @Column(name = "dia_semana")
+    private String dia_semana;
+
     @Column(name = "fecha_encuesta")
     private Date fecha_encuesta;
 
@@ -91,5 +94,13 @@ public class FOcupacionEncuesta implements Serializable {
 
     public void setRegistros(List<RegistroEncuestaFOcupacion> registros) {
         this.registros = registros;
+    }
+
+    public String getDia_semana() {
+        return dia_semana;
+    }
+
+    public void setDia_semana(String dia_semana) {
+        this.dia_semana = dia_semana;
     }
 }

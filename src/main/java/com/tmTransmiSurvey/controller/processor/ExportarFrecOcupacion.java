@@ -67,7 +67,7 @@ public class ExportarFrecOcupacion {
             Row rowInfo1 = worksheet.createRow(rows);
             ExcelUtilProcessor.createCellResultados(rowInfo1, sdfDate.format(encuesta.getFecha_encuesta()), EncuestaFrecOcuDEF.col_fecha);
             ExcelUtilProcessor.createCellResultados(rowInfo1, encuesta.getAforador(), EncuestaFrecOcuDEF.col_aforador);
-            ExcelUtilProcessor.createCellResultados(rowInfo1, "Lunes", EncuestaFrecOcuDEF.col_dia_semana);
+            ExcelUtilProcessor.createCellResultados(rowInfo1, encuesta.getDia_semana(), EncuestaFrecOcuDEF.col_dia_semana);
             ExcelUtilProcessor.createCellResultados(rowInfo1, encuesta.getZona(), EncuestaFrecOcuDEF.col_zona);
             ExcelUtilProcessor.createCellResultados(rowInfo1, encuesta.getEstacion(), EncuestaFrecOcuDEF.col_estacion);
             ExcelUtilProcessor.createCellResultados(rowInfo1, encuesta.getSentido(), EncuestaFrecOcuDEF.col_sentido);
