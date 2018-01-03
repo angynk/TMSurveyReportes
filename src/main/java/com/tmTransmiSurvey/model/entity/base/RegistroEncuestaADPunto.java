@@ -24,6 +24,10 @@ public class RegistroEncuestaADPunto {
     private int pas_bajan;
     @Column(name = "pas_suben")
     private int pas_suben;
+    @Column(name = "pas_quedan")
+    private int pas_quedan;
+    @Column(name = "servicio")
+    private String servicio;
 
     @Column(name = "observacion")
     private String observacion;
@@ -97,5 +101,21 @@ public class RegistroEncuestaADPunto {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+
+    public int getPas_quedan() {
+        return pas_quedan;
+    }
+
+    public void setPas_quedan(int pas_quedan) {
+        this.pas_quedan = pas_quedan;
+    }
+
+    public String getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(String servicio) {
+        this.servicio = servicio;
     }
 }

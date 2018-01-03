@@ -92,12 +92,12 @@ public class ExportarADPuntoProcessor {
             ExcelUtilProcessor.createCellResultados(rowInfo1,encuesta.getAforador(), EncuestaAscDesPDEF.col_aforador);
             ExcelUtilProcessor.createCellResultados(rowInfo1,encuesta.getDia_semana(), EncuestaAscDesPDEF.col_dia_semana);
             ExcelUtilProcessor.createCellResultados(rowInfo1,encuesta.getEstacion(), EncuestaAscDesPDEF.col_estacion);
-            ExcelUtilProcessor.createCellResultados(rowInfo1,encuesta.getServicio(), EncuestaAscDesPDEF.col_servicio);
+            ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getServicio(), EncuestaAscDesPDEF.col_servicio);
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getNum_bus(), EncuestaAscDesPDEF.col_num_bus);
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getHora_llegada(), EncuestaAscDesPDEF.col_hora_llegada);
             ExcelUtilProcessor.createCellNumberResultados(rowInfo1,registro.getPas_bajan(), EncuestaAscDesPDEF.col_pas_bajan);
             ExcelUtilProcessor.createCellNumberResultados(rowInfo1,registro.getPas_suben(), EncuestaAscDesPDEF.col_pas_suben);
-            ExcelUtilProcessor.createCellNumberResultados(rowInfo1,12, EncuestaAscDesPDEF.col_pas_quedan);
+            ExcelUtilProcessor.createCellNumberResultados(rowInfo1,registro.getPas_quedan(), EncuestaAscDesPDEF.col_pas_quedan);
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getHora_salida(), EncuestaAscDesPDEF.col_hora_salida);
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getObservacion(), EncuestaAscDesPDEF.col_observacion);
             rows++;
