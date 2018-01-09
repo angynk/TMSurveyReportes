@@ -38,6 +38,16 @@ public class MenuBean {
         }
     }
 
+    public void refreshOrigenDestino(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/visualizarODEncuestas.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void refreshFrecuenciaOcupacion(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
