@@ -72,6 +72,8 @@ public class ExportarODProcessor {
         worksheet.addMergedRegion(CellRangeAddress.valueOf(EncuestaOdDEF.rango_transbordosA));
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.transbordosB, EncuestaOdDEF.col_transbordosB);
         worksheet.addMergedRegion(CellRangeAddress.valueOf(EncuestaOdDEF.rango_transbordosB));
+        ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.infoComplemento, EncuestaOdDEF.col_infoComplemento);
+        worksheet.addMergedRegion(CellRangeAddress.valueOf(EncuestaOdDEF.rango_infoComplemento));
     }
 
     private void crearRowsContenido(HSSFSheet worksheet, HSSFWorkbook workbook, List<ODEncuesta> encuestas) {
@@ -99,6 +101,9 @@ public class ExportarODProcessor {
             ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getEstacion_origen(), EncuestaOdDEF.col_estacion_origen);
             ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getEstacion_destino(), EncuestaOdDEF.col_estacion_destino);
             ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getServicio_origen(), EncuestaOdDEF.col_servicio_origen);
+            ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getMas_transbordos().toString(), EncuestaOdDEF.col_varios_transbordos);
+            ExcelUtilProcessor.createCellNumberResultados(rowInfo1, registro.getCant_viaje(), EncuestaOdDEF.col_cantidad_veces);
+            ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getModo_llegada(), EncuestaOdDEF.col_modo_llegada);
             if(transbordos.size()>0){
                 ExcelUtilProcessor.createCellResultados(rowInfo1, transbordos.get(0).getEstacion(), EncuestaOdDEF.col_transbordo_estacionA);
                 ExcelUtilProcessor.createCellResultados(rowInfo1, transbordos.get(0).getServicio(), EncuestaOdDEF.col_transbordo_servicioA);
@@ -130,5 +135,8 @@ public class ExportarODProcessor {
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.transbordoServicioA, EncuestaOdDEF.col_transbordo_servicioA);
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.transbordoEstacionB, EncuestaOdDEF.col_transbordo_estacionB);
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.transbordoServicioB, EncuestaOdDEF.col_transbordo_servicioB);
+        ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.variosTransbordos, EncuestaOdDEF.col_varios_transbordos);
+        ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.cantidadVeces, EncuestaOdDEF.col_cantidad_veces);
+        ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.modoLlegada, EncuestaOdDEF.col_modo_llegada);
     }
 }

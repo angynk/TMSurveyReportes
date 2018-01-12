@@ -26,6 +26,15 @@ public class ODRegistro implements Serializable {
     @Column(name = "hora_encuesta")
     private String hora_encuesta;
 
+    @Column(name = "mas_transbordos")
+    private Boolean mas_transbordos;
+
+    @Column(name = "cant_viaje")
+    private Integer cant_viaje;
+
+    @Column(name = "modo_llegada")
+    private String modo_llegada;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "odRegistro", cascade = CascadeType.REMOVE)
     private List<ODTransbordo> transbordos;
 
@@ -90,5 +99,29 @@ public class ODRegistro implements Serializable {
 
     public void setIdEncuesta(ODEncuesta idEncuesta) {
         this.idEncuesta = idEncuesta;
+    }
+
+    public Boolean getMas_transbordos() {
+        return mas_transbordos;
+    }
+
+    public void setMas_transbordos(Boolean mas_transbordos) {
+        this.mas_transbordos = mas_transbordos;
+    }
+
+    public Integer getCant_viaje() {
+        return cant_viaje;
+    }
+
+    public void setCant_viaje(Integer cant_viaje) {
+        this.cant_viaje = cant_viaje;
+    }
+
+    public String getModo_llegada() {
+        return modo_llegada;
+    }
+
+    public void setModo_llegada(String modo_llegada) {
+        this.modo_llegada = modo_llegada;
     }
 }

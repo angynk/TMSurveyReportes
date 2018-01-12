@@ -19,6 +19,9 @@ public class EncuestaOdDEF {
     public static int col_transbordo_servicioA = 10;
     public static int col_transbordo_estacionB = 11;
     public static int col_transbordo_servicioB = 12;
+    public static int col_varios_transbordos = 13;
+    public static int col_cantidad_veces = 14;
+    public static int col_modo_llegada = 15;
 
     //Valores Defecto
     public static String fecha = "Fecha";
@@ -34,6 +37,9 @@ public class EncuestaOdDEF {
     public static String transbordoServicioA = "Servicio";
     public static String transbordoEstacionB = "Estación";
     public static String transbordoServicioB = "Servicio";
+    public static String variosTransbordos = "Más de dos transbordos";
+    public static String cantidadVeces = "Veces/Semana";
+    public static String modoLlegada = "Modo Llegada";
 
 
     // Celdas Combinadas
@@ -41,6 +47,7 @@ public class EncuestaOdDEF {
     public static String origenDestino = "Origen Destino";
     public static String transbordosA = "Transbordo No.1";
     public static String transbordosB = "Transbordo No.2";
+    public static String infoComplemento = "Información Complemento";
 
     public static int col_informacionBase = 0;
     public static String rango_informacionBase = "A1:F1";
@@ -50,4 +57,6 @@ public class EncuestaOdDEF {
     public static String rango_transbordosA = "J1:K1";
     public static int col_transbordosB = 11;
     public static String rango_transbordosB = "L1:M1";
+    public static int col_infoComplemento = 13;
+    public static String rango_infoComplemento = "N1:P1";
 }
