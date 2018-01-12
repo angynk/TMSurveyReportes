@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+
+        <ui:define name="content">
+            <h:form enctype="multipart/form-data">
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+                <p:panel id="basic" header="Frecuencia Ocupación"  style="margin-bottom:20px">
+                    <h:panelGrid columns="6" style="margin-bottom:10px;margin-top: 10px" cellpadding="5" cellspacing="15">
+                        <p:outputLabel for="button" value="Fecha Inicio (DD-MM-AAAA):" />
+                        <p:calendar id="button" value="#{FrecOcuBus.fechaInicio}" showOn="button" pattern="dd-MM-yyyy"/>
+                        <p:outputLabel for="buttonV" value="Fecha Fin (DD-MM-AAAA):" />
+                        <p:calendar id="buttonV" value="#{FrecOcuBus.fechaFin}" showOn="button" pattern="dd-MM-yyyy"/>
+                    </h:panelGrid>
+                    <p:commandButton value="Exportar" action="#{FrecOcuBus.exportarDatosEncuesta()}" ajax="false"
+                                     icon="ui-icon ui-icon-disk" id="withIcon" styleClass="boton"
+                                     async="true" process="@form" onclick="PF('dlg2').show();" global="false"
+                                     oncomplete="PF('dlg2').hide()"/>
+
+                </p:panel>
+                <p:panel visible="#{FrecOcuBus.visibleDescarga}">
+                    <h:commandButton  value="Descargar"  action="#{FrecOcuBus.descargar()}"   >
+                    </h:commandButton>
+                </p:panel>
+
+                <p:dialog  widgetVar="dlg2" modal="true" height="100" closable="false" resizable="false"
+                           minHeight="40" style="height: 40px">
+                    <h:outputText value="En Proceso.." />
+                    <p:graphicImage name="images/ajaxloadingbar.gif" />
+                </p:dialog>
+
+            </h:form>
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</h:body>
+
+</html>

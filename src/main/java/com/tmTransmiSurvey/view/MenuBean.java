@@ -28,6 +28,16 @@ public class MenuBean {
             e.printStackTrace();
         }
     }
+
+    public void refreshFrecNumBus(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/visualizarFOBus.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void refreshConteoDespachos(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {

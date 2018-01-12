@@ -50,6 +50,8 @@
                 <value>com.tmTransmiSurvey.model.entity.base.ODEncuesta</value>
                 <value>com.tmTransmiSurvey.model.entity.base.ODRegistro</value>
                 <value>com.tmTransmiSurvey.model.entity.base.ODTransbordo</value>
+                <value>com.tmTransmiSurvey.model.entity.base.FOBus</value>
+                <value>com.tmTransmiSurvey.model.entity.base.RegistroFOBus</value>
                 <value>com.tmTransmiSurvey.model.entity.procesamiento.Estudio</value>
                 <value>com.tmTransmiSurvey.model.entity.procesamiento.ADabordoProcesada</value>
                 <value>com.tmTransmiSurvey.model.entity.procesamiento.ADabordoRegProcesada</value>
