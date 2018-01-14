@@ -101,7 +101,7 @@ public class ExportarODProcessor {
             ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getEstacion_origen(), EncuestaOdDEF.col_estacion_origen);
             ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getEstacion_destino(), EncuestaOdDEF.col_estacion_destino);
             ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getServicio_origen(), EncuestaOdDEF.col_servicio_origen);
-            ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getMas_transbordos().toString(), EncuestaOdDEF.col_varios_transbordos);
+            ExcelUtilProcessor.createCellResultados(rowInfo1, getBooleanValor(registro.getMas_transbordos()), EncuestaOdDEF.col_varios_transbordos);
             ExcelUtilProcessor.createCellNumberResultados(rowInfo1, registro.getCant_viaje(), EncuestaOdDEF.col_cantidad_veces);
             ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getModo_llegada(), EncuestaOdDEF.col_modo_llegada);
             if(transbordos.size()>0){
@@ -118,6 +118,15 @@ public class ExportarODProcessor {
 
         }
         return rows;
+    }
+
+    private String getBooleanValor(Boolean mas_transbordos) {
+        if(mas_transbordos==null){
+            return "No";
+        }else if( mas_transbordos.booleanValue()){
+            return "Si";
+        }
+        return "No";
     }
 
     private void crearRowsIniciales(HSSFSheet worksheet) {
