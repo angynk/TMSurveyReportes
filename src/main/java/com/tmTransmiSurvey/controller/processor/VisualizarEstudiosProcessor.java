@@ -30,6 +30,7 @@ public class VisualizarEstudiosProcessor {
     @Autowired
     public FovServicio fovServicio;
 
+
     public List<Estudio> getEstudios(String encuesta, String modo) {
         return aDabordoServicio.getEstudios(encuesta,modo);
     }
@@ -177,5 +178,9 @@ public class VisualizarEstudiosProcessor {
         ExcelUtilProcessor.createCellResultados(rowInfo1, ProcesadoAscDesADEF.num_bus, ProcesadoAscDesADEF.col_num_bus);
         ExcelUtilProcessor.createCellResultados(rowInfo1, ProcesadoAscDesADEF.fecha, ProcesadoAscDesADEF.col_fecha);
         ExcelUtilProcessor.createCellResultados(rowInfo1, ProcesadoAscDesADEF.dia, ProcesadoAscDesADEF.col_dia);
+    }
+
+    public void eliminarEstudio(Estudio selectedEstudio) {
+        fovServicio.eliminarEstudio(selectedEstudio);
     }
 }

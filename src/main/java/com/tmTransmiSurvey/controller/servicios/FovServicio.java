@@ -93,4 +93,8 @@ public class FovServicio {
     public void agregarFovCodigo(FovCodigos nuevoFov) {
         fovCodigosDao.agregarFovCodigo(nuevoFov);
     }
+
+    public void eliminarEstudio(Estudio selectedEstudio) {
+        estudioDao.eliminarEstudio(selectedEstudio);
+    }
 }

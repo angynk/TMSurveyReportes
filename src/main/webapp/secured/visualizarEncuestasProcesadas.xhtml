@@ -54,6 +54,16 @@
                             <h:outputText value="#{est.identificador}" />
                         </p:column>
 
+                        <p:column style="text-align: center" exportable="false"  >
+                            <p:commandButton id="delete"
+                                             icon="ui-icon ui-icon-trash"
+                                             title="GDeleteButton"
+                                             onclick="PF('groupDeleteConfirm').show()">
+                                <f:setPropertyActionListener value="#{est}" target="#{viewProView.selectedEstudio}" />
+                            </p:commandButton>
+
+                        </p:column>
+
                         <f:facet name="footer">
                             <p:commandButton process="@form"
                                              styleClass="boton"
@@ -84,7 +94,19 @@
                         <p:graphicImage name="images/ajaxloadingbar.gif" />
                 </p:dialog>
 
-
+                <p:confirmDialog message="¿Esta seguro de eliminar este estudio?"
+                                 showEffect="fade"
+                                 hideEffect="explode"
+                                 widgetVar="groupDeleteConfirm">
+                    <p:commandButton title="GDelYesButton"
+                                     value="Si"
+                                     action="#{viewProView.eliminar}"
+                                     oncomplete="PF('groupDeleteConfirm').hide()" update="@form" ajax="true"
+                    />
+                    <p:commandButton title="GDelNoButton"
+                                     value="No"
+                                     oncomplete="PF('groupDeleteConfirm').hide()"/>
+                </p:confirmDialog>
 
 
             </h:form>

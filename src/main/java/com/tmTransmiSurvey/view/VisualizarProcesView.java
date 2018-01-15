@@ -33,6 +33,9 @@ public class VisualizarProcesView {
     @ManagedProperty(value="#{VisualizarEstudiosProcessor}")
     private VisualizarEstudiosProcessor visualizarEstudiosProcessor;
 
+    @ManagedProperty("#{MessagesView}")
+    private MessagesView messagesView;
+
 
 
     public VisualizarProcesView() {
@@ -89,6 +92,14 @@ public class VisualizarProcesView {
         }
 
         RequestContext.getCurrentInstance().execute("PF('dlg3').hide();");
+    }
+
+    public void eliminar(){
+        if(selectedEstudio!=null){
+            visualizarEstudiosProcessor.eliminarEstudio(selectedEstudio);
+            estudios = visualizarEstudiosProcessor.getEstudios(encuesta,modo);
+            messagesView.info("Operación exitosa","Estudio Eliminado");
+        }
     }
 
     public String getEncuesta() {
@@ -161,5 +172,21 @@ public class VisualizarProcesView {
 
     public void setVisibleDescarga(boolean visibleDescarga) {
         this.visibleDescarga = visibleDescarga;
+    }
+
+    public String getNombreArchivo() {
+        return nombreArchivo;
+    }
+
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
+
+    public MessagesView getMessagesView() {
+        return messagesView;
+    }
+
+    public void setMessagesView(MessagesView messagesView) {
+        this.messagesView = messagesView;
     }
 }

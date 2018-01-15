@@ -38,4 +38,8 @@ public class EstudioDao {
         criteria.add(Restrictions.eq("modo", modo));
         return (List<Estudio>) criteria.list();
     }
+
+    public void eliminarEstudio(Estudio selectedEstudio) {
+        getSessionFactory().getCurrentSession().delete(selectedEstudio);
+    }
 }
