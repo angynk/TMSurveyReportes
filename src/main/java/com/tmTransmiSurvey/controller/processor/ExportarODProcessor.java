@@ -104,6 +104,7 @@ public class ExportarODProcessor {
             ExcelUtilProcessor.createCellResultados(rowInfo1, getBooleanValor(registro.getMas_transbordos()), EncuestaOdDEF.col_varios_transbordos);
             ExcelUtilProcessor.createCellNumberResultados(rowInfo1, registro.getCant_viaje(), EncuestaOdDEF.col_cantidad_veces);
             ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getModo_llegada(), EncuestaOdDEF.col_modo_llegada);
+            ExcelUtilProcessor.createCellResultados(rowInfo1, registro.getComentario(), EncuestaOdDEF.col_comentario);
             if(transbordos.size()>0){
                 ExcelUtilProcessor.createCellResultados(rowInfo1, transbordos.get(0).getEstacion(), EncuestaOdDEF.col_transbordo_estacionA);
                 ExcelUtilProcessor.createCellResultados(rowInfo1, transbordos.get(0).getServicio(), EncuestaOdDEF.col_transbordo_servicioA);
@@ -147,5 +148,6 @@ public class ExportarODProcessor {
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.variosTransbordos, EncuestaOdDEF.col_varios_transbordos);
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.cantidadVeces, EncuestaOdDEF.col_cantidad_veces);
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.modoLlegada, EncuestaOdDEF.col_modo_llegada);
+        ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaOdDEF.comentario, EncuestaOdDEF.col_comentario);
     }
 }

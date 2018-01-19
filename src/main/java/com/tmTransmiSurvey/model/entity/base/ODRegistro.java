@@ -35,6 +35,9 @@ public class ODRegistro implements Serializable {
     @Column(name = "modo_llegada")
     private String modo_llegada;
 
+    @Column(name = "comentario")
+    private String comentario;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "odRegistro", cascade = CascadeType.REMOVE)
     private List<ODTransbordo> transbordos;
 
@@ -123,5 +126,13 @@ public class ODRegistro implements Serializable {
 
     public void setModo_llegada(String modo_llegada) {
         this.modo_llegada = modo_llegada;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 }
