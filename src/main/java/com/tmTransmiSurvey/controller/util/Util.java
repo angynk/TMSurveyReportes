@@ -8,11 +8,15 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.DatatypeConverter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 
 public class Util {
@@ -157,5 +162,19 @@ public class Util {
         sentidos.add("OCCIDENTE-ORIENTE");
         sentidos.add("ORIENTE-OCCIDENTE");
         return sentidos;
+    }
+
+    public static String md5(String data) {
+        // Get the algorithm:
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        // Calculate Message Digest as bytes:
+        byte[] digest = md5.digest(data.getBytes(UTF_8));
+        // Convert to 32-char long String:
+        return DatatypeConverter.printHexBinary(digest);
     }
 }
