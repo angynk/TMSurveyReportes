@@ -45,4 +45,12 @@ public class ServicioDao {
         criteria.add(Restrictions.eq("nombre", servicio));
         return (ServicioTs) criteria.uniqueResult();
     }
+
+    public void deleteAll() {
+        getSessionFactory().getCurrentSession().createSQLQuery("TRUNCATE  ts_servicio CASCADE ").executeUpdate();
+    }
+
+    public void addServicio(ServicioTs servicioTs) {
+        getSessionFactory().getCurrentSession().save(servicioTs);
+    }
 }

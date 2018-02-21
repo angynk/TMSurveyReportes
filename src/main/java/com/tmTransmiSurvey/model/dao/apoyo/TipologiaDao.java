@@ -54,4 +54,6 @@ public class TipologiaDao {
         criteria.add(Restrictions.eq("nombre", nombre));
         return (Tipologia) criteria.uniqueResult();
     }
+
+
 }

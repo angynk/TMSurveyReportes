@@ -91,7 +91,7 @@ public class EncuestaFOVProcessor {
             regProcesada.setIntervalo(intervalosProgramacion);
             regProcesada.setNumOcupacion(ocupacion);
             regProcesada.setPorOcupacion(porOcupacion);
-            regProcesada.setServicio(fovCodigos.getServicio().getNombre());
+            regProcesada.setServicio(fovCodigos.getServicio());
             regProcesada.setHora(horaPaso);
             regProcesada.setTipologia(fovCodigos.getTipologia().getNombre());
             fovServicio.addFocupacionRegProcesada(regProcesada);

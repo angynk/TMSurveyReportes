@@ -23,13 +23,11 @@ public class FovCodigos {
     @JoinColumn(name = "tipologia", nullable = false)
     private Tipologia tipologia;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "servicio", nullable = false)
-    private ServicioTs servicio;
+    @Column(name = "servicio")
+    private String servicio;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "estacion", nullable = false)
-    private Estacion estacion;
+    @Column(name = "estacion")
+    private String estacion;
 
     public FovCodigos() {
     }
@@ -58,19 +56,19 @@ public class FovCodigos {
         this.codigo = codigo;
     }
 
-    public ServicioTs getServicio() {
+    public String getServicio() {
         return servicio;
     }
 
-    public void setServicio(ServicioTs servicio) {
+    public void setServicio(String servicio) {
         this.servicio = servicio;
     }
 
-    public Estacion getEstacion() {
+    public String getEstacion() {
         return estacion;
     }
 
-    public void setEstacion(Estacion estacion) {
+    public void setEstacion(String estacion) {
         this.estacion = estacion;
     }
 

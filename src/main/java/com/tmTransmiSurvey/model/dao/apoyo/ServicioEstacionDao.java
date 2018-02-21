@@ -42,4 +42,12 @@ public class ServicioEstacionDao {
         criteria.addOrder(Order.asc("orden"));
         return  criteria.list();
     }
+
+    public void deleteAll() {
+        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM ts_servicio_estacion ").executeUpdate();
+    }
+
+    public void addServicioEstacion(ServicioEstacion servicioEstacion) {
+        getSessionFactory().getCurrentSession().save(servicioEstacion);
+    }
 }

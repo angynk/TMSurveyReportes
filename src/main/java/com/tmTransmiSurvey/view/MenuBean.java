@@ -88,6 +88,36 @@ public class MenuBean {
         }
     }
 
+    public void refreshCargaDatos(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/cargarDatosBase.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void refreshBVistaUsuarios(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/configUsuarios.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void refreshBVistaRoles(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/configRoles.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void refreshDatosProcesados(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="content">
+
+
+
+            <h:form  id="form">
+                <p:growl id="message" showDetail="true" />
+                <p:panel id="basic" header="Usuarios del Sistema"  style="margin-bottom:20px">
+
+                    <div style="height: 5px"></div>
+                    <p:panel>
+                        <div style="margin-top:10px"/>
+                        <div style="margin-top:10px"/>
+                        <p:commandButton actionListener="#{configUser.crearNuevoUsuario}" update=":form:nuevoUsuario" value="Nuevo Usuario"
+                                         oncomplete="PF('nuevoUsuario').show()" icon="ui-icon-plus" title="View">
+                        </p:commandButton>
+                        <div style="height: 8px"></div>
+                        <p:dataTable id="prog" var="user" value="#{configUser.usuariosRecords}" widgetVar="ProgTable"
+                                     emptyMessage="No hay registros relacionados a la busqueda"
+                                     scrollable="true" scrollWidth="98%" scrollHeight="410"
+                                     editable="true">
+
+                            <p:column filterBy="#{user.area}" headerText="Area"  filterMatchMode="contains" sortBy="#{user.area}"
+                                      style="width: 70px">
+                                <h:outputText value="#{user.area}" style="width: 75px" />
+                            </p:column>
+
+                            <p:column filterBy="#{user.nombre}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{user.nombre}"
+                                      style="width: 70px">
+                                <h:outputText value="#{user.nombre}" style="width: 75px" />
+                            </p:column>
+
+                            <p:column filterBy="#{user.usuario}" headerText="Usuario"  filterMatchMode="contains" sortBy="#{user.usuario}"
+                                                  style="width: 70px">
+                            <h:outputText value="#{user.usuario}"  style="width: 75px"/>
+                        </p:column>
+
+                            <p:column filterBy="#{user.role.nombre}" headerText="Role"  filterMatchMode="contains" sortBy="#{user.role.nombre}"
+                                      style="width: 70px">
+                                <h:outputText value="#{user.role.nombre}"  style="width: 75px"/>
+                            </p:column>
+
+                            <p:column filterBy="#{user.activo}" headerText="¿Activo?"  filterMatchMode="contains" sortBy="#{user.activo}"
+                                      style="width: 70px">
+                                <h:outputText value="#{user.activo}"  style="width: 75px"/>
+                            </p:column>
+
+                            <p:column style="width:32px;text-align: center" exportable="false" >
+                                <p:commandButton update=":form:editarUsuario" oncomplete="PF('editarUsuario').show()" icon="ui-icon-pencil" title="View">
+                                    <f:setPropertyActionListener value="#{user}" target="#{configUser.usuarioSelected}" />
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:panel>
+
+                    <p:dialog header="Editar Usuario" widgetVar="editarUsuario" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="editarUsuario" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty configUser.usuarioSelected}" >
+
+                                <h:outputText value="Nombre:" />
+                                <p:inputText  value="#{configUser.usuarioSelected.nombre}"   />
+                                <h:outputText value="Area:"  />
+                                <p:inputText  value="#{configUser.usuarioSelected.area}"    />
+                                <h:outputText value="Usuario:"  />
+                                <p:inputText  value="#{configUser.usuarioSelected.usuario}"    />
+                                <h:outputText  value="Role:"  />
+                                <p:selectOneMenu  value="#{configUser.usuarioSelected.role.idNuevo}" style="width: 200px">
+                                    <f:selectItems value="#{configUser.roleRecords}" var="role" itemLabel="#{role.nombre}" itemValue="#{role.id}" />
+                                </p:selectOneMenu>
+                                <h:outputText value="¿Activo?: " />
+                                <p:selectBooleanCheckbox value="#{configUser.usuarioSelected.activo}" style="width:60px">
+                                </p:selectBooleanCheckbox>
+
+                            </p:panelGrid>
+                            <p:panelGrid columns="2">
+                                <p:commandButton value="Actualizar" action="#{configUser.actualizarUsuario()}" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+
+                                <p:commandButton value="Cancelar"  ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+
+                    <p:dialog header="Nuevo Usuario" widgetVar="nuevoUsuario" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="nuevoUsuario" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty configUser.usuarioNuevo}" >
+
+                                <h:outputText value="Nombre:" />
+                                <p:inputText  value="#{configUser.usuarioNuevo.nombre}"   />
+                                <h:outputText value="Area:"  />
+                                <p:inputText  value="#{configUser.usuarioNuevo.area}"   />
+                                <h:outputText value="Usuario:"  />
+                                <p:inputText  value="#{configUser.usuarioNuevo.usuario}"    />
+                                <h:outputText value="Contraseña:"  />
+                                <p:password  value="#{configUser.usuarioNuevo.contrasena}"  />
+                                <h:outputText  value="Role:"  />
+                                <p:selectOneMenu  value="#{configUser.roleID}" style="width: 200px">
+                                    <f:selectItems value="#{configUser.roleRecords}" var="role" itemLabel="#{role.nombre}" itemValue="#{role.id}" />
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>
+                            <p:panelGrid columns="2">
+                                <p:commandButton value="Crear" action="#{configUser.crearUsuario()}" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+
+                                <p:commandButton value="Cancelar"  action="#{configUser.cancelar()}" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+
+
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</h:body>
+
+</html>

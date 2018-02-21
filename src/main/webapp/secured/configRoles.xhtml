@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="content">
+
+
+
+            <h:form  id="form">
+                <p:growl id="message" showDetail="true" />
+                <p:panel id="basic" header="Roles del Sistema"  style="margin-bottom:20px">
+
+                    <div style="height: 5px"></div>
+                    <p:panel>
+                        <div style="margin-top:10px"/>
+                        <div style="margin-top:10px"/>
+                        <p:commandButton actionListener="#{configRole.crearNuevoRole}" update=":form:nuevoRole" value="Nuevo Role"
+                                         oncomplete="PF('nuevoRole').show()" icon="ui-icon-plus" title="View">
+                        </p:commandButton>
+                        <div style="height: 8px"></div>
+                        <p:dataTable id="prog" var="role" value="#{configRole.roleRecords}" widgetVar="ProgTable"
+                                     emptyMessage="No hay registros relacionados a la busqueda"
+                                     scrollable="true" scrollWidth="98%" scrollHeight="410"
+                                     editable="true">
+
+                            <p:column filterBy="#{role.nombre}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{role.nombre}"
+                                      style="width: 70px">
+                                <h:outputText value="#{role.nombre}" style="width: 75px" />
+                            </p:column>
+
+                            <p:column filterBy="#{role.permisoLeer}" headerText="Leer"  filterMatchMode="contains" sortBy="#{role.permisoLeer}"
+                                      style="width: 70px">
+                                <p:selectBooleanCheckbox value="#{role.permisoLeer}" style="width:60px" disabled="true" />
+                            </p:column>
+
+                            <p:column filterBy="#{role.permisoEscribir}" headerText="Editar"  filterMatchMode="contains" sortBy="#{role.permisoEscribir}"
+                                      style="width: 70px">
+                                <p:selectBooleanCheckbox value="#{role.permisoEscribir}" style="width:60px" disabled="true"/>
+                            </p:column>
+
+                            <p:column filterBy="#{role.permisoEliminar}" headerText="Eliminar"  filterMatchMode="contains" sortBy="#{role.permisoEliminar}"
+                                      style="width: 70px">
+                                <p:selectBooleanCheckbox value="#{role.permisoEliminar}" style="width:60px" disabled="true" />
+                            </p:column>
+
+                            <p:column style="width:32px;text-align: center" exportable="false" >
+                                <p:commandButton update=":form:editarRole" oncomplete="PF('editarRole').show()" icon="ui-icon-pencil" title="View">
+                                    <f:setPropertyActionListener value="#{role}" target="#{configRole.roleSelected}" />
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:panel>
+
+                    <p:dialog header="Editar Role" widgetVar="editarRole" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="editarRole" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty configRole.roleSelected}" >
+
+                                <h:outputText value="Nombre:" />
+                                <p:inputText  value="#{configRole.roleSelected.nombre}"   />
+                                <h:outputText  value="Leer:"  />
+                                <p:selectBooleanCheckbox value="#{configRole.roleSelected.permisoLeer}" style="width:60px"/>
+                                <h:outputText  value="Escribir:"  />
+                                <p:selectBooleanCheckbox value="#{configRole.roleSelected.permisoEscribir}" style="width:60px"/>
+                                <h:outputText  value="Eliminar:"  />
+                                <p:selectBooleanCheckbox value="#{configRole.roleSelected.permisoEliminar}" style="width:60px"/>
+
+                            </p:panelGrid>
+                            <p:panelGrid columns="2">
+                                <p:commandButton value="Actualizar" action="#{configRole.actualizarRole()}" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+
+                                <p:commandButton value="Cancelar"  ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+
+                    <p:dialog header="Nuevo Role" widgetVar="nuevoRole" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="nuevoRole" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty configRole.roleNuevo}" >
+
+                                <h:outputText value="Nombre:" />
+                                <p:inputText  value="#{configRole.roleNuevo.nombre}"   />
+                                <h:outputText  value="Leer:"  />
+                                <p:selectBooleanCheckbox value="#{configRole.roleNuevo.permisoLeer}" style="width:60px"/>
+                                <h:outputText  value="Escribir:"  />
+                                <p:selectBooleanCheckbox value="#{configRole.roleNuevo.permisoEscribir}" style="width:60px"/>
+                                <h:outputText  value="Eliminar:"  />
+                                <p:selectBooleanCheckbox value="#{configRole.roleNuevo.permisoEliminar}" style="width:60px"/>
+
+                            </p:panelGrid>
+                            <p:panelGrid columns="2">
+                                <p:commandButton value="Crear" action="#{configRole.crearRol}" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+
+                                <p:commandButton value="Cancelar"  action="#{configRole.cancelar}" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+
+
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</h:body>
+
+</html>

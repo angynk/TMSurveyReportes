@@ -45,4 +45,12 @@ public class EstacionDao {
         criteria.add(Restrictions.eq("nombre",estacion));
         return (Estacion) criteria.uniqueResult();
     }
+
+    public void deleteAll() {
+        getSessionFactory().getCurrentSession().createSQLQuery("TRUNCATE  ts_estacion CASCADE ").executeUpdate();
+    }
+
+    public void addEstacion(Estacion estacion) {
+        getSessionFactory().getCurrentSession().save(estacion);
+    }
 }

@@ -38,4 +38,11 @@ public class FOBusDao {
         criteria.add(Restrictions.between("fecha_encuesta", fechaInicio,fechaFin));
         return (List<FOBus>) criteria.list();
     }
+
+    public List<FOBus> obtenerEncuestasFOByFecha(Date fechaInicio, Date fechaFin, String estacion) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(FOBus.class);
+        criteria.add(Restrictions.between("fecha_encuesta", fechaInicio,fechaFin));
+        criteria.add(Restrictions.eq("estacion", estacion));
+        return (List<FOBus>) criteria.list();
+    }
 }

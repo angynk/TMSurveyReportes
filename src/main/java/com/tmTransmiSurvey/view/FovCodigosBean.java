@@ -74,12 +74,12 @@ public class FovCodigosBean {
     }
 
     public void nuevofovCodigo(){
-        ServicioTs servicioTs = fovCodigosProcessor.encontrarServicioByNombre(servicio);
-        Estacion estacionTs = fovCodigosProcessor.encontrarEstacionByNombre(estacion);
+//        ServicioTs servicioTs = fovCodigosProcessor.encontrarServicioByNombre(servicio);
+//        Estacion estacionTs = fovCodigosProcessor.encontrarEstacionByNombre(estacion);
         Tipologia tipologiaTs = fovCodigosProcessor.encontrarTipologiaByNombre(tipologia);
-        if(servicioTs!=null && estacionTs!=null && tipologiaTs!=null){
-            nuevoFov.setServicio(servicioTs);
-            nuevoFov.setEstacion(estacionTs);
+        if(servicio!=null && estacion!=null && tipologiaTs!=null){
+            nuevoFov.setServicio(servicio);
+            nuevoFov.setEstacion(estacion);
             nuevoFov.setTipologia(tipologiaTs);
             fovCodigosProcessor.agregarFovCodigo(nuevoFov);
             buscar();

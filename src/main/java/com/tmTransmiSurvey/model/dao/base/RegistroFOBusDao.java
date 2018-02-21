@@ -1,6 +1,7 @@
 package com.tmTransmiSurvey.model.dao.base;
 
 import com.tmTransmiSurvey.model.entity.base.FOBus;
+import com.tmTransmiSurvey.model.entity.base.FOcupacionEncuesta;
 import com.tmTransmiSurvey.model.entity.base.RegistroEncuestaFOcupacion;
 import com.tmTransmiSurvey.model.entity.base.RegistroFOBus;
 import org.hibernate.Criteria;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -39,4 +41,7 @@ public class RegistroFOBusDao {
         criteria.add(Restrictions.eq("idFoBus",encuesta));
         return (List<RegistroFOBus>) criteria.list();
     }
+
+
+
 }

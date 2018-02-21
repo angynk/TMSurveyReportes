@@ -9,6 +9,7 @@ public class TipoEncuesta {
     public static String ENCUESTA_ASC_DESC_ABORDO = "Ascensos Descensos Abordo";
     public static String ENCUESTA_ASC_DESC_PUNTO = "Ascensos Descensos Punto";
     public static String ENCUESTA_FREC_OCUPACION = "Frecuencia Ocupación";
+    public static String ENCUESTA_FREC_OCUPACION_NUM_BUS = "Frecuencia Ocupación No.Bus";
 
     public static String MODO_TRONCAL = "Troncal";
     public static String MODO_ALIMENTADOR = "Alimentador";
@@ -19,6 +20,7 @@ public class TipoEncuesta {
         encuestas.add(ENCUESTA_ASC_DESC_ABORDO);
         encuestas.add(ENCUESTA_ASC_DESC_PUNTO);
         encuestas.add(ENCUESTA_FREC_OCUPACION);
+        encuestas.add(ENCUESTA_FREC_OCUPACION_NUM_BUS);
         return encuestas;
     }
 

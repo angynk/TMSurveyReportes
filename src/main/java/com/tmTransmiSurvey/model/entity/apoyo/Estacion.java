@@ -30,8 +30,6 @@ public class Estacion {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estacion", cascade = CascadeType.REMOVE)
     private List<ServicioEstacion> registros;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estacion", cascade = CascadeType.REMOVE)
-    private List<FovCodigos> codigos;
 
     public Estacion() {
     }
@@ -84,11 +82,4 @@ public class Estacion {
         this.zona = zona;
     }
 
-    public List<FovCodigos> getCodigos() {
-        return codigos;
-    }
-
-    public void setCodigos(List<FovCodigos> codigos) {
-        this.codigos = codigos;
-    }
 }

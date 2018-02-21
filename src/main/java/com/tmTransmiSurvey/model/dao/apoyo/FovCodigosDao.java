@@ -35,7 +35,7 @@ public class FovCodigosDao {
         criteria.add(Restrictions.eq("sentido",sentido));
         List<FovCodigos> resultados = criteria.list();
         for(FovCodigos fovCodigo:resultados){
-            if(fovCodigo.getEstacion().getNombre().equals(estacion)){
+            if(estacion.contains(fovCodigo.getEstacion())){
                 return fovCodigo;
             }
         }

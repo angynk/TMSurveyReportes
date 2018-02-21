@@ -1,14 +1,12 @@
 package com.tmTransmiSurvey.view;
 
-import com.tmTransmiSurvey.controller.processor.EncuestaADAbordoProcessor;
-import com.tmTransmiSurvey.controller.processor.EncuestaFOVProcessor;
-import com.tmTransmiSurvey.controller.processor.ExportarADPuntoProcessor;
-import com.tmTransmiSurvey.controller.processor.VisualizarEstudiosProcessor;
+import com.tmTransmiSurvey.controller.processor.*;
 import com.tmTransmiSurvey.controller.util.LogDatos;
 import com.tmTransmiSurvey.controller.util.TipoEncuesta;
 import com.tmTransmiSurvey.controller.util.TipoLog;
 import com.tmTransmiSurvey.controller.util.Util;
 import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
+import com.tmTransmiSurvey.model.entity.apoyo.Tipologia;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -29,20 +27,25 @@ public class ProcesamientoView {
     private List<String> modos;
     private Boolean adAVisible;
     private Boolean frecOcuVisual;
+    private Boolean frecOcuBus;
     private Boolean botonHabilitado;
     private List<LogDatos> logDatos;
     private boolean resultadosVisibles;
 
     private String identificadorEstudio;
     private String identificadorEstudioFOV;
+    private String identificadorEstudioFOB;
     private String estacion;
+    private String estacionFOB;
     private String servicio;
     private List<String> estacionesRecords;
     private List<String> serviciosRecords;
     private Date fechaInicio;
     private Date fechaInicioFOV;
+    private Date fechaInicioFOB;
     private Date fechaFin;
     private Date fechaFinFOV;
+    private Date fechaFinFOB;
 
     @ManagedProperty(value="#{ExportarADPuntoProcessor}")
     private ExportarADPuntoProcessor exportarDatosProcessor;
@@ -55,6 +58,9 @@ public class ProcesamientoView {
 
     @ManagedProperty(value="#{EncuestaFOVProcessor}")
     private EncuestaFOVProcessor encuestaFOVProcessor;
+
+    @ManagedProperty(value="#{EncuestaFOBProcessor}")
+    private EncuestaFOBProcessor encuestaFOBProcessor;
 
 
 
@@ -75,6 +81,7 @@ public class ProcesamientoView {
         resultadosVisibles = false;
         adAVisible = false;
         frecOcuVisual = false;
+        frecOcuBus = false;
         botonHabilitado = false;
     }
 
@@ -117,6 +124,10 @@ public class ProcesamientoView {
                 procesamientoExitoso = encuestaFOVProcessor.isProcesamientoValido();
             }
 
+        }else if (encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION_NUM_BUS)){
+            if(datosCompletos()){
+                logDatos = encuestaFOBProcessor.procesarDatosEncuesta(fechaInicioFOB,fechaFinFOB,identificadorEstudioFOB,modo,estacion);
+            }
         }
 
         if(procesamientoExitoso){
@@ -132,6 +143,8 @@ public class ProcesamientoView {
             if( fechaInicio!=null && fechaFin!=null && identificadorEstudio!=null) return true;
         }else if (  encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION) ){
             if( fechaInicioFOV!=null && fechaFinFOV!=null && identificadorEstudioFOV!=null) return true;
+        }else if ( encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION_NUM_BUS)){
+            if( fechaFinFOB!=null && fechaFinFOB!=null && identificadorEstudioFOB!=null) return true;
         }
         logDatos.add(new LogDatos("Información incompleta", TipoLog.ERROR));
         return false;
@@ -328,5 +341,53 @@ public class ProcesamientoView {
 
     public void setServiciosRecords(List<String> serviciosRecords) {
         this.serviciosRecords = serviciosRecords;
+    }
+
+    public Boolean getFrecOcuBus() {
+        return frecOcuBus;
+    }
+
+    public void setFrecOcuBus(Boolean frecOcuBus) {
+        this.frecOcuBus = frecOcuBus;
+    }
+
+    public Date getFechaInicioFOB() {
+        return fechaInicioFOB;
+    }
+
+    public void setFechaInicioFOB(Date fechaInicioFOB) {
+        this.fechaInicioFOB = fechaInicioFOB;
+    }
+
+    public Date getFechaFinFOB() {
+        return fechaFinFOB;
+    }
+
+    public void setFechaFinFOB(Date fechaFinFOB) {
+        this.fechaFinFOB = fechaFinFOB;
+    }
+
+    public String getIdentificadorEstudioFOB() {
+        return identificadorEstudioFOB;
+    }
+
+    public void setIdentificadorEstudioFOB(String identificadorEstudioFOB) {
+        this.identificadorEstudioFOB = identificadorEstudioFOB;
+    }
+
+    public String getEstacionFOB() {
+        return estacionFOB;
+    }
+
+    public void setEstacionFOB(String estacionFOB) {
+        this.estacionFOB = estacionFOB;
+    }
+
+    public EncuestaFOBProcessor getEncuestaFOBProcessor() {
+        return encuestaFOBProcessor;
+    }
+
+    public void setEncuestaFOBProcessor(EncuestaFOBProcessor encuestaFOBProcessor) {
+        this.encuestaFOBProcessor = encuestaFOBProcessor;
     }
 }
