@@ -38,7 +38,7 @@
                                     <p:menuitem value="Ascensos y Descensos Punto Fijo" action="#{menu.refreshAscDescPunto}" />
                                     <p:menuitem value="Conteo Despachos" action="#{menu.refreshConteoDespachos}" />
                                     <p:menuitem value="Origen Destino" action="#{menu.refreshOrigenDestino}" />
-                                    <p:menuitem value="Frecuencia Ocupacion No.Bus" action="#{menu.refreshFrecNumBus}" />
+                                    <p:menuitem value="Frecuencia con No.Bus" action="#{menu.refreshFrecNumBus}" />
                                 </p:submenu>
                             </p:column>
                         </p:submenu>
@@ -50,14 +50,14 @@
                                 </p:submenu>
                             </p:column>
                         </p:submenu>
-                        <p:submenu label="Configuración del Sistema" icon="ui-icon-script" rendered="#{loginBean.esAdministrador()}">
+                        <p:submenu label="Configuración del Sistema" icon="ui-icon-script" rendered="#{loginBean.puedeEditar()}">
                         <p:column>
                         <p:submenu label="Datos Base" >
                             <p:menuitem value="Actualizar datos base" action="#{menu.refreshCargaDatos}" />
                         </p:submenu>
                         </p:column>
                         <p:column>
-                        <p:submenu label="Datos Base" >
+                        <p:submenu label="Usuarios"  rendered="#{loginBean.esAdministrador()}">
                             <p:menuitem value="Usuarios" action="#{menu.refreshBVistaUsuarios}" />
                             <p:menuitem value="Roles" action="#{menu.refreshBVistaRoles}" />
                         </p:submenu>
