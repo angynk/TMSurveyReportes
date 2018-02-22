@@ -9,6 +9,7 @@ import com.tmTransmiSurvey.model.entity.apoyo.Estacion;
 import com.tmTransmiSurvey.model.entity.apoyo.FovCodigos;
 import com.tmTransmiSurvey.model.entity.apoyo.ServicioEstacion;
 import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
+import jdk.nashorn.internal.runtime.ECMAException;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -52,7 +53,7 @@ public class CargaDatosServicios {
     }
 
 
-    public void procesarFile(String nombre) {
+    public void procesarFile(String nombre) throws Exception {
         try {
 
             FileInputStream fileInputStream = new FileInputStream(nombre);
@@ -65,9 +66,9 @@ public class CargaDatosServicios {
 
             fileInputStream.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new Exception(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new Exception(e.getMessage());
         }
     }
 

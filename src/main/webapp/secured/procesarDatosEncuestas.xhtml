@@ -56,9 +56,9 @@
                 <p:panel  header="Frecuencia Ocupación Visual Procesamiento"  style="margin-bottom:20px" visible="#{procesView.frecOcuVisual}">
                     <p:panelGrid columns="4">
                         <p:outputLabel  value="Fecha Inicio (DD-MM-AAAA):" />
-                        <p:calendar  value="#{procesView.fechaInicioFOV}" showOn="button" pattern="dd-MM-yyyy"/>
+                        <p:calendar  value="#{procesView.fechaInicioFOV}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
                         <p:outputLabel  value="Fecha Fin (DD-MM-AAAA):" />
-                        <p:calendar  value="#{procesView.fechaFinFOV}" showOn="button" pattern="dd-MM-yyyy"/>
+                        <p:calendar  value="#{procesView.fechaFinFOV}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
                         <p:outputLabel value="Estación:"  />
                         <p:selectOneMenu  value="#{procesView.estacion}"  panelStyle="width:180px"
                                          effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
@@ -78,9 +78,9 @@
                 <p:panel  header="Frecuencia Ocupación con número de Bus Procesamiento"  style="margin-bottom:20px" visible="#{procesView.frecOcuBus}">
                     <p:panelGrid columns="4">
                         <p:outputLabel  value="Fecha Inicio (DD-MM-AAAA):" />
-                        <p:calendar  value="#{procesView.fechaInicioFOB}" showOn="button" pattern="dd-MM-yyyy"/>
+                        <p:calendar  value="#{procesView.fechaInicioFOB}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
                         <p:outputLabel  value="Fecha Fin (DD-MM-AAAA):" />
-                        <p:calendar  value="#{procesView.fechaFinFOB}" showOn="button" pattern="dd-MM-yyyy"/>
+                        <p:calendar  value="#{procesView.fechaFinFOB}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
                         <p:outputLabel value="Estación:"  />
                         <p:selectOneMenu  value="#{procesView.estacionFOB}"  panelStyle="width:180px"
                                           effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">

@@ -174,6 +174,15 @@ public class LoginBean implements Serializable {
         return false;
     }
 
+    public boolean esAdministrador(){
+        if(role!= null){
+            if(role.isPermisoEliminar()&& role.isPermisoEscribir() && role.isPermisoLeer()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean puedeEliminar(){
         if(role!= null){
             return role.isPermisoEliminar();

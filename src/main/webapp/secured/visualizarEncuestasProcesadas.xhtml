@@ -54,7 +54,7 @@
                             <h:outputText value="#{est.identificador}" />
                         </p:column>
 
-                        <p:column style="text-align: center" exportable="false"  >
+                        <p:column style="text-align: center" exportable="false"  rendered="#{loginBean.puedeEliminar()}">
                             <p:commandButton id="delete"
                                              icon="ui-icon ui-icon-trash"
                                              title="GDeleteButton"

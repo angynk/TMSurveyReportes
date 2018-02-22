@@ -50,17 +50,14 @@
                                 </p:submenu>
                             </p:column>
                         </p:submenu>
-                        <p:submenu label="Información Base Encuestas" icon="ui-icon-script">
+                        <p:submenu label="Configuración del Sistema" icon="ui-icon-script" rendered="#{loginBean.esAdministrador()}">
                         <p:column>
-                        <p:submenu label="FOV">
-                            <p:menuitem value="FOV Códigos" action="#{menu.refreshFovCodigos}" />
+                        <p:submenu label="Datos Base" >
                             <p:menuitem value="Actualizar datos base" action="#{menu.refreshCargaDatos}" />
                         </p:submenu>
                         </p:column>
-                        </p:submenu>
-                        <p:submenu label="Gestion Usuarios" icon="ui-icon-script">
                         <p:column>
-                        <p:submenu label="Gestión" icon="ui-icon-script">
+                        <p:submenu label="Datos Base" >
                             <p:menuitem value="Usuarios" action="#{menu.refreshBVistaUsuarios}" />
                             <p:menuitem value="Roles" action="#{menu.refreshBVistaRoles}" />
                         </p:submenu>
