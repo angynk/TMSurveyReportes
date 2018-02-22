@@ -40,7 +40,7 @@ public class CargaDatosBean {
         if(file!=null){
             try {
                 String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-             //   cargaDatosServicios.procesarFile(nombre);
+                cargaDatosServicios.procesarFile(nombre);
                 cargaVisible = false;
                 updateAPIServicios();
                 messagesView.info("Carga de Información Exitosa","");
