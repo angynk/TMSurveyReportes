@@ -1,6 +1,7 @@
 package com.tmTransmiSurvey.view;
 
 import com.tmTransmiSurvey.controller.servicios.CargaDatosServicios;
+import com.tmTransmiSurvey.controller.util.TipoEncuesta;
 import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 @ManagedBean(name = "cargaBean")
 @ViewScoped
@@ -20,6 +22,10 @@ public class CargaDatosBean {
 
     private UploadedFile file;
     private boolean cargaVisible;
+    private String modo;
+    private List<String> modos;
+    private String tipoDato;
+    private List<String> tipoDatos;
 
     @ManagedProperty(value="#{CargaDatosServicios}")
     private CargaDatosServicios cargaDatosServicios;
@@ -34,6 +40,9 @@ public class CargaDatosBean {
     @PostConstruct
     public void init(){
         cargaVisible =true;
+        modos = TipoEncuesta.listaModos();
+        modo = TipoEncuesta.MODO_TRONCAL;
+
     }
 
     public void actualizar(){
@@ -110,5 +119,37 @@ public class CargaDatosBean {
 
     public void setCargaVisible(boolean cargaVisible) {
         this.cargaVisible = cargaVisible;
+    }
+
+    public String getModo() {
+        return modo;
+    }
+
+    public void setModo(String modo) {
+        this.modo = modo;
+    }
+
+    public List<String> getModos() {
+        return modos;
+    }
+
+    public void setModos(List<String> modos) {
+        this.modos = modos;
+    }
+
+    public String getTipoDato() {
+        return tipoDato;
+    }
+
+    public void setTipoDato(String tipoDato) {
+        this.tipoDato = tipoDato;
+    }
+
+    public List<String> getTipoDatos() {
+        return tipoDatos;
+    }
+
+    public void setTipoDatos(List<String> tipoDatos) {
+        this.tipoDatos = tipoDatos;
     }
 }

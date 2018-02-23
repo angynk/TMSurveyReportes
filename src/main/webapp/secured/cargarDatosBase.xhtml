@@ -4,8 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 <h:body>
 
@@ -17,6 +16,10 @@
 
                 <p:panel id="basic" header="Actualizar Datos Base"  style="margin-bottom:20px" visible="#{cargaBean.cargaVisible}">
                     <h:panelGrid columns="3" style="margin-bottom:10px;margin-top: 10px" cellpadding="5" cellspacing="15">
+                        <p:outputLabel value="Modo:"  />
+                        <p:selectOneMenu  value="#{cargaBean.modo}" style="width:125px">
+                            <f:selectItems value="#{cargaBean.modos}" var="modo"  itemLabel="#{modo}" itemValue="#{modo}" />
+                        </p:selectOneMenu>
                         <p:outputLabel value="Seleccione el archivo:"  />
                         <p:fileUpload value="#{cargaBean.file}" mode="simple"
                                       sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(xls|csv|txt)$/" />
