@@ -40,7 +40,7 @@ public class CargaDatosBean {
     @PostConstruct
     public void init(){
         cargaVisible =true;
-        modos = TipoEncuesta.listaModos();
+        modos = TipoEncuesta.listaModosCarga();
         modo = TipoEncuesta.MODO_TRONCAL;
 
     }
@@ -49,7 +49,7 @@ public class CargaDatosBean {
         if(file!=null){
             try {
                 String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-                cargaDatosServicios.procesarFile(nombre);
+                cargaDatosServicios.procesarFile(nombre,modo);
                 cargaVisible = false;
                 updateAPIServicios();
                 messagesView.info("Carga de Información Exitosa","");
@@ -67,11 +67,13 @@ public class CargaDatosBean {
 
         String url = "http://35.226.255.51:8080/TmAPI/config/updateServicios/";
 
+
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         // optional default is GET
         con.setRequestMethod("GET");
+        con.setRequestProperty("modo",modo);
 
         int responseCode = con.getResponseCode();
 
@@ -84,9 +86,7 @@ public class CargaDatosBean {
             response.append(inputLine);
         }
         in.close();
-
-        //print result
-        System.out.println(response.toString());
+        System.out.println("Updated");
     }
 
     public UploadedFile getFile() {

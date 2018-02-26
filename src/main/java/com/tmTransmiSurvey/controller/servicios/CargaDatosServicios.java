@@ -53,12 +53,12 @@ public class CargaDatosServicios {
     }
 
 
-    public void procesarFile(String nombre) throws Exception {
+    public void procesarFile(String nombre,String modo) throws Exception {
         try {
 
             FileInputStream fileInputStream = new FileInputStream(nombre);
             HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
-            borrarDatosBase();
+            borrarDatosBase(modo);
             procesarServicios(workbook);
             procesarEstaciones(workbook);
             procesarServiciosEstaciones(workbook);
@@ -94,10 +94,10 @@ public class CargaDatosServicios {
         }
     }
 
-    private void borrarDatosBase() {
-        servicioEstacionDao.deleteAll();
-        servicioDao.deleteAll();
-        estacionDao.deleteAll();
+    private void borrarDatosBase(String modo) {
+//        servicioEstacionDao.deleteAll(modo);
+        servicioDao.deleteAll(modo);
+        estacionDao.deleteAll(modo);
     }
 
     private void procesarServiciosEstaciones(HSSFWorkbook workbook) {

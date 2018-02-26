@@ -46,8 +46,8 @@ public class ServicioDao {
         return (ServicioTs) criteria.uniqueResult();
     }
 
-    public void deleteAll() {
-        getSessionFactory().getCurrentSession().createSQLQuery("TRUNCATE  ts_servicio CASCADE ").executeUpdate();
+    public void deleteAll(String modo) {
+        getSessionFactory().getCurrentSession().createSQLQuery("DELETE * FROM ts_servicio WHERE tipo = "+modo).executeUpdate();
     }
 
     public void addServicio(ServicioTs servicioTs) {

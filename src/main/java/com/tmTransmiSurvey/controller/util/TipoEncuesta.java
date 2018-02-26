@@ -12,7 +12,9 @@ public class TipoEncuesta {
     public static String ENCUESTA_FREC_OCUPACION_NUM_BUS = "Frecuencia Ocupación No.Bus";
 
     public static String MODO_TRONCAL = "Troncal";
+    public static String MODO_TRONCAL_OD = "Troncal Origen Destino";
     public static String MODO_ALIMENTADOR = "Alimentador";
+    public static String MODO_ZONAL = "Zonal";
 
 
     public static List<String> listaEncuestas(){
@@ -31,4 +33,12 @@ public class TipoEncuesta {
         return modos;
     }
 
+    public static List<String> listaModosCarga() {
+        List<String> modos = new ArrayList<>();
+        modos.add(MODO_TRONCAL);
+        modos.add(MODO_TRONCAL_OD);
+        modos.add(MODO_ALIMENTADOR);
+        modos.add(MODO_ZONAL);
+        return modos;
+    }
 }
