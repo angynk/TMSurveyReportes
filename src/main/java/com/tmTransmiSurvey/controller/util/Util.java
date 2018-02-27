@@ -177,4 +177,17 @@ public class Util {
         // Convert to 32-char long String:
         return DatatypeConverter.printHexBinary(digest);
     }
+
+    public static String findModo(String modo) {
+        if(modo.equals(TipoEncuesta.MODO_TRONCAL)){
+            return "tro";
+        }else if(modo.equals(TipoEncuesta.MODO_TRONCAL_OD)){
+            return "tro-od";
+        }else if(modo.equals(TipoEncuesta.MODO_ALIMENTADOR)){
+            return "ali";
+        }else if(modo.equals(TipoEncuesta.MODO_ZONAL)){
+            return "zon";
+        }
+        return "tod";
+    }
 }

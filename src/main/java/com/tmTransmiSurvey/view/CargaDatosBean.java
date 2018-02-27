@@ -2,6 +2,7 @@ package com.tmTransmiSurvey.view;
 
 import com.tmTransmiSurvey.controller.servicios.CargaDatosServicios;
 import com.tmTransmiSurvey.controller.util.TipoEncuesta;
+import com.tmTransmiSurvey.controller.util.Util;
 import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
@@ -49,7 +50,7 @@ public class CargaDatosBean {
         if(file!=null){
             try {
                 String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-                cargaDatosServicios.procesarFile(nombre,modo);
+                cargaDatosServicios.procesarFile(nombre, Util.findModo(modo));
                 cargaVisible = false;
                 updateAPIServicios();
                 messagesView.info("Carga de Información Exitosa","");
@@ -65,7 +66,7 @@ public class CargaDatosBean {
 
     private void updateAPIServicios() throws IOException {
 
-        String url = "http://35.226.255.51:8080/TmAPI/config/updateServicios/";
+        String url = "http://35.226.255.51:8080/TmAPI/config/updateServicios/?modo="+Util.findModo(modo);
 
 
         URL obj = new URL(url);
@@ -73,7 +74,6 @@ public class CargaDatosBean {
 
         // optional default is GET
         con.setRequestMethod("GET");
-        con.setRequestProperty("modo",modo);
 
         int responseCode = con.getResponseCode();
 

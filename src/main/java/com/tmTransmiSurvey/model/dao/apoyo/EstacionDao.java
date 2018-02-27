@@ -47,7 +47,7 @@ public class EstacionDao {
     }
 
     public void deleteAll(String modo) {
-        getSessionFactory().getCurrentSession().createSQLQuery("DELETE * FROM ts_estacion CASCADE WHERE modo="+modo).executeUpdate();
+        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM ts_estacion WHERE modo= '"+modo+"'").executeUpdate();
     }
 
     public void addEstacion(Estacion estacion) {

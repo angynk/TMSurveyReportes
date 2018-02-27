@@ -43,8 +43,8 @@ public class ServicioEstacionDao {
         return  criteria.list();
     }
 
-    public void deleteAll() {
-        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM ts_servicio_estacion ").executeUpdate();
+    public void deleteAll(String modo) {
+        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM ts_servicio_estacion WHERE servicio IN (SELECT id FROM ts_servicio WHERE tipo = '"+modo+"') ").executeUpdate();
     }
 
     public void addServicioEstacion(ServicioEstacion servicioEstacion) {

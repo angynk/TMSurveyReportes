@@ -81,13 +81,18 @@ public class CargaDatosServicios {
 
             Row row = rowIterator.next();
             if( row.getCell(0) != null ){
-                FovCodigos fovCodigos = new FovCodigos();
-                fovCodigos.setEstacion(excelExtract.getStringCellValue( row, CargaDatosDEF.fov_estacion));
-                fovCodigos.setServicio(excelExtract.getStringCellValue( row, CargaDatosDEF.fov_servicio));
-                fovCodigos.setSentido(excelExtract.getStringCellValue( row, CargaDatosDEF.fov_sentido));
-                fovCodigos.setCodigo(excelExtract.getStringCellValue( row, CargaDatosDEF.fov_codigo));
-                fovCodigos.setTipologia(tipologiaDao.getTipologiaByNombre(excelExtract.getStringCellValue( row, CargaDatosDEF.fov_tipologia)));
-                fovCodigosDao.agregarFovCodigo(fovCodigos);
+                if(excelExtract.getStringCellValue(row,0) != ""){
+                    FovCodigos fovCodigos = new FovCodigos();
+                    fovCodigos.setEstacion(excelExtract.getStringCellValue( row, CargaDatosDEF.fov_estacion));
+                    fovCodigos.setServicio(excelExtract.getStringCellValue( row, CargaDatosDEF.fov_servicio));
+                    fovCodigos.setSentido(excelExtract.getStringCellValue( row, CargaDatosDEF.fov_sentido));
+                    fovCodigos.setCodigo(excelExtract.getStringCellValue( row, CargaDatosDEF.fov_codigo));
+                    fovCodigos.setTipologia(tipologiaDao.getTipologiaByNombre(excelExtract.getStringCellValue( row, CargaDatosDEF.fov_tipologia)));
+                    fovCodigosDao.agregarFovCodigo(fovCodigos);
+                }else {
+                    break;
+                }
+
             }else{
                 break;
             }
@@ -95,7 +100,7 @@ public class CargaDatosServicios {
     }
 
     private void borrarDatosBase(String modo) {
-//        servicioEstacionDao.deleteAll(modo);
+       servicioEstacionDao.deleteAll(modo);
         servicioDao.deleteAll(modo);
         estacionDao.deleteAll(modo);
     }
@@ -109,17 +114,20 @@ public class CargaDatosServicios {
 
             Row row = rowIterator.next();
             if( row.getCell(0) != null ){
-                ServicioEstacion servicioEstacion = new ServicioEstacion();
-                servicioEstacion.setOrden(excelExtract.getNumericCellValue(row,CargaDatosDEF.esServ_orden));
-                servicioEstacion.setServicio(servicioDao.encontrarServicioByNombre(excelExtract.getStringCellValue( row, CargaDatosDEF.esServ_servicio)));
-                servicioEstacion.setEstacion(estacionDao.encontrarEstacionByNombre(excelExtract.getStringCellValue( row, CargaDatosDEF.esServ_estacion)));
-                if(servicioEstacion.getEstacion()!=null && servicioEstacion.getServicio()!=null){
-                    servicioEstacionDao.addServicioEstacion(servicioEstacion);
-                }else{
-                    System.out.println("Error "+ excelExtract.getStringCellValue( row, CargaDatosDEF.esServ_servicio)+" - "+
-                            excelExtract.getStringCellValue( row, CargaDatosDEF.esServ_estacion));
+                if(excelExtract.getStringCellValue(row,0) != "") {
+                    ServicioEstacion servicioEstacion = new ServicioEstacion();
+                    servicioEstacion.setOrden(excelExtract.getNumericCellValue(row, CargaDatosDEF.esServ_orden));
+                    servicioEstacion.setServicio(servicioDao.encontrarServicioByNombre(excelExtract.getStringCellValue(row, CargaDatosDEF.esServ_servicio)));
+                    servicioEstacion.setEstacion(estacionDao.encontrarEstacionByNombre(excelExtract.getStringCellValue(row, CargaDatosDEF.esServ_estacion)));
+                    if (servicioEstacion.getEstacion() != null && servicioEstacion.getServicio() != null) {
+                        servicioEstacionDao.addServicioEstacion(servicioEstacion);
+                    } else {
+                        System.out.println("Error " + excelExtract.getStringCellValue(row, CargaDatosDEF.esServ_servicio) + " - " +
+                                excelExtract.getStringCellValue(row, CargaDatosDEF.esServ_estacion));
+                    }
+                }else {
+                    break;
                 }
-
 
             }else{
                 break;
@@ -136,12 +144,15 @@ public class CargaDatosServicios {
 
             Row row = rowIterator.next();
             if( row.getCell(0) != null ){
-
-                Estacion estacion = new Estacion();
-                estacion.setNombre(excelExtract.getStringCellValue( row, CargaDatosDEF.estaciones_nombre));
-                estacion.setZona(excelExtract.getStringCellValue( row, CargaDatosDEF.estaciones_zona));
-                estacion.setModo(excelExtract.getStringCellValue( row, CargaDatosDEF.estaciones_modo));
-                estacionDao.addEstacion(estacion);
+                if(excelExtract.getStringCellValue(row,0) != "") {
+                    Estacion estacion = new Estacion();
+                    estacion.setNombre(excelExtract.getStringCellValue(row, CargaDatosDEF.estaciones_nombre));
+                    estacion.setZona(excelExtract.getStringCellValue(row, CargaDatosDEF.estaciones_zona));
+                    estacion.setModo(excelExtract.getStringCellValue(row, CargaDatosDEF.estaciones_modo));
+                    estacionDao.addEstacion(estacion);
+                }else {
+                    break;
+                }
             }else{
                 break;
             }
@@ -157,11 +168,14 @@ public class CargaDatosServicios {
 
             Row row = rowIterator.next();
             if( row.getCell(0) != null ){
-
-                ServicioTs servicioTs = new ServicioTs();
-                servicioTs.setNombre(excelExtract.getStringCellValue( row, CargaDatosDEF.servicios_nombre));
-                servicioTs.setTipo(excelExtract.getStringCellValue( row, CargaDatosDEF.servicios_tipo));
-                servicioDao.addServicio(servicioTs);
+                if(excelExtract.getStringCellValue(row,0) != "") {
+                    ServicioTs servicioTs = new ServicioTs();
+                    servicioTs.setNombre(excelExtract.getStringCellValue(row, CargaDatosDEF.servicios_nombre));
+                    servicioTs.setTipo(excelExtract.getStringCellValue(row, CargaDatosDEF.servicios_tipo));
+                    servicioDao.addServicio(servicioTs);
+                }else {
+                    break;
+                }
             }else{
                 break;
             }
