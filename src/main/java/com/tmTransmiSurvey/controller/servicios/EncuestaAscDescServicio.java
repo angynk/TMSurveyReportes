@@ -69,8 +69,8 @@ public class EncuestaAscDescServicio {
     }
 
 
-    public List<FOcupacionEncuesta> getEncuestasFrecuenciaOcupacion(Date fechaInicio, Date fechaFin) {
-        return fOcupacionEncuestaDao.getInfoBase(fechaInicio,fechaFin);
+    public List<FOcupacionEncuesta> getEncuestasFrecuenciaOcupacion(Date fechaInicio, Date fechaFin, String estacion) {
+        return fOcupacionEncuestaDao.getInfoBase(fechaInicio,fechaFin,estacion);
     }
 
     public List<RegistroEncuestaFOcupacion> getRegistrosFrecOcuByEncuesta(FOcupacionEncuesta encuesta) {

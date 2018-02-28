@@ -1,9 +1,6 @@
 package com.tmTransmiSurvey.controller.servicios;
 
-import com.tmTransmiSurvey.controller.util.CargaDatosDEF;
-import com.tmTransmiSurvey.controller.util.ExcelExtract;
-import com.tmTransmiSurvey.controller.util.PathFiles;
-import com.tmTransmiSurvey.controller.util.ProcessorUtils;
+import com.tmTransmiSurvey.controller.util.*;
 import com.tmTransmiSurvey.model.dao.apoyo.*;
 import com.tmTransmiSurvey.model.entity.apoyo.Estacion;
 import com.tmTransmiSurvey.model.entity.apoyo.FovCodigos;
@@ -61,8 +58,10 @@ public class CargaDatosServicios {
             borrarDatosBase(modo);
             procesarServicios(workbook);
             procesarEstaciones(workbook);
-            procesarServiciosEstaciones(workbook);
-            procesarFovCodigos(workbook);
+            procesarServiciosEstaciones(workbook,modo);
+            if(modo.equals(TipoEncuesta.MODO_TRONCAL) || modo.equals(TipoEncuesta.MODO_TRONCAL_OD) ){
+                procesarFovCodigos(workbook);
+            }
 
             fileInputStream.close();
         } catch (FileNotFoundException e) {
@@ -105,7 +104,7 @@ public class CargaDatosServicios {
         estacionDao.deleteAll(modo);
     }
 
-    private void procesarServiciosEstaciones(HSSFWorkbook workbook) {
+    private void procesarServiciosEstaciones(HSSFWorkbook workbook, String modo) {
         HSSFSheet worksheet = workbook.getSheetAt(2);
 
         Iterator<Row> rowIterator = worksheet.iterator();
@@ -117,8 +116,8 @@ public class CargaDatosServicios {
                 if(excelExtract.getStringCellValue(row,0) != "") {
                     ServicioEstacion servicioEstacion = new ServicioEstacion();
                     servicioEstacion.setOrden(excelExtract.getNumericCellValue(row, CargaDatosDEF.esServ_orden));
-                    servicioEstacion.setServicio(servicioDao.encontrarServicioByNombre(excelExtract.getStringCellValue(row, CargaDatosDEF.esServ_servicio)));
-                    servicioEstacion.setEstacion(estacionDao.encontrarEstacionByNombre(excelExtract.getStringCellValue(row, CargaDatosDEF.esServ_estacion)));
+                    servicioEstacion.setServicio(servicioDao.encontrarServicioByNombreAndModo(excelExtract.getStringCellValue(row, CargaDatosDEF.esServ_servicio),modo));
+                    servicioEstacion.setEstacion(estacionDao.encontrarEstacionByNombreAndModo(excelExtract.getStringCellValue(row, CargaDatosDEF.esServ_estacion),modo));
                     if (servicioEstacion.getEstacion() != null && servicioEstacion.getServicio() != null) {
                         servicioEstacionDao.addServicioEstacion(servicioEstacion);
                     } else {

@@ -16,7 +16,23 @@
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
                 <p:panel id="basic" header="Frecuencia Ocupación"  style="margin-bottom:20px">
-                    <h:panelGrid columns="6" style="margin-bottom:10px;margin-top: 10px" cellpadding="5" cellspacing="15">
+                    <h:panelGrid columns="4" style="margin-bottom:10px;margin-top: 10px" cellpadding="5" cellspacing="15">
+                        <p:outputLabel value="Modo:"  />
+                        <p:selectOneMenu  value="#{BaseFrecOcu.modo}" style="width:125px">
+                            <f:selectItems value="#{BaseFrecOcu.modos}" var="modo"  itemLabel="#{modo}" itemValue="#{modo}" />
+                            <p:ajax update="@form" listener="#{BaseFrecOcu.updateEstaciones}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Estación:"  />
+                        <p:selectOneMenu id="advanced" value="#{BaseFrecOcu.estacion}"  panelStyle="width:180px"
+                                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{BaseFrecOcu.estacionesRecords}" var="estacion"
+                                           itemLabel="#{estacion}" itemValue="#{estacion}" />
+
+                            <p:column>
+                                <h:outputText value="#{t}" />
+                            </p:column>
+
+                        </p:selectOneMenu>
                         <p:outputLabel for="button" value="Fecha Inicio (DD-MM-AAAA):" />
                         <p:calendar id="button" value="#{BaseFrecOcu.fechaInicio}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
                         <p:outputLabel for="buttonV" value="Fecha Fin (DD-MM-AAAA):" />

@@ -3,8 +3,10 @@ package com.tmTransmiSurvey.controller.processor;
 
 import com.tmTransmiSurvey.controller.processor.excelDEF.EncuestaFOBusDEF;
 import com.tmTransmiSurvey.controller.servicios.FOBusServicio;
+import com.tmTransmiSurvey.controller.servicios.ServicioEstacionServicio;
 import com.tmTransmiSurvey.controller.util.ExcelUtilProcessor;
 import com.tmTransmiSurvey.controller.util.PathFiles;
+import com.tmTransmiSurvey.model.entity.apoyo.Estacion;
 import com.tmTransmiSurvey.model.entity.base.FOBus;
 import com.tmTransmiSurvey.model.entity.base.RegistroFOBus;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -26,6 +28,9 @@ public class ExportarFOBusProcessor {
 
     @Autowired
     FOBusServicio  foBusServicio;
+
+    @Autowired
+    public ServicioEstacionServicio servicioEstacionServicio;
 
 
     public boolean exportarDatosEncuesta(Date fechaInicio, Date fechaFin) {
@@ -89,5 +94,9 @@ public class ExportarFOBusProcessor {
         ExcelUtilProcessor.createCellResultados(rowInfo1,EncuestaFOBusDEF.hora_paso,EncuestaFOBusDEF.col_hora_paso);
         ExcelUtilProcessor.createCellResultados(rowInfo1,EncuestaFOBusDEF.codigo,EncuestaFOBusDEF.col_codigo);
         ExcelUtilProcessor.createCellResultados(rowInfo1,EncuestaFOBusDEF.num_bus,EncuestaFOBusDEF.col_num_bus);
+    }
+
+    public List<Estacion> encontrarTodosLasEstaciones(String modo) {
+        return servicioEstacionServicio.encontrarTodasLasEstaciones(modo);
     }
 }

@@ -41,15 +41,15 @@ public class ReporteAdPuntoBean {
     @PostConstruct
     public void init() {
         visibleDescarga = false;
-        modos = TipoEncuesta.listaModos();
+        modos = TipoEncuesta.listaModosCarga();
         modo = TipoEncuesta.MODO_TRONCAL;
-        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(Util.validarModo(modo)));
+        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(Util.findModo(modo)));
         visibleDescarga = false;
 
     }
 
     public void updateServicios(){
-        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(Util.validarModo(modo)));
+        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(Util.findModo(modo)));
     }
 
     private List<String> convertStringList(List<Estacion> estaciones) {
@@ -65,12 +65,12 @@ public class ReporteAdPuntoBean {
             boolean resultado= exportarDatosProcessor.exportarDatosEncuesta(fechaInicio,fechaFin,estacion);
             if(resultado) visibleDescarga = true;
         }else{
-
+            messagesView.error("Generación Invalida","Complete todos los campos");
         }
     }
 
     private boolean genracionValida() {
-        if(fechaInicio!=null && fechaFin!=null) return true;
+        if(fechaInicio!=null && fechaFin!=null && estacion!=null) return true;
         return false;
     }
 

@@ -46,15 +46,15 @@ public class FovCodigosBean {
     public void init() {
         modos = TipoEncuesta.listaModos();
         modo = TipoEncuesta.MODO_TRONCAL;
-        estacionesRecords = convertStringList(fovCodigosProcessor.encontrarTodosLasEstaciones(Util.validarModo(modo)));
+        estacionesRecords = convertStringList(fovCodigosProcessor.encontrarTodosLasEstaciones(Util.findModo(modo)));
         visibleDatos = false;
         sentidos = Util.obtenerSentidos();
-        servicios = fovCodigosProcessor.encontrarTodasLosServicios(Util.validarModo(modo));
+        servicios = fovCodigosProcessor.encontrarTodasLosServicios(Util.findModo(modo));
         tipologias = fovCodigosProcessor.encontrarTipologias();
     }
 
     public void updateEstaciones(){
-        estacionesRecords = convertStringList (fovCodigosProcessor.encontrarTodosLasEstaciones(Util.validarModo(modo)));
+        estacionesRecords = convertStringList (fovCodigosProcessor.encontrarTodosLasEstaciones(Util.findModo(modo)));
     }
 
     public void buscar(){

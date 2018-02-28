@@ -134,10 +134,7 @@ public class Util {
         return null;
     }
 
-    public static String validarModo(String modo) {
-        if(modo.equals(TipoEncuesta.MODO_TRONCAL)) return "tro";
-        return "ali";
-    }
+
 
     public static List<String> convertStringList(List<ServicioTs> estaciones) {
         List<String> lista = new ArrayList<>();

@@ -40,7 +40,7 @@ public class FOcupacionEncuestaDao {
         return (List<FOcupacionEncuesta>) criteria.list();
     }
 
-    public List<FOcupacionEncuesta> getInfoBase(Date fechaInicio, Date fechaFin) {
+    public List<FOcupacionEncuesta> getInfoBaseModo(Date fechaInicio, Date fechaFin) {
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(FOcupacionEncuesta.class);
         criteria.add(Restrictions.between("fecha_encuesta", fechaInicio,fechaFin));
         return (List<FOcupacionEncuesta>) criteria.list();

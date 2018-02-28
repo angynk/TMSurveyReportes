@@ -53,4 +53,11 @@ public class ServicioDao {
     public void addServicio(ServicioTs servicioTs) {
         getSessionFactory().getCurrentSession().save(servicioTs);
     }
+
+    public ServicioTs encontrarServicioByNombreAndModo(String nombre, String modo) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(ServicioTs.class);
+        criteria.add(Restrictions.eq("nombre", nombre));
+        criteria.add(Restrictions.eq("tipo", modo));
+        return (ServicioTs) criteria.uniqueResult();
+    }
 }

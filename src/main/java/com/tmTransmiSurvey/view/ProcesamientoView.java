@@ -102,7 +102,7 @@ public class ProcesamientoView {
         }else if (encuesta.equals(TipoEncuesta.ENCUESTA_FREC_OCUPACION)){
             adAVisible = false;
             frecOcuVisual = true;
-            estacionesRecords = Util.convertStringListEstaciones (exportarDatosProcessor.encontrarTodosLasEstaciones(Util.validarModo(modo)));
+            estacionesRecords = Util.convertStringListEstaciones (exportarDatosProcessor.encontrarTodosLasEstaciones(Util.findModo(modo)));
         }
 
     }

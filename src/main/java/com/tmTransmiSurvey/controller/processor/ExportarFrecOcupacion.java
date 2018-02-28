@@ -1,9 +1,11 @@
 package com.tmTransmiSurvey.controller.processor;
 
+import com.tmTransmiSurvey.controller.servicios.ServicioEstacionServicio;
 import com.tmTransmiSurvey.controller.util.ExcelUtilProcessor;
 import com.tmTransmiSurvey.controller.util.PathFiles;
 import com.tmTransmiSurvey.controller.processor.excelDEF.EncuestaFrecOcuDEF;
 import com.tmTransmiSurvey.controller.servicios.EncuestaAscDescServicio;
+import com.tmTransmiSurvey.model.entity.apoyo.Estacion;
 import com.tmTransmiSurvey.model.entity.base.FOcupacionEncuesta;
 import com.tmTransmiSurvey.model.entity.base.RegistroEncuestaFOcupacion;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -26,8 +28,11 @@ public class ExportarFrecOcupacion {
     @Autowired
     public EncuestaAscDescServicio encuestaAscDescServicio;
 
-    public boolean exportarDatosEncuesta(Date fechaInicio, Date fechaFin){
-        List<FOcupacionEncuesta> encuestas = encuestaAscDescServicio.getEncuestasFrecuenciaOcupacion(fechaInicio,fechaFin);
+    @Autowired
+    public ServicioEstacionServicio servicioEstacionServicio;
+
+    public boolean exportarDatosEncuesta(Date fechaInicio, Date fechaFin, String estacion){
+        List<FOcupacionEncuesta> encuestas = encuestaAscDescServicio.getEncuestasFrecuenciaOcupacion(fechaInicio,fechaFin,estacion);
         createExcelDiaADia(encuestas);
         return true;
     }
@@ -97,4 +102,7 @@ public class ExportarFrecOcupacion {
     }
 
 
+    public List<Estacion> encontrarTodosLasEstaciones(String modo) {
+        return servicioEstacionServicio.encontrarTodasLasEstaciones(modo);
+    }
 }

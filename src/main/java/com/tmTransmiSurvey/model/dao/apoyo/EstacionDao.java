@@ -53,4 +53,11 @@ public class EstacionDao {
     public void addEstacion(Estacion estacion) {
         getSessionFactory().getCurrentSession().save(estacion);
     }
+
+    public Estacion encontrarEstacionByNombreAndModo(String nombre, String modo) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Estacion.class);
+        criteria.add(Restrictions.eq("nombre",nombre));
+        criteria.add(Restrictions.eq("modo",modo));
+        return (Estacion) criteria.uniqueResult();
+    }
 }

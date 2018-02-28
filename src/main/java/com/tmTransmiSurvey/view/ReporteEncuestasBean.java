@@ -40,15 +40,9 @@ public class ReporteEncuestasBean {
     public void init() {
         visibleDescarga = false;
         servicio = "B11";
-        modos = TipoEncuesta.listaModos();
+        modos = TipoEncuesta.listaModosCarga();
         modo = TipoEncuesta.MODO_TRONCAL;
-        serviciosRecords = convertStringList (exportarDatosProcessor.encontrarTodosLosServicios(validarModo(modo)));
-
-    }
-
-    private String validarModo(String modo) {
-        if(modo.equals(TipoEncuesta.MODO_TRONCAL)) return "tro";
-        return "ali";
+        serviciosRecords = convertStringList (exportarDatosProcessor.encontrarTodosLosServicios(Util.findModo(modo)));
     }
 
     private List<String> convertStringList(List<ServicioTs> servicioTs) {
@@ -66,12 +60,12 @@ public class ReporteEncuestasBean {
                 visibleDescarga = true;
             }
         }else{
-
+            messagesView.error("Generación Invalida","Complete todos los campos");
         }
     }
 
     private boolean genracionValida() {
-        if(fechaInicio!=null && fechaFin!=null) return true;
+        if(fechaInicio!=null && fechaFin!=null && servicio!=null) return true;
         return false;
     }
 
@@ -85,7 +79,7 @@ public class ReporteEncuestasBean {
     }
 
     public void updateServicios(){
-        serviciosRecords = convertStringList (exportarDatosProcessor.encontrarTodosLosServicios(validarModo(modo)));
+        serviciosRecords = convertStringList (exportarDatosProcessor.encontrarTodosLosServicios(Util.findModo(modo)));
     }
 
     public String getServicio() {

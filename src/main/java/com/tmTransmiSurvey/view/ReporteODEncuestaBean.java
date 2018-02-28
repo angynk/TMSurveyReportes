@@ -37,14 +37,14 @@ public class ReporteODEncuestaBean {
     public void init() {
         visibleDescarga = false;
         estacion = "s";
-        modos = TipoEncuesta.listaModos();
+        modos = TipoEncuesta.listaModosCarga();
         modo = TipoEncuesta.MODO_TRONCAL;
-        estacionesRecords = convertStringList (exportarODProcessor.encontrarTodosLasEstaciones(validarModo(modo)));
+        estacionesRecords = convertStringList (exportarODProcessor.encontrarTodosLasEstaciones(Util.findModo(modo)));
 
     }
 
     public void updateEstaciones(){
-        estacionesRecords = convertStringList (exportarODProcessor.encontrarTodosLasEstaciones(validarModo(modo)));
+        estacionesRecords = convertStringList (exportarODProcessor.encontrarTodosLasEstaciones(Util.findModo(modo)));
     }
 
     public void exportarDatosEncuesta(){
@@ -54,12 +54,12 @@ public class ReporteODEncuestaBean {
                 visibleDescarga = true;
             }
         }else{
-
+            messagesView.error("Generación Invalida","Complete todos los campos");
         }
     }
 
     private boolean genracionValida() {
-        if(fechaInicio!=null && fechaFin!=null) return true;
+        if(fechaInicio!=null && fechaFin!=null && estacion!=null) return true;
         return false;
     }
 
@@ -70,11 +70,6 @@ public class ReporteODEncuestaBean {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private String validarModo(String modo) {
-        if(modo.equals(TipoEncuesta.MODO_TRONCAL)) return "tro";
-        return "ali";
     }
 
     public ReporteODEncuestaBean() {
