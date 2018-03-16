@@ -88,6 +88,17 @@ public class MenuBean {
         }
     }
 
+    public void refreshModos(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/cargarModos.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void refreshCargaDatos(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {

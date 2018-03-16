@@ -1,8 +1,10 @@
 package com.tmTransmiSurvey.controller.servicios;
 
 
+import com.tmTransmiSurvey.model.dao.apoyo.ModoDao;
 import com.tmTransmiSurvey.model.dao.apoyo.RoleDao;
 import com.tmTransmiSurvey.model.dao.apoyo.UsuarioDao;
+import com.tmTransmiSurvey.model.entity.apoyo.Modo;
 import com.tmTransmiSurvey.model.entity.apoyo.Role;
 import com.tmTransmiSurvey.model.entity.apoyo.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class ConfiguracionServicio {
 
     @Autowired
     public RoleDao roleDao;
+
+    @Autowired
+    public ModoDao modoDao;
 
     public void addUsuario(Usuario usuario) {
         usuarioDao.addUsuario(usuario);
@@ -61,5 +66,49 @@ public class ConfiguracionServicio {
 
     public Role getRoleById(long id) {
         return roleDao.getRoleById(id);
+    }
+
+    public UsuarioDao getUsuarioDao() {
+        return usuarioDao;
+    }
+
+    public void setUsuarioDao(UsuarioDao usuarioDao) {
+        this.usuarioDao = usuarioDao;
+    }
+
+    public RoleDao getRoleDao() {
+        return roleDao;
+    }
+
+    public void setRoleDao(RoleDao roleDao) {
+        this.roleDao = roleDao;
+    }
+
+    public ModoDao getModoDao() {
+        return modoDao;
+    }
+
+    public void setModoDao(ModoDao modoDao) {
+        this.modoDao = modoDao;
+    }
+
+    public List<Modo> getModosAll() {
+        return modoDao.getModoAll();
+    }
+
+    public boolean updateModo(Modo modoSelected) {
+        if(!modoDao.existeAbreviaturaYNombre(modoSelected)){
+            modoDao.updateModo(modoSelected);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean crearModo(Modo modoNuevo) {
+        if(!modoDao.existeAbreviaturaYNombre(modoNuevo)){
+            modoDao.addModo(modoNuevo);
+            return true;
+        }
+        return false;
     }
 }

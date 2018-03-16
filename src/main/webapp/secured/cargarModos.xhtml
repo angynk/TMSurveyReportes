@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="content">
+
+
+
+            <h:form  id="form">
+                <p:growl id="message" showDetail="true" />
+                <p:panel id="basic" header="Modos del Sistema"  style="margin-bottom:20px">
+
+                    <div style="height: 5px"></div>
+                    <p:panel>
+                        <div style="margin-top:10px"/>
+                        <div style="margin-top:10px"/>
+                        <p:commandButton actionListener="#{cargarModos.crearNuevoModo}" update=":form:nuevoModo" value="Nuevo Modo"
+                                         oncomplete="PF('nuevoModo').show()" icon="ui-icon-plus" title="View">
+                        </p:commandButton>
+                        <div style="height: 8px"></div>
+                        <p:dataTable id="prog" var="modo" value="#{cargarModos.modosRecords}" widgetVar="ProgTable"
+                                     emptyMessage="No hay registros relacionados a la busqueda"
+                                     scrollable="true" scrollWidth="98%" scrollHeight="410"
+                                     editable="true">
+
+                            <p:column filterBy="#{modo.nombre}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{modo.nombre}"
+                                      style="width: 70px">
+                                <h:outputText value="#{modo.nombre}" style="width: 75px" />
+                            </p:column>
+
+                            <p:column filterBy="#{modo.abreviatura}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{modo.abreviatura}"
+                                                 style="width: 70px">
+                            <h:outputText value="#{modo.abreviatura}" style="width: 75px" />
+                        </p:column>
+
+                            <p:column filterBy="#{modo.descripcion}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{modo.descripcion}"
+                                      style="width: 70px">
+                                <h:outputText value="#{modo.descripcion}" style="width: 75px" />
+                            </p:column>
+
+                            <p:column style="width:32px;text-align: center" exportable="false" >
+                                <p:commandButton update=":form:editarModo" oncomplete="PF('editarModo').show()" icon="ui-icon-pencil" title="View">
+                                    <f:setPropertyActionListener value="#{modo}" target="#{cargarModos.modoSelected}" />
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:panel>
+
+                    <p:dialog header="Editar Modo" widgetVar="editarModo" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="editarUsuario" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty cargarModos.modoSelected}" >
+
+                                <h:outputText value="Nombre:" />
+                                <p:inputText  value="#{cargarModos.modoSelected.nombre}"   />
+                                <h:outputText value="Abreviatura:"  />
+                                <p:inputText  value="#{cargarModos.modoSelected.abreviatura}"    />
+                                <h:outputText value="Descripción:"  />
+                                <p:inputText  value="#{cargarModos.modoSelected.descripcion}"    />
+
+                            </p:panelGrid>
+                            <p:panelGrid columns="2">
+                                <p:commandButton value="Actualizar" action="#{cargarModos.actualizarModo()}" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+
+                                <p:commandButton value="Cancelar"  ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+
+                    <p:dialog header="Nuevo Modo" widgetVar="nuevoModo" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="nuevoModo" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty cargarModos.modoNuevo}" >
+
+                                <h:outputText value="Nombre:" />
+                                <p:inputText  value="#{cargarModos.modoNuevo.nombre}"   />
+                                <h:outputText value="Abreviatura:"  />
+                                <p:inputText  value="#{cargarModos.modoNuevo.abreviatura}"   />
+                                <h:outputText value="Descripción:"  />
+                                <p:inputText  value="#{cargarModos.modoNuevo.descripcion}"    />
+
+                            </p:panelGrid>
+                            <p:panelGrid columns="2">
+                                <p:commandButton value="Crear" action="#{cargarModos.crearModo()}" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+
+                                <p:commandButton value="Cancelar" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+
+
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</h:body>
+
+</html>
