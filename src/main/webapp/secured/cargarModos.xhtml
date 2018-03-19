@@ -53,12 +53,22 @@
                                 </p:commandButton>
                             </p:column>
 
+                            <p:column style="width:32px;text-align: center" exportable="false"  >
+                                <p:commandButton id="delete"
+                                                 icon="ui-icon ui-icon-trash"
+                                                 title="GDeleteButton"
+                                                 onclick="PF('groupDeleteConfirm').show()">
+                                    <f:setPropertyActionListener value="#{modo}" target="#{cargarModos.modoSelected}" />
+                                </p:commandButton>
+
+                            </p:column>
+
                         </p:dataTable>
 
                     </p:panel>
 
                     <p:dialog header="Editar Modo" widgetVar="editarModo" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                        <p:outputPanel id="editarUsuario" style="text-align:center;">
+                        <p:outputPanel id="editarModo" style="text-align:center;">
                             <p:panelGrid  columns="2" rendered="#{not empty cargarModos.modoSelected}" >
 
                                 <h:outputText value="Nombre:" />
@@ -80,6 +90,20 @@
                             </p:panelGrid>
                         </p:outputPanel>
                     </p:dialog>
+
+                    <p:confirmDialog message="¿Esta seguro de eliminar este Modo?"
+                                     showEffect="fade"
+                                     hideEffect="explode"
+                                     widgetVar="groupDeleteConfirm">
+                        <p:commandButton title="GDelYesButton"
+                                         value="Si"
+                                         action="#{cargarModos.eliminarModo}"
+                                         oncomplete="PF('groupDeleteConfirm').hide()" update="@form" ajax="true"
+                        />
+                        <p:commandButton title="GDelNoButton"
+                                         value="No"
+                                         oncomplete="PF('groupDeleteConfirm').hide()"/>
+                    </p:confirmDialog>
 
                     <p:dialog header="Nuevo Modo" widgetVar="nuevoModo" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                         <p:outputPanel id="nuevoModo" style="text-align:center;">

@@ -40,6 +40,7 @@ public class CargarModosBean {
 
     public void actualizarModo(){
         if(configuracionServicio.updateModo(modoSelected)){
+
             messagesView.info("Proceso Exitoso","Modo Actualizado");
         }else{
             messagesView.error("Proceso Fallido","Verifique la información actualizada");
@@ -49,6 +50,7 @@ public class CargarModosBean {
     public void crearModo(){
            if(camposCompletos()){
                if(configuracionServicio.crearModo(modoNuevo)){
+                   modosRecords = configuracionServicio.getModosAll();
                    messagesView.info("Proceso Exitoso","Modo Creado");
                }else{
                    messagesView.error("Proceso Fallido","Verifique la información actualizada");
@@ -56,6 +58,12 @@ public class CargarModosBean {
            }else{
                messagesView.error("Proceso Fallido","Complete todos los campos");
            }
+    }
+
+    public void eliminarModo(){
+        configuracionServicio.deleteModo(modoSelected);
+        modosRecords = configuracionServicio.getModosAll();
+        messagesView.info("Proceso Exitoso","Modo Eliminado");
     }
 
     private boolean camposCompletos() {

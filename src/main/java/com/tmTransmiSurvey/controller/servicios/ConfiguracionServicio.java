@@ -97,11 +97,8 @@ public class ConfiguracionServicio {
     }
 
     public boolean updateModo(Modo modoSelected) {
-        if(!modoDao.existeAbreviaturaYNombre(modoSelected)){
             modoDao.updateModo(modoSelected);
             return true;
-        }
-        return false;
     }
 
     public boolean crearModo(Modo modoNuevo) {
@@ -110,5 +107,9 @@ public class ConfiguracionServicio {
             return true;
         }
         return false;
+    }
+
+    public void deleteModo(Modo modoSelected) {
+        modoDao.deleteModo(modoSelected);
     }
 }

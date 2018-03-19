@@ -1,8 +1,10 @@
 package com.tmTransmiSurvey.view;
 
 import com.tmTransmiSurvey.controller.servicios.CargaDatosServicios;
+import com.tmTransmiSurvey.controller.servicios.ConfiguracionServicio;
 import com.tmTransmiSurvey.controller.util.TipoEncuesta;
 import com.tmTransmiSurvey.controller.util.Util;
+import com.tmTransmiSurvey.model.entity.apoyo.Modo;
 import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
@@ -23,8 +25,8 @@ public class CargaDatosBean {
 
     private UploadedFile file;
     private boolean cargaVisible;
-    private String modo;
-    private List<String> modos;
+    private Modo modo;
+    private List<Modo> modos;
     private String tipoDato;
     private List<String> tipoDatos;
 
@@ -34,6 +36,9 @@ public class CargaDatosBean {
     @ManagedProperty("#{MessagesView}")
     private MessagesView messagesView;
 
+    @ManagedProperty(value="#{ConfigService}")
+    private ConfiguracionServicio configuracionServicio;
+
 
     public CargaDatosBean() {
     }
@@ -41,8 +46,7 @@ public class CargaDatosBean {
     @PostConstruct
     public void init(){
         cargaVisible =true;
-        modos = TipoEncuesta.listaModosCarga();
-        modo = TipoEncuesta.MODO_TRONCAL;
+        modos = configuracionServicio.getModosAll();
 
     }
 
@@ -50,7 +54,7 @@ public class CargaDatosBean {
         if(file!=null){
             try {
                 String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-                cargaDatosServicios.procesarFile(nombre, Util.findModo(modo));
+                cargaDatosServicios.procesarFile(nombre, modo.getAbreviatura());
                 cargaVisible = false;
                 updateAPIServicios();
                 messagesView.info("Carga de Información Exitosa","");
@@ -66,7 +70,7 @@ public class CargaDatosBean {
 
     private void updateAPIServicios() throws IOException {
 
-        String url = "http://35.226.255.51:8080/TmAPI/config/updateServicios/?modo="+Util.findModo(modo);
+        String url = "http://35.226.255.51:8080/TmAPI/config/updateServicios/?modo="+modo.getAbreviatura();
 
 
         URL obj = new URL(url);
@@ -121,19 +125,19 @@ public class CargaDatosBean {
         this.cargaVisible = cargaVisible;
     }
 
-    public String getModo() {
+    public Modo getModo() {
         return modo;
     }
 
-    public void setModo(String modo) {
+    public void setModo(Modo modo) {
         this.modo = modo;
     }
 
-    public List<String> getModos() {
+    public List<Modo> getModos() {
         return modos;
     }
 
-    public void setModos(List<String> modos) {
+    public void setModos(List<Modo> modos) {
         this.modos = modos;
     }
 
@@ -151,5 +155,13 @@ public class CargaDatosBean {
 
     public void setTipoDatos(List<String> tipoDatos) {
         this.tipoDatos = tipoDatos;
+    }
+
+    public ConfiguracionServicio getConfiguracionServicio() {
+        return configuracionServicio;
+    }
+
+    public void setConfiguracionServicio(ConfiguracionServicio configuracionServicio) {
+        this.configuracionServicio = configuracionServicio;
     }
 }

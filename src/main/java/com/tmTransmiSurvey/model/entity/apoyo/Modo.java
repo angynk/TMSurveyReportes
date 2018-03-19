@@ -3,12 +3,12 @@ package com.tmTransmiSurvey.model.entity.apoyo;
 import javax.persistence.*;
 
 @Entity
-@Table(name="modo")
+@Table(name="ts_modo")
 public class Modo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="ModoGenerator")
-    @SequenceGenerator(name="ModoGenerator", sequenceName = "modo_id_seq",allocationSize=1)
+    @SequenceGenerator(name="ModoGenerator", sequenceName = "ts_modo_id_seq",allocationSize=1)
     @Column(name = "id")
     private long id;
 
@@ -50,5 +50,9 @@ public class Modo {
 
     public String getAbreviatura() {
         return abreviatura;
+    }
+
+    public void setAbreviatura(String abreviatura) {
+        this.abreviatura = abreviatura;
     }
 }

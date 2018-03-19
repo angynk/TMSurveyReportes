@@ -56,8 +56,8 @@ public class CargaDatosServicios {
             FileInputStream fileInputStream = new FileInputStream(nombre);
             HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
             borrarDatosBase(modo);
-            procesarServicios(workbook);
-            procesarEstaciones(workbook);
+            procesarServicios(workbook,modo);
+            procesarEstaciones(workbook,modo);
             procesarServiciosEstaciones(workbook,modo);
             if(modo.equals(TipoEncuesta.MODO_TRONCAL) || modo.equals(TipoEncuesta.MODO_TRONCAL_OD) ){
                 procesarFovCodigos(workbook);
@@ -134,7 +134,7 @@ public class CargaDatosServicios {
         }
     }
 
-    private void procesarEstaciones(HSSFWorkbook workbook) {
+    private void procesarEstaciones(HSSFWorkbook workbook, String modo) {
         HSSFSheet worksheet = workbook.getSheetAt(1);
 
         Iterator<Row> rowIterator = worksheet.iterator();
@@ -147,7 +147,7 @@ public class CargaDatosServicios {
                     Estacion estacion = new Estacion();
                     estacion.setNombre(excelExtract.getStringCellValue(row, CargaDatosDEF.estaciones_nombre));
                     estacion.setZona(excelExtract.getStringCellValue(row, CargaDatosDEF.estaciones_zona));
-                    estacion.setModo(excelExtract.getStringCellValue(row, CargaDatosDEF.estaciones_modo));
+                    estacion.setModo(modo);
                     estacionDao.addEstacion(estacion);
                 }else {
                     break;
@@ -158,7 +158,7 @@ public class CargaDatosServicios {
         }
     }
 
-    private void procesarServicios(HSSFWorkbook workbook) {
+    private void procesarServicios(HSSFWorkbook workbook, String modo) {
         HSSFSheet worksheet = workbook.getSheetAt(0);
 
         Iterator<Row> rowIterator = worksheet.iterator();
@@ -170,7 +170,7 @@ public class CargaDatosServicios {
                 if(excelExtract.getStringCellValue(row,0) != "") {
                     ServicioTs servicioTs = new ServicioTs();
                     servicioTs.setNombre(excelExtract.getStringCellValue(row, CargaDatosDEF.servicios_nombre));
-                    servicioTs.setTipo(excelExtract.getStringCellValue(row, CargaDatosDEF.servicios_tipo));
+                    servicioTs.setTipo(modo);
                     servicioDao.addServicio(servicioTs);
                 }else {
                     break;

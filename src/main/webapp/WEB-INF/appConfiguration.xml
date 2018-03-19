@@ -37,6 +37,7 @@
                 <value>com.tmTransmiSurvey.model.entity.apoyo.Usuario</value>
                 <value>com.tmTransmiSurvey.model.entity.apoyo.Role</value>
                 <value>com.tmTransmiSurvey.model.entity.base.CuadroEncuesta</value>
+                <value>com.tmTransmiSurvey.model.entity.apoyo.Modo</value>
                 <value>com.tmTransmiSurvey.model.entity.base.RegistroEncuestaAscDesc</value>
                 <value>com.tmTransmiSurvey.model.entity.apoyo.ServicioTs</value>
                 <value>com.tmTransmiSurvey.model.entity.apoyo.Estacion</value>
