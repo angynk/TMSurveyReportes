@@ -187,4 +187,9 @@ public class Util {
         }
         return "tod";
     }
+
+    public static String convertBooleanToString(boolean primera_zon_destino) {
+        if(primera_zon_destino) return "Si";
+        return "No";
+    }
 }

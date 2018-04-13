@@ -38,6 +38,16 @@ public class MenuBean {
             e.printStackTrace();
         }
     }
+
+    public void refreshTiemposRecorrido(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/visualizarTiemposRecorrido.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void refreshConteoDespachos(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {

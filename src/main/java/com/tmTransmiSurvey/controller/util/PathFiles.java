@@ -13,6 +13,7 @@ public class PathFiles {
  public final static String CO_DESPACHO = "co_despacho.xls";
  public final static String OD_ENCUESTA = "origen_destino.xls";
  public final static String FO_BUS = "fr_ocupacion_bus.xls";
+ public final static String  TI_RECORRIDO = "ti_recorridos.xls";
   //  public final static String PATH = "M:\\temp\\Indicadores\\";
 
 }

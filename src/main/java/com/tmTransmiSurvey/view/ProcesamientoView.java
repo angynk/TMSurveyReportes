@@ -75,7 +75,7 @@ public class ProcesamientoView {
 
         encuestas = TipoEncuesta.listaEncuestas();
         encuesta = TipoEncuesta.ENCUESTA_ASC_DESC_ABORDO;
-        modos = TipoEncuesta.listaModos();
+        modos = TipoEncuesta.listaModosCarga();
         modo = TipoEncuesta.MODO_TRONCAL;
         logDatos = new ArrayList<LogDatos>();
         resultadosVisibles = false;
