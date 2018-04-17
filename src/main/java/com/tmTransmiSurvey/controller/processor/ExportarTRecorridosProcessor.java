@@ -87,7 +87,7 @@ public class ExportarTRecorridosProcessor {
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getEstacion(), EncuestaTRecorridoDEF.col_estacion);
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getHora_llegada(), EncuestaTRecorridoDEF.col_hora_llegada);
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getHora_salida(), EncuestaTRecorridoDEF.col_hora_salida);
-            ExcelUtilProcessor.createCellResultados(rowInfo1, Util.convertBooleanToString(registro.isPrimera_zon_destino()), EncuestaTRecorridoDEF.col_hora_salida);
+            ExcelUtilProcessor.createCellResultados(rowInfo1, Util.convertBooleanToString(registro.isPrimera_zon_destino()), EncuestaTRecorridoDEF.col_primer_zona_destino);
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getObservacion(), EncuestaTRecorridoDEF.col_observacion);
             rows++;
         }
