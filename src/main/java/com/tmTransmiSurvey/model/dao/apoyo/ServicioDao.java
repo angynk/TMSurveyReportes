@@ -60,4 +60,12 @@ public class ServicioDao {
         criteria.add(Restrictions.eq("tipo", modo));
         return (ServicioTs) criteria.uniqueResult();
     }
+
+    public void updateServicio(ServicioTs servicioSeleccionado) {
+        getSessionFactory().getCurrentSession().update(servicioSeleccionado);
+    }
+
+    public void deleteServicio(ServicioTs servicioSeleccionado) {
+        getSessionFactory().getCurrentSession().update(servicioSeleccionado);
+    }
 }

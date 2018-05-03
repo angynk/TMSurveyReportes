@@ -108,6 +108,16 @@ public class MenuBean {
         }
     }
 
+    public void refreshServicios(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/configServicios.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void refreshCargaDatos(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();

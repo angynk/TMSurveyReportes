@@ -5,6 +5,7 @@ import com.tmTransmiSurvey.model.dao.apoyo.ServicioDao;
 import com.tmTransmiSurvey.model.dao.apoyo.ServicioEstacionDao;
 import com.tmTransmiSurvey.model.dao.apoyo.TipologiaDao;
 import com.tmTransmiSurvey.model.entity.apoyo.Estacion;
+import com.tmTransmiSurvey.model.entity.apoyo.ServicioEstacion;
 import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
 import com.tmTransmiSurvey.model.entity.apoyo.Tipologia;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("ServicioEstacionServicio")
 public class ServicioEstacionServicio {
 
     @Autowired
@@ -85,5 +86,27 @@ public class ServicioEstacionServicio {
 
     public Tipologia encontrarTipologiaByNombre(String tipologia) {
         return tipologiaDao.getTipologiaByNombre(tipologia);
+    }
+
+    public void updateServicio(ServicioTs servicioSeleccionado) {
+        servicioDao.updateServicio(servicioSeleccionado);
+    }
+
+    public void addServicio(ServicioTs servicioNuevo) {
+        servicioDao.addServicio(servicioNuevo);
+    }
+
+    public boolean elServicioEstaAsociado(ServicioTs servicioTs) {
+
+        List<ServicioEstacion> servicioEstacions = servicioEstacionDao.encontrarEstacionesAsociadas(servicioTs);
+        if(servicioEstacions.size()>0){
+            return true;
+        }
+
+        return false;
+    }
+
+    public void eliminarServicio(ServicioTs servicioSeleccionado) {
+        servicioDao.deleteServicio(servicioSeleccionado);
     }
 }
