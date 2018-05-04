@@ -3,6 +3,7 @@ package com.tmTransmiSurvey.view;
 
 import com.tmTransmiSurvey.controller.servicios.ConfiguracionServicio;
 import com.tmTransmiSurvey.controller.servicios.ServicioEstacionServicio;
+import com.tmTransmiSurvey.model.entity.apoyo.Estacion;
 import com.tmTransmiSurvey.model.entity.apoyo.Modo;
 import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
 
@@ -13,18 +14,18 @@ import javax.faces.bean.ViewScoped;
 import java.util.ArrayList;
 import java.util.List;
 
-@ManagedBean(name = "configServicios")
+@ManagedBean(name = "configEstaciones")
 @ViewScoped
-public class ConfigServiciosBean {
+public class ConfigEstacionesBean {
 
     private String modo;
     private Modo modoObjeto;
     private List<String> modos;
     private List<Modo> modosObj;
     private boolean visiblePanel;
-    private List<ServicioTs> serviciosRecords;
-    private ServicioTs servicioNuevo;
-    private ServicioTs servicioSeleccionado;
+    private List<Estacion> estacionesRecords;
+    private Estacion estacionNuevo;
+    private Estacion estacionSeleccionado;
 
 
     @ManagedProperty(value="#{ConfigService}")
@@ -37,7 +38,7 @@ public class ConfigServiciosBean {
     @ManagedProperty("#{MessagesView}")
     private MessagesView messagesView;
 
-    public ConfigServiciosBean() {
+    public ConfigEstacionesBean() {
     }
 
     @PostConstruct
@@ -55,12 +56,12 @@ public class ConfigServiciosBean {
         return lista;
     }
 
-    public void buscarServicios(){
-            if(modo!=null){
-                modoObjeto = obtenerModo();
-                serviciosRecords = servicioEstacionServicio.encontrarTodosLosServicios(modoObjeto.getAbreviatura());
-                visiblePanel =true;
-            }
+    public void buscarEstaciones(){
+        if(modo!=null){
+            modoObjeto = obtenerModo();
+            estacionesRecords = servicioEstacionServicio.encontrarTodasLasEstaciones(modoObjeto.getAbreviatura());
+            visiblePanel =true;
+        }
 
     }
 
@@ -73,30 +74,30 @@ public class ConfigServiciosBean {
         return null;
     }
 
-    public void crearServicio(){
-        servicioNuevo = new ServicioTs();
+    public void crearEstacion(){
+        estacionNuevo = new Estacion();
     }
 
-    public void actualizarServicio(){
-            servicioEstacionServicio.updateServicio(servicioSeleccionado);
-        messagesView.info("Proceso Exitoso","El servicio fue actualizado");
+    public void actualizarEstacion(){
+        servicioEstacionServicio.updateEstacion(estacionSeleccionado);
+        messagesView.info("Proceso Exitoso","La estación fue actualizada");
     }
 
-    public void eliminarServicio(){
-            if(!servicioEstacionServicio.elServicioEstaAsociado(servicioSeleccionado)){
-                servicioEstacionServicio.eliminarServicio(servicioSeleccionado);
-                serviciosRecords = servicioEstacionServicio.encontrarTodosLosServicios(modoObjeto.getAbreviatura());
-                messagesView.info("Proceso Exitoso","El servicio fue eliminado");
-            }else{
-                messagesView.error("Proceso Fallido","El servicio esta asociado a una estación , elimine primero las asociaciones");
-            }
+    public void eliminarEstacion(){
+        if(!servicioEstacionServicio.laEstacionEstaAsociada(estacionSeleccionado)){
+            servicioEstacionServicio.eliminarEstacion(estacionSeleccionado);
+            estacionesRecords = servicioEstacionServicio.encontrarTodasLasEstaciones(modoObjeto.getAbreviatura());
+            messagesView.info("Proceso Exitoso","La estación fue eliminado");
+        }else{
+            messagesView.error("Proceso Fallido","La estación esta asociada a una servicio , elimine primero las asociaciones");
+        }
     }
 
-    public void crearNuevoServicio(){
-        servicioNuevo.setTipo(modoObjeto.getAbreviatura());
-        servicioEstacionServicio.addServicio(servicioNuevo);
-        serviciosRecords = servicioEstacionServicio.encontrarTodosLosServicios(modoObjeto.getAbreviatura());
-        messagesView.info("Proceso Exitoso","El servicio fue creado");
+    public void crearNuevoEstacion(){
+        estacionNuevo.setModo(modoObjeto.getAbreviatura());
+        servicioEstacionServicio.addEstacion(estacionNuevo);
+        estacionesRecords = servicioEstacionServicio.encontrarTodasLasEstaciones(modoObjeto.getAbreviatura());
+        messagesView.info("Proceso Exitoso","La estación fue creada");
     }
 
     public String getModo() {
@@ -131,28 +132,44 @@ public class ConfigServiciosBean {
         this.configuracionServicio = configuracionServicio;
     }
 
-    public List<ServicioTs> getServiciosRecords() {
-        return serviciosRecords;
+    public Modo getModoObjeto() {
+        return modoObjeto;
     }
 
-    public void setServiciosRecords(List<ServicioTs> serviciosRecords) {
-        this.serviciosRecords = serviciosRecords;
+    public void setModoObjeto(Modo modoObjeto) {
+        this.modoObjeto = modoObjeto;
     }
 
-    public ServicioTs getServicioNuevo() {
-        return servicioNuevo;
+    public List<Modo> getModosObj() {
+        return modosObj;
     }
 
-    public void setServicioNuevo(ServicioTs servicioNuevo) {
-        this.servicioNuevo = servicioNuevo;
+    public void setModosObj(List<Modo> modosObj) {
+        this.modosObj = modosObj;
     }
 
-    public ServicioTs getServicioSeleccionado() {
-        return servicioSeleccionado;
+    public List<Estacion> getEstacionesRecords() {
+        return estacionesRecords;
     }
 
-    public void setServicioSeleccionado(ServicioTs servicioSeleccionado) {
-        this.servicioSeleccionado = servicioSeleccionado;
+    public void setEstacionesRecords(List<Estacion> estacionesRecords) {
+        this.estacionesRecords = estacionesRecords;
+    }
+
+    public Estacion getEstacionNuevo() {
+        return estacionNuevo;
+    }
+
+    public void setEstacionNuevo(Estacion estacionNuevo) {
+        this.estacionNuevo = estacionNuevo;
+    }
+
+    public Estacion getEstacionSeleccionado() {
+        return estacionSeleccionado;
+    }
+
+    public void setEstacionSeleccionado(Estacion estacionSeleccionado) {
+        this.estacionSeleccionado = estacionSeleccionado;
     }
 
     public ServicioEstacionServicio getServicioEstacionServicio() {

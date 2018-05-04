@@ -18,46 +18,46 @@
             <h:form  id="form">
                 <p:growl id="message" showDetail="true" />
 
-                <p:panel header="Seleccionar Modo" visible="#{!configServicios.visiblePanel}">
+                <p:panel header="Seleccionar Modo" visible="#{!configEstaciones.visiblePanel}">
                     <p:panelGrid columns="4">
                         <p:outputLabel value="Modo:"  />
-                        <p:selectOneMenu  value="#{configServicios.modo}" style="width:125px">
-                            <f:selectItems value="#{configServicios.modos}" var="modo"  itemLabel="#{modo}" itemValue="#{modo}" />
+                        <p:selectOneMenu  value="#{configEstaciones.modo}" style="width:125px">
+                            <f:selectItems value="#{configEstaciones.modos}" var="modo"  itemLabel="#{modo}" itemValue="#{modo}" />
                         </p:selectOneMenu>
-                        <p:commandButton value="Buscar" action="#{configServicios.buscarServicios()}" ajax="false"
+                        <p:commandButton value="Buscar" action="#{configEstaciones.buscarEstaciones()}" ajax="false"
                                          icon="ui-icon ui-icon-disk"
                                          async="true" />
                     </p:panelGrid>
                 </p:panel>
-                <p:panel id="basic" header="Servicios"  style="margin-bottom:20px" visible="#{configServicios.visiblePanel}">
+                <p:panel id="basic" header="Servicios"  style="margin-bottom:20px" visible="#{configEstaciones.visiblePanel}">
 
                     <div style="height: 5px"></div>
                     <p:panel>
                         <div style="margin-top:10px"/>
                         <div style="margin-top:10px"/>
-                        <p:commandButton actionListener="#{configServicios.crearServicio}" update=":form:nuevoModo" value="Nuevo Servicio"
+                        <p:commandButton actionListener="#{configEstaciones.crearEstacion}" update=":form:nuevoModo" value="Nueva Estacion"
                                          oncomplete="PF('nuevoModo').show()" icon="ui-icon-plus" title="View">
                         </p:commandButton>
                         <div style="height: 8px"></div>
-                        <p:dataTable id="prog" var="serv" value="#{configServicios.serviciosRecords}" widgetVar="ProgTable"
+                        <p:dataTable id="prog" var="est" value="#{configEstaciones.estacionesRecords}" widgetVar="ProgTable"
                                      emptyMessage="No hay registros relacionados a la busqueda"
                                      scrollable="true" scrollWidth="98%" scrollHeight="410"
                                      editable="true">
 
-                            <p:column filterBy="#{serv.nombre}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{serv.nombre}"
+                            <p:column filterBy="#{est.nombre}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{est.nombre}"
                                       style="width: 70px">
-                                <h:outputText value="#{serv.nombre}" style="width: 75px" />
+                                <h:outputText value="#{est.nombre}" style="width: 75px" />
                             </p:column>
 
-                            <p:column filterBy="#{serv.identificador}" headerText="Identificador"  filterMatchMode="contains" sortBy="#{serv.identificador}"
+                            <p:column filterBy="#{est.codigo}" headerText="Codigo"  filterMatchMode="contains" sortBy="#{est.codigo}"
                                       style="width: 70px">
-                                <h:outputText value="#{serv.identificador}" style="width: 75px" />
+                                <h:outputText value="{#est.codigo}" style="width: 75px" />
                             </p:column>
 
 
                             <p:column style="width:32px;text-align: center" exportable="false" >
                                 <p:commandButton update=":form:editarModo" oncomplete="PF('editarModo').show()" icon="ui-icon-pencil" title="View">
-                                    <f:setPropertyActionListener value="#{serv}" target="#{configServicios.servicioSeleccionado}" />
+                                    <f:setPropertyActionListener value="#{est}" target="#{configEstaciones.estacionSeleccionado}" />
                                 </p:commandButton>
                             </p:column>
 
@@ -66,7 +66,7 @@
                                                  <!--icon="ui-icon ui-icon-trash"-->
                                                  <!--title="GDeleteButton"-->
                                                  <!--onclick="PF('groupDeleteConfirm').show()">-->
-                                    <!--<f:setPropertyActionListener value="#{serv}" target="#{configServicios.servicioSeleccionado}" />-->
+                                    <!--<f:setPropertyActionListener value="#{est}" target="#{configEstaciones.estacionSeleccionado}" />-->
                                 <!--</p:commandButton>-->
 
                             <!--</p:column>-->
@@ -77,16 +77,16 @@
 
                     <p:dialog header="Editar Servicio" widgetVar="editarModo" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                         <p:outputPanel id="editarModo" style="text-align:center;">
-                            <p:panelGrid  columns="2" rendered="#{not empty configServicios.servicioSeleccionado}" >
+                            <p:panelGrid  columns="2" rendered="#{not empty configEstaciones.estacionSeleccionado}" >
 
                                 <h:outputText value="Nombre:" />
-                                <p:inputText  value="#{configServicios.servicioSeleccionado.nombre}"   />
-                                <h:outputText value="Identificador:"  />
-                                <p:inputText  value="#{configServicios.servicioSeleccionado.identificador}"    />
+                                <p:inputText  value="#{configEstaciones.estacionSeleccionado.nombre}"   />
+                                <h:outputText value="Codigo:"  />
+                                <p:inputText  value="#{configEstaciones.estacionSeleccionado.codigo}"    />
 
                             </p:panelGrid>
                             <p:panelGrid columns="2">
-                                <p:commandButton value="Actualizar" action="#{configServicios.actualizarServicio()}" ajax="false"
+                                <p:commandButton value="Actualizar" action="#{configEstaciones.actualizarEstacion()}" ajax="false"
                                                  icon="ui-icon ui-icon-disk"
                                                  async="true" />
 
@@ -103,7 +103,7 @@
                                      widgetVar="groupDeleteConfirm">
                         <p:commandButton title="GDelYesButton"
                                          value="Si"
-                                         action="#{configServicios.eliminarServicio}"
+                                         action="#{configEstaciones.eliminarEstacion}"
                                          oncomplete="PF('groupDeleteConfirm').hide()" update="@form" ajax="true"
                         />
                         <p:commandButton title="GDelNoButton"
@@ -113,16 +113,16 @@
 
                     <p:dialog header="Nuevo Servicio" widgetVar="nuevoModo" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                         <p:outputPanel id="nuevoModo" style="text-align:center;">
-                            <p:panelGrid  columns="2" rendered="#{not empty configServicios.servicioNuevo}" >
+                            <p:panelGrid  columns="2" rendered="#{not empty configEstaciones.estacionNuevo}" >
 
                                 <h:outputText value="Nombre:" />
-                                <p:inputText  value="#{configServicios.servicioNuevo.nombre}"   />
-                                <h:outputText value="Identificador:"  />
-                                <p:inputText  value="#{configServicios.servicioNuevo.identificador}"   />
+                                <p:inputText  value="#{configEstaciones.estacionNuevo.nombre}"   />
+                                <h:outputText value="Codigo:"  />
+                                <p:inputText  value="#{configEstaciones.estacionNuevo.codigo}"   />
 
                             </p:panelGrid>
                             <p:panelGrid columns="2">
-                                <p:commandButton value="Crear" action="#{configServicios.crearNuevoServicio()}" ajax="false"
+                                <p:commandButton value="Crear" action="#{configEstaciones.crearNuevoEstacion()}" ajax="false"
                                                  icon="ui-icon ui-icon-disk"
                                                  async="true" />
 

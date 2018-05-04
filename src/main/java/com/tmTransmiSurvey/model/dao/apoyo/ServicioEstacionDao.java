@@ -1,5 +1,6 @@
 package com.tmTransmiSurvey.model.dao.apoyo;
 
+import com.tmTransmiSurvey.model.entity.apoyo.Estacion;
 import com.tmTransmiSurvey.model.entity.apoyo.ServicioEstacion;
 import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
 import org.hibernate.Criteria;
@@ -50,5 +51,12 @@ public class ServicioEstacionDao {
 
     public void addServicioEstacion(ServicioEstacion servicioEstacion) {
         getSessionFactory().getCurrentSession().save(servicioEstacion);
+    }
+
+    public List<ServicioEstacion> encontrarServiciosAsociados(Estacion estacionSeleccionado) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(ServicioEstacion.class);
+        criteria.add(Restrictions.eq("estacion", estacionSeleccionado));
+        criteria.addOrder(Order.asc("orden"));
+        return  criteria.list();
     }
 }

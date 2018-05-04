@@ -109,4 +109,26 @@ public class ServicioEstacionServicio {
     public void eliminarServicio(ServicioTs servicioSeleccionado) {
         servicioDao.deleteServicio(servicioSeleccionado);
     }
+
+    public void updateEstacion(Estacion estacionSeleccionado) {
+        estacionDao.updateEstacion(estacionSeleccionado);
+    }
+
+    public void addEstacion(Estacion estacionNuevo) {
+        estacionDao.addEstacion(estacionNuevo);
+    }
+
+    public boolean laEstacionEstaAsociada(Estacion estacionSeleccionado) {
+        List<ServicioEstacion> servicioEstacions = servicioEstacionDao.encontrarServiciosAsociados(estacionSeleccionado);
+        if(servicioEstacions.size()>0){
+            return true;
+        }
+        return false;
+    }
+
+    public void eliminarEstacion(Estacion estacionSeleccionado) {
+        estacionDao.deleteEstacion(estacionSeleccionado);
+    }
+
+
 }

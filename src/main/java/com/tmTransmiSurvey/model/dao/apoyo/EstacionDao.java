@@ -60,4 +60,12 @@ public class EstacionDao {
         criteria.add(Restrictions.eq("modo",modo));
         return (Estacion) criteria.uniqueResult();
     }
+
+    public void updateEstacion(Estacion estacionSeleccionado) {
+        getSessionFactory().getCurrentSession().update(estacionSeleccionado);
+    }
+
+    public void deleteEstacion(Estacion estacionSeleccionado) {
+        getSessionFactory().getCurrentSession().delete(estacionSeleccionado);
+    }
 }
