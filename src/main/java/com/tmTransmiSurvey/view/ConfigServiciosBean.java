@@ -4,12 +4,16 @@ package com.tmTransmiSurvey.view;
 import com.tmTransmiSurvey.controller.servicios.ConfiguracionServicio;
 import com.tmTransmiSurvey.controller.servicios.ServicioEstacionServicio;
 import com.tmTransmiSurvey.model.entity.apoyo.Modo;
+import com.tmTransmiSurvey.model.entity.apoyo.ServicioEstacion;
 import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +29,8 @@ public class ConfigServiciosBean {
     private List<ServicioTs> serviciosRecords;
     private ServicioTs servicioNuevo;
     private ServicioTs servicioSeleccionado;
-
+    private List<ServicioEstacion> serviciosEstacionesRecords;
+    private ServicioEstacion servicioEstacionSeleccionado;
 
     @ManagedProperty(value="#{ConfigService}")
     private ConfiguracionServicio configuracionServicio;
@@ -73,6 +78,27 @@ public class ConfigServiciosBean {
         return null;
     }
 
+    public void verDetalleServicios(){
+           serviciosEstacionesRecords =servicioEstacionServicio.estacionesDelServicio(servicioSeleccionado);
+    }
+
+    public void eliminarEstacion(){
+
+    }
+
+    public void atras(){
+
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/configServicios.xhtml");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
     public void crearServicio(){
         servicioNuevo = new ServicioTs();
     }
@@ -97,6 +123,10 @@ public class ConfigServiciosBean {
         servicioEstacionServicio.addServicio(servicioNuevo);
         serviciosRecords = servicioEstacionServicio.encontrarTodosLosServicios(modoObjeto.getAbreviatura());
         messagesView.info("Proceso Exitoso","El servicio fue creado");
+    }
+
+    public void agregarEstacion(){
+
     }
 
     public String getModo() {
@@ -169,5 +199,37 @@ public class ConfigServiciosBean {
 
     public void setMessagesView(MessagesView messagesView) {
         this.messagesView = messagesView;
+    }
+
+    public Modo getModoObjeto() {
+        return modoObjeto;
+    }
+
+    public void setModoObjeto(Modo modoObjeto) {
+        this.modoObjeto = modoObjeto;
+    }
+
+    public List<Modo> getModosObj() {
+        return modosObj;
+    }
+
+    public void setModosObj(List<Modo> modosObj) {
+        this.modosObj = modosObj;
+    }
+
+    public List<ServicioEstacion> getServiciosEstacionesRecords() {
+        return serviciosEstacionesRecords;
+    }
+
+    public void setServiciosEstacionesRecords(List<ServicioEstacion> serviciosEstacionesRecords) {
+        this.serviciosEstacionesRecords = serviciosEstacionesRecords;
+    }
+
+    public ServicioEstacion getServicioEstacionSeleccionado() {
+        return servicioEstacionSeleccionado;
+    }
+
+    public void setServicioEstacionSeleccionado(ServicioEstacion servicioEstacionSeleccionado) {
+        this.servicioEstacionSeleccionado = servicioEstacionSeleccionado;
     }
 }

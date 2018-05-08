@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="content">
+
+
+
+            <h:form  id="form">
+                <p:growl id="message" showDetail="true" />
+                <p:panel id="basic" header="Servicios"  style="margin-bottom:20px" >
+
+                    <div style="height: 5px"></div>
+                    <p:panel>
+                        <div style="margin-top:10px"/>
+                        <div style="margin-top:10px"/>
+                        <p:commandButton actionListener="#{configServicios.atras}" id="atras"  icon="ui-icon ui-icon-arrow-1-w" title="atras" />
+                        <p:commandButton actionListener="#{configServicios.agregarEstacion}" update=":form:nuevaEstacion" value="Nueva Estación"
+                                         oncomplete="PF('nuevoModo').show()" icon="ui-icon-plus" title="View">
+                        </p:commandButton>
+                        <div style="height: 8px"></div>
+                        <p:dataTable id="prog" var="serv" value="#{configServicios.serviciosEstacionesRecords}" widgetVar="ProgTable"
+                                     emptyMessage="No hay registros relacionados a la busqueda"
+                                     scrollable="true" scrollWidth="98%" scrollHeight="410"
+                                     editable="true">
+
+                            <p:column filterBy="#{serv.orden}" headerText="Orden"  filterMatchMode="contains" sortBy="#{serv.orden}"
+                                      style="width: 70px">
+                                <h:outputText value="#{serv.orden}" style="width: 75px" />
+                            </p:column>
+
+                            <p:column filterBy="#{serv.estacion.nombre}" headerText="Estación"  filterMatchMode="contains" sortBy="#{serv.estacion.nombre}"
+                                      style="width: 70px">
+                                <h:outputText value="#{serv.estacion.nombre}" style="width: 75px" />
+                            </p:column>
+
+                            <p:column style="width:32px;text-align: center" exportable="false"  >
+                            <p:commandButton id="delete"
+                            icon="ui-icon ui-icon-trash"
+                            title="GDeleteButton"
+                            onclick="PF('groupDeleteConfirm').show()">
+                            <f:setPropertyActionListener value="#{serv}" target="#{configServicios.servicioEstacionSeleccionado}" />
+                            </p:commandButton>
+
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:panel>
+
+                    <p:confirmDialog message="¿Esta seguro de eliminar esta Estación?"
+                                     showEffect="fade"
+                                     hideEffect="explode"
+                                     widgetVar="groupDeleteConfirm">
+                        <p:commandButton title="GDelYesButton"
+                                         value="Si"
+                                         action="#{configServicios.eliminarEstacion}"
+                                         oncomplete="PF('groupDeleteConfirm').hide()" update="@form" ajax="true"
+                        />
+                        <p:commandButton title="GDelNoButton"
+                                         value="No"
+                                         oncomplete="PF('groupDeleteConfirm').hide()"/>
+                    </p:confirmDialog>
+
+                    <p:dialog header="Nueva Estación" widgetVar="nuevaEstacion" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="nuevaEstacion" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty configServicios.servicioNuevo}" >
+
+                                <h:outputText value="Nombre:" />
+                                <p:inputText  value="#{configServicios.servicioNuevo.nombre}"   />
+                                <h:outputText value="Identificador:"  />
+                                <p:inputText  value="#{configServicios.servicioNuevo.identificador}"   />
+
+                            </p:panelGrid>
+                            <p:panelGrid columns="2">
+                                <p:commandButton value="Crear" action="#{configServicios.crearNuevoServicio()}" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+
+                                <p:commandButton value="Cancelar" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+
+
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</h:body>
+
+</html>

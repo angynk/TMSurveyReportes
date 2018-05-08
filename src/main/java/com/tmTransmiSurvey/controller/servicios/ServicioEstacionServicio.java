@@ -131,4 +131,7 @@ public class ServicioEstacionServicio {
     }
 
 
+    public List<ServicioEstacion> estacionesDelServicio(ServicioTs servicioSeleccionado) {
+        return servicioEstacionDao.encontrarEstacionesAsociadas(servicioSeleccionado);
+    }
 }
