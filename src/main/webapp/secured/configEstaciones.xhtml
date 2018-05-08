@@ -51,7 +51,7 @@
 
                             <p:column filterBy="#{est.codigo}" headerText="Codigo"  filterMatchMode="contains" sortBy="#{est.codigo}"
                                       style="width: 70px">
-                                <h:outputText value="{#est.codigo}" style="width: 75px" />
+                                <h:outputText value="#{est.codigo}" style="width: 75px" />
                             </p:column>
 
 
@@ -61,15 +61,15 @@
                                 </p:commandButton>
                             </p:column>
 
-                            <!--<p:column style="width:32px;text-align: center" exportable="false"  >-->
-                                <!--<p:commandButton id="delete"-->
-                                                 <!--icon="ui-icon ui-icon-trash"-->
-                                                 <!--title="GDeleteButton"-->
-                                                 <!--onclick="PF('groupDeleteConfirm').show()">-->
-                                    <!--<f:setPropertyActionListener value="#{est}" target="#{configEstaciones.estacionSeleccionado}" />-->
-                                <!--</p:commandButton>-->
+                            <p:column style="width:32px;text-align: center" exportable="false"  >
+                                <p:commandButton id="delete"
+                                                 icon="ui-icon ui-icon-trash"
+                                                 title="GDeleteButton"
+                                                 onclick="PF('groupDeleteConfirm').show()">
+                                    <f:setPropertyActionListener value="#{est}" target="#{configEstaciones.estacionSeleccionado}" />
+                                </p:commandButton>
 
-                            <!--</p:column>-->
+                            </p:column>
 
                         </p:dataTable>
 

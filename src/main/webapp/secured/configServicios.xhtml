@@ -18,7 +18,7 @@
             <h:form  id="form">
                 <p:growl id="message" showDetail="true" />
 
-                <p:panel header="Seleccionar Modo" visible="#{!configServicios.visiblePanel}">
+                <p:panel header="Seleccionar Modo" >
                     <p:panelGrid columns="4">
                         <p:outputLabel value="Modo:"  />
                         <p:selectOneMenu  value="#{configServicios.modo}" style="width:125px">
@@ -29,7 +29,7 @@
                                          async="true" />
                     </p:panelGrid>
                 </p:panel>
-                <p:panel id="basic" header="Servicios"  style="margin-bottom:20px" visible="#{configServicios.visiblePanel}">
+                <p:panel id="basic" header="Servicios"  style="margin-bottom:20px" >
 
                     <div style="height: 5px"></div>
                     <p:panel>
@@ -37,6 +37,10 @@
                         <div style="margin-top:10px"/>
                         <p:commandButton actionListener="#{configServicios.crearServicio}" update=":form:nuevoModo" value="Nuevo Servicio"
                                          oncomplete="PF('nuevoModo').show()" icon="ui-icon-plus" title="View">
+                        </p:commandButton>
+                        <p:commandButton actionListener="#{configServicios.actualizarDatos}" value="Actualizar Datos"
+                                         icon=" ui-icon-arrowrefresh-1-s" title="View"  ajax="false" onclick="PF('dlg2').show();" global="false"
+                                         oncomplete="PF('dlg2').hide()">
                         </p:commandButton>
                         <div style="height: 8px"></div>
                         <p:dataTable id="prog" var="serv" value="#{configServicios.serviciosRecords}" widgetVar="ProgTable"
@@ -67,15 +71,15 @@
                                 </p:commandButton>
                             </p:column>
 
-                            <!--<p:column style="width:32px;text-align: center" exportable="false"  >-->
-                                <!--<p:commandButton id="delete"-->
-                                                 <!--icon="ui-icon ui-icon-trash"-->
-                                                 <!--title="GDeleteButton"-->
-                                                 <!--onclick="PF('groupDeleteConfirm').show()">-->
-                                    <!--<f:setPropertyActionListener value="#{serv}" target="#{configServicios.servicioSeleccionado}" />-->
-                                <!--</p:commandButton>-->
+                            <p:column style="width:32px;text-align: center" exportable="false"  >
+                                <p:commandButton id="delete"
+                                                 icon="ui-icon ui-icon-trash"
+                                                 title="GDeleteButton"
+                                                 onclick="PF('groupDeleteConfirm').show()">
+                                    <f:setPropertyActionListener value="#{serv}" target="#{configServicios.servicioSeleccionado}" />
+                                </p:commandButton>
 
-                            <!--</p:column>-->
+                            </p:column>
 
                         </p:dataTable>
 
@@ -137,6 +141,12 @@
                                                  async="true" />
                             </p:panelGrid>
                         </p:outputPanel>
+                    </p:dialog>
+
+                    <p:dialog  widgetVar="dlg2" modal="true" height="100" closable="false" resizable="false"
+                               minHeight="40" style="height: 40px">
+                        <h:outputText value="En Proceso.." />
+                        <p:graphicImage name="images/ajaxloadingbar.gif" />
                     </p:dialog>
 
 

@@ -2,6 +2,7 @@ package com.tmTransmiSurvey.view;
 
 import com.tmTransmiSurvey.controller.servicios.CargaDatosServicios;
 import com.tmTransmiSurvey.controller.servicios.ConfiguracionServicio;
+import com.tmTransmiSurvey.controller.util.ProcessorUtils;
 import com.tmTransmiSurvey.controller.util.TipoEncuesta;
 import com.tmTransmiSurvey.controller.util.Util;
 import com.tmTransmiSurvey.model.entity.apoyo.Modo;
@@ -56,7 +57,7 @@ public class CargaDatosBean {
                 String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
                 cargaDatosServicios.procesarFile(nombre, modo.getAbreviatura());
                 cargaVisible = false;
-                updateAPIServicios();
+                ProcessorUtils.updateAPIServicios(modo.getAbreviatura());
                 messagesView.info("Carga de Información Exitosa","");
             } catch (IOException e) {
                 messagesView.error("Error en la carga del archivo",e.getMessage());
@@ -68,30 +69,7 @@ public class CargaDatosBean {
         }
     }
 
-    private void updateAPIServicios() throws IOException {
 
-        String url = "http://35.226.255.51:8080/TmAPI/config/updateServicios/?modo="+modo.getAbreviatura();
-
-
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-        // optional default is GET
-        con.setRequestMethod("GET");
-
-        int responseCode = con.getResponseCode();
-
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-        System.out.println("Updated");
-    }
 
     public UploadedFile getFile() {
         return file;

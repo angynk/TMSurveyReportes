@@ -59,4 +59,8 @@ public class ServicioEstacionDao {
         criteria.addOrder(Order.asc("orden"));
         return  criteria.list();
     }
+
+    public void deleteServicioEstacion(ServicioEstacion servicioSeleccionado) {
+        getSessionFactory().getCurrentSession().delete(servicioSeleccionado);
+    }
 }

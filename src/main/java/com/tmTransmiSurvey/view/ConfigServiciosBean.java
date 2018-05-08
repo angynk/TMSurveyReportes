@@ -1,8 +1,12 @@
 package com.tmTransmiSurvey.view;
 
 
+import com.tmTransmiSurvey.controller.processor.ExportarADPuntoProcessor;
 import com.tmTransmiSurvey.controller.servicios.ConfiguracionServicio;
 import com.tmTransmiSurvey.controller.servicios.ServicioEstacionServicio;
+import com.tmTransmiSurvey.controller.util.ProcessorUtils;
+import com.tmTransmiSurvey.controller.util.Util;
+import com.tmTransmiSurvey.model.entity.apoyo.Estacion;
 import com.tmTransmiSurvey.model.entity.apoyo.Modo;
 import com.tmTransmiSurvey.model.entity.apoyo.ServicioEstacion;
 import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
@@ -10,6 +14,7 @@ import com.tmTransmiSurvey.model.entity.apoyo.ServicioTs;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -18,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "configServicios")
-@ViewScoped
+@SessionScoped
 public class ConfigServiciosBean {
 
     private String modo;
@@ -31,6 +36,9 @@ public class ConfigServiciosBean {
     private ServicioTs servicioSeleccionado;
     private List<ServicioEstacion> serviciosEstacionesRecords;
     private ServicioEstacion servicioEstacionSeleccionado;
+    private ServicioEstacion servicioEstacionNuevo;
+    private String estacion;
+    private List<String> estacionesRecords;
 
     @ManagedProperty(value="#{ConfigService}")
     private ConfiguracionServicio configuracionServicio;
@@ -38,6 +46,9 @@ public class ConfigServiciosBean {
 
     @ManagedProperty(value="#{ServicioEstacionServicio}")
     private ServicioEstacionServicio servicioEstacionServicio;
+
+    @ManagedProperty(value="#{ExportarADPuntoProcessor}")
+    private ExportarADPuntoProcessor exportarDatosProcessor;
 
     @ManagedProperty("#{MessagesView}")
     private MessagesView messagesView;
@@ -78,12 +89,57 @@ public class ConfigServiciosBean {
         return null;
     }
 
+    public void actualizarDatos(){
+        try {
+            ProcessorUtils.updateAPIServicios(modoObjeto.getAbreviatura());
+            messagesView.info("Proceso Exitoso","Los datos base fueron actualizados");
+        } catch (IOException e) {
+            messagesView.error("Proceso Fallido","Los datos base no pudieron ser actualizados");
+
+        }
+    }
+
     public void verDetalleServicios(){
-           serviciosEstacionesRecords =servicioEstacionServicio.estacionesDelServicio(servicioSeleccionado);
+        serviciosEstacionesRecords =servicioEstacionServicio.estacionesDelServicio(servicioSeleccionado);
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/configServiciosEstaciones.xhtml");
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void eliminarEstacion(){
+        servicioEstacionServicio.eliminarServicioEstacion(servicioEstacionSeleccionado);
+        messagesView.info("Proceso Exitoso","La estación fue eliminada");
+        serviciosEstacionesRecords =servicioEstacionServicio.estacionesDelServicio(servicioSeleccionado);
+    }
 
+    public void crearNuevoServicioEstacion(){
+
+        if(ordenNoExisteOEstacion()){
+            servicioEstacionServicio.addNuevoServicioEstacion(estacion,servicioEstacionNuevo,servicioSeleccionado);
+            messagesView.info("Proceso Exitoso","Nueva Estación Agregada");
+            serviciosEstacionesRecords =servicioEstacionServicio.estacionesDelServicio(servicioSeleccionado);
+        }else{
+            messagesView.error("Proceso Fallido","Ya existe la estación y/o el orden");
+        }
+
+    }
+
+    private boolean ordenNoExisteOEstacion() {
+        for(ServicioEstacion servicioEstacion:serviciosEstacionesRecords){
+            if(servicioEstacion.getEstacion().getNombre().equals(estacion)){
+                return false;
+            }
+            if(servicioEstacion.getOrden()==servicioEstacionNuevo.getOrden()){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void atras(){
@@ -126,7 +182,16 @@ public class ConfigServiciosBean {
     }
 
     public void agregarEstacion(){
+        servicioEstacionNuevo = new ServicioEstacion();
+        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(Util.findModo(modo)));
+    }
 
+    private List<String> convertStringList(List<Estacion> estaciones) {
+        List<String> lista = new ArrayList<>();
+        for(Estacion ser:estaciones){
+            lista.add(ser.getNombre());
+        }
+        return lista;
     }
 
     public String getModo() {
@@ -231,5 +296,37 @@ public class ConfigServiciosBean {
 
     public void setServicioEstacionSeleccionado(ServicioEstacion servicioEstacionSeleccionado) {
         this.servicioEstacionSeleccionado = servicioEstacionSeleccionado;
+    }
+
+    public ServicioEstacion getServicioEstacionNuevo() {
+        return servicioEstacionNuevo;
+    }
+
+    public void setServicioEstacionNuevo(ServicioEstacion servicioEstacionNuevo) {
+        this.servicioEstacionNuevo = servicioEstacionNuevo;
+    }
+
+    public String getEstacion() {
+        return estacion;
+    }
+
+    public void setEstacion(String estacion) {
+        this.estacion = estacion;
+    }
+
+    public List<String> getEstacionesRecords() {
+        return estacionesRecords;
+    }
+
+    public void setEstacionesRecords(List<String> estacionesRecords) {
+        this.estacionesRecords = estacionesRecords;
+    }
+
+    public ExportarADPuntoProcessor getExportarDatosProcessor() {
+        return exportarDatosProcessor;
+    }
+
+    public void setExportarDatosProcessor(ExportarADPuntoProcessor exportarDatosProcessor) {
+        this.exportarDatosProcessor = exportarDatosProcessor;
     }
 }

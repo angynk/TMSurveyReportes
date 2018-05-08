@@ -134,4 +134,15 @@ public class ServicioEstacionServicio {
     public List<ServicioEstacion> estacionesDelServicio(ServicioTs servicioSeleccionado) {
         return servicioEstacionDao.encontrarEstacionesAsociadas(servicioSeleccionado);
     }
+
+    public void addNuevoServicioEstacion(String estacion, ServicioEstacion servicioEstacionNuevo, ServicioTs servicioSeleccionado) {
+        Estacion estacionObj = estacionDao.encontrarEstacionByNombre(estacion);
+        servicioEstacionNuevo.setEstacion(estacionObj);
+        servicioEstacionNuevo.setServicio(servicioSeleccionado);
+        servicioEstacionDao.addServicioEstacion(servicioEstacionNuevo);
+    }
+
+    public void eliminarServicioEstacion(ServicioEstacion servicioSeleccionado) {
+        servicioEstacionDao.deleteServicioEstacion(servicioSeleccionado);
+    }
 }

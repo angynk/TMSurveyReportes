@@ -25,7 +25,7 @@
                         <div style="margin-top:10px"/>
                         <p:commandButton actionListener="#{configServicios.atras}" id="atras"  icon="ui-icon ui-icon-arrow-1-w" title="atras" />
                         <p:commandButton actionListener="#{configServicios.agregarEstacion}" update=":form:nuevaEstacion" value="Nueva Estación"
-                                         oncomplete="PF('nuevoModo').show()" icon="ui-icon-plus" title="View">
+                                         oncomplete="PF('nuevaEstacion').show()" icon="ui-icon-plus" title="View">
                         </p:commandButton>
                         <div style="height: 8px"></div>
                         <p:dataTable id="prog" var="serv" value="#{configServicios.serviciosEstacionesRecords}" widgetVar="ProgTable"
@@ -73,16 +73,25 @@
 
                     <p:dialog header="Nueva Estación" widgetVar="nuevaEstacion" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                         <p:outputPanel id="nuevaEstacion" style="text-align:center;">
-                            <p:panelGrid  columns="2" rendered="#{not empty configServicios.servicioNuevo}" >
+                            <p:panelGrid  columns="2" rendered="#{not empty configServicios.servicioEstacionNuevo}" >
 
-                                <h:outputText value="Nombre:" />
-                                <p:inputText  value="#{configServicios.servicioNuevo.nombre}"   />
-                                <h:outputText value="Identificador:"  />
-                                <p:inputText  value="#{configServicios.servicioNuevo.identificador}"   />
+                                <h:outputText value="Orden:" />
+                                <p:inputText  value="#{configServicios.servicioEstacionNuevo.orden}"   />
+                                <h:outputText value="Estación:"  />
+                                <p:selectOneMenu id="advanced" value="#{configServicios.estacion}"  panelStyle="width:180px"
+                                                 effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                                    <f:selectItems value="#{configServicios.estacionesRecords}" var="estacion"
+                                                   itemLabel="#{estacion}" itemValue="#{estacion}" />
+
+                                    <p:column>
+                                        <h:outputText value="#{t}" />
+                                    </p:column>
+
+                                </p:selectOneMenu>
 
                             </p:panelGrid>
                             <p:panelGrid columns="2">
-                                <p:commandButton value="Crear" action="#{configServicios.crearNuevoServicio()}" ajax="false"
+                                <p:commandButton value="Crear" action="#{configServicios.crearNuevoServicioEstacion()}" ajax="false"
                                                  icon="ui-icon ui-icon-disk"
                                                  async="true" />
 

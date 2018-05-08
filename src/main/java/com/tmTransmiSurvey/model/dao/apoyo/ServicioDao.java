@@ -66,6 +66,6 @@ public class ServicioDao {
     }
 
     public void deleteServicio(ServicioTs servicioSeleccionado) {
-        getSessionFactory().getCurrentSession().update(servicioSeleccionado);
+        getSessionFactory().getCurrentSession().delete(servicioSeleccionado);
     }
 }
