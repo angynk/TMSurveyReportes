@@ -24,6 +24,7 @@ public class ConfigEstacionesBean {
     private List<Modo> modosObj;
     private boolean visiblePanel;
     private List<Estacion> estacionesRecords;
+    private List<Estacion> filteredEstacionesRecords;
     private Estacion estacionNuevo;
     private Estacion estacionSeleccionado;
 
@@ -186,5 +187,13 @@ public class ConfigEstacionesBean {
 
     public void setMessagesView(MessagesView messagesView) {
         this.messagesView = messagesView;
+    }
+
+    public List<Estacion> getFilteredEstacionesRecords() {
+        return filteredEstacionesRecords;
+    }
+
+    public void setFilteredEstacionesRecords(List<Estacion> filteredEstacionesRecords) {
+        this.filteredEstacionesRecords = filteredEstacionesRecords;
     }
 }

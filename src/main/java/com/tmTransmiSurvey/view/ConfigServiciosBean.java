@@ -32,9 +32,11 @@ public class ConfigServiciosBean {
     private List<Modo> modosObj;
     private boolean visiblePanel;
     private List<ServicioTs> serviciosRecords;
+    private List<ServicioTs> filteredServiciosRecords;
     private ServicioTs servicioNuevo;
     private ServicioTs servicioSeleccionado;
     private List<ServicioEstacion> serviciosEstacionesRecords;
+    private List<ServicioEstacion> filteredServiciosEstacionesRecords;
     private ServicioEstacion servicioEstacionSeleccionado;
     private ServicioEstacion servicioEstacionNuevo;
     private String estacion;
@@ -74,6 +76,7 @@ public class ConfigServiciosBean {
     public void buscarServicios(){
             if(modo!=null){
                 modoObjeto = obtenerModo();
+                filteredServiciosRecords = new ArrayList<>();
                 serviciosRecords = servicioEstacionServicio.encontrarTodosLosServicios(modoObjeto.getAbreviatura());
                 visiblePanel =true;
             }
@@ -100,6 +103,7 @@ public class ConfigServiciosBean {
     }
 
     public void verDetalleServicios(){
+        filteredServiciosEstacionesRecords = new ArrayList<>();
         serviciosEstacionesRecords =servicioEstacionServicio.estacionesDelServicio(servicioSeleccionado);
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
@@ -328,5 +332,21 @@ public class ConfigServiciosBean {
 
     public void setExportarDatosProcessor(ExportarADPuntoProcessor exportarDatosProcessor) {
         this.exportarDatosProcessor = exportarDatosProcessor;
+    }
+
+    public List<ServicioTs> getFilteredServiciosRecords() {
+        return filteredServiciosRecords;
+    }
+
+    public void setFilteredServiciosRecords(List<ServicioTs> filteredServiciosRecords) {
+        this.filteredServiciosRecords = filteredServiciosRecords;
+    }
+
+    public List<ServicioEstacion> getFilteredServiciosEstacionesRecords() {
+        return filteredServiciosEstacionesRecords;
+    }
+
+    public void setFilteredServiciosEstacionesRecords(List<ServicioEstacion> filteredServiciosEstacionesRecords) {
+        this.filteredServiciosEstacionesRecords = filteredServiciosEstacionesRecords;
     }
 }

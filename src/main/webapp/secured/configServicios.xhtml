@@ -44,16 +44,16 @@
                         </p:commandButton>
                         <div style="height: 8px"></div>
                         <p:dataTable id="prog" var="serv" value="#{configServicios.serviciosRecords}" widgetVar="ProgTable"
-                                     emptyMessage="No hay registros relacionados a la busqueda"
+                                     emptyMessage="No hay registros relacionados a la busqueda" filteredValue="#{configServicios.filteredServiciosRecords}"
                                      scrollable="true" scrollWidth="98%" scrollHeight="410"
                                      editable="true">
 
-                            <p:column filterBy="#{serv.nombre}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{serv.nombre}"
+                            <p:column  headerText="Nombre"  filterMatchMode="contains" sortBy="#{serv.nombre}"
                                       style="width: 70px">
                                 <h:outputText value="#{serv.nombre}" style="width: 75px" />
                             </p:column>
 
-                            <p:column filterBy="#{serv.identificador}" headerText="Identificador"  filterMatchMode="contains" sortBy="#{serv.identificador}"
+                            <p:column  headerText="Identificador"  filterMatchMode="contains" sortBy="#{serv.identificador}"
                                       style="width: 70px">
                                 <h:outputText value="#{serv.identificador}" style="width: 75px" />
                             </p:column>
