@@ -33,15 +33,17 @@
                                      scrollable="true" scrollWidth="98%" scrollHeight="410"
                                      editable="true">
 
-                            <p:column filterBy="#{serv.orden}" headerText="Orden"  filterMatchMode="contains" sortBy="#{serv.orden}"
-                                      style="width: 70px">
-                                <h:outputText value="#{serv.orden}" style="width: 75px" />
-                            </p:column>
 
                             <p:column filterBy="#{serv.estacion.nombre}" headerText="Estación"  filterMatchMode="contains" sortBy="#{serv.estacion.nombre}"
                                       style="width: 70px">
                                 <h:outputText value="#{serv.estacion.nombre}" style="width: 75px" />
                             </p:column>
+                            <p:column filterBy="#{serv.orden}" headerText="Orden"  filterMatchMode="contains" sortBy="#{serv.orden}"
+                                      style="width: 70px">
+                                <h:outputText value="#{serv.orden}" style="width: 75px" />
+                            </p:column>
+
+
 
                             <p:column style="width:32px;text-align: center" exportable="false"  >
                             <p:commandButton id="delete"
