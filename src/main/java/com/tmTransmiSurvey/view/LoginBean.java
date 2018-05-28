@@ -110,19 +110,6 @@ public class LoginBean implements Serializable {
         return "/secured/FAQ.xhtml?faces-redirect=true";
     }
 
-//    public void cambiar(){
-//        if(contrasenaViejaEsCorrecta()) {
-//            if(contrasenasNuevasIguales()){
-//                usuario.setContrasena(contrasenaNueva);
-//                usuarioServicios.updateUsuario(usuario);
-//                messagesView.info(Messages.MENSAJE_CARGA_EXITOSA,Messages.ACCION_CAMBIO_PASSWORD);
-//            }else{
-//                messagesView.error(Messages.MENSAJE_CARGA_FALLIDA,Messages.ACCION_PASSWORD_NEW);
-//            }
-//        }else{
-//            messagesView.error(Messages.MENSAJE_CARGA_FALLIDA,Messages.ACCION_PASSWORD_OLD);
-//        }
-//    }
 
     private boolean contrasenasNuevasIguales() {
         if(contrasenaNueva.equals(contrasenaNuevaRep)) return true;
@@ -130,6 +117,7 @@ public class LoginBean implements Serializable {
     }
 
     private boolean contrasenaViejaEsCorrecta() {
+        contrasenaAntigua = Util.md5(contrasenaAntigua);
         if(contrasenaAntigua.equals(usuario.getContrasena())) return true;
 
         return false;
@@ -137,6 +125,20 @@ public class LoginBean implements Serializable {
 
     public void modificarContrasena(){
         cambioContrasena = true;
+    }
+
+    public void cambiar(){
+        if(contrasenaViejaEsCorrecta()) {
+            if(contrasenasNuevasIguales()){
+                usuario.setContrasena(Util.md5(contrasenaNueva));
+                usuarioServicios.updateUsuario(usuario);
+                messagesView.info("Proceso Exitoso","La contraseña fue modificada");
+            }else{
+                messagesView.error("Proceso Fallido","Las contraseñas no coinciden");
+            }
+        }else{
+            messagesView.error("Proceso Fallido","La contraseña vieja no coincide");
+        }
     }
 
     public NavigationBean getNavigationBean() {

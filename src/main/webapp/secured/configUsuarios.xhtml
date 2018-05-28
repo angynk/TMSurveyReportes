@@ -63,6 +63,12 @@
                                 </p:commandButton>
                             </p:column>
 
+                            <p:column style="width:32px;text-align: center" exportable="false" >
+                                <p:commandButton update=":form:cambioPass" oncomplete="PF('cambioPass').show()" icon="ui-icon-key" title="Cambio Contraseña">
+                                    <f:setPropertyActionListener value="#{user}" target="#{configUser.usuarioSelected}" />
+                                </p:commandButton>
+                            </p:column>
+
                         </p:dataTable>
 
                     </p:panel>
@@ -77,6 +83,8 @@
                                 <p:inputText  value="#{configUser.usuarioSelected.area}"    />
                                 <h:outputText value="Usuario:"  />
                                 <p:inputText  value="#{configUser.usuarioSelected.usuario}"    />
+                                <h:outputText value="Email:"  />
+                                <p:inputText  value="#{configUser.usuarioSelected.email}" style="width: 300px" />
                                 <h:outputText  value="Role:"  />
                                 <p:selectOneMenu  value="#{configUser.usuarioSelected.role.idNuevo}" style="width: 200px">
                                     <f:selectItems value="#{configUser.roleRecords}" var="role" itemLabel="#{role.nombre}" itemValue="#{role.id}" />
@@ -110,6 +118,8 @@
                                 <p:inputText  value="#{configUser.usuarioNuevo.usuario}"    />
                                 <h:outputText value="Contraseña:"  />
                                 <p:password  value="#{configUser.usuarioNuevo.contrasena}"  />
+                                <h:outputText value="Email:"  />
+                                <p:inputText  value="#{configUser.usuarioNuevo.email}" style="width: 300px" />
                                 <h:outputText  value="Role:"  />
                                 <p:selectOneMenu  value="#{configUser.roleID}" style="width: 200px">
                                     <f:selectItems value="#{configUser.roleRecords}" var="role" itemLabel="#{role.nombre}" itemValue="#{role.id}" />
@@ -122,6 +132,26 @@
                                                  async="true" />
 
                                 <p:commandButton value="Cancelar"  action="#{configUser.cancelar()}" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+
+                    <p:dialog header="Actualizar Contraseña" widgetVar="cambioPass" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="cambioPass" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty configUser.usuarioSelected}" >
+
+                                <h:outputText value="Nueva Contraseña:" />
+                                <p:password  value="#{configUser.nuevaContrasena}"   />
+
+                            </p:panelGrid>
+                            <p:panelGrid columns="2">
+                                <p:commandButton value="Actualizar" action="#{configUser.actualizarPass()}" ajax="false"
+                                                 icon="ui-icon ui-icon-disk"
+                                                 async="true" />
+
+                                <p:commandButton value="Cancelar"  ajax="false"
                                                  icon="ui-icon ui-icon-disk"
                                                  async="true" />
                             </p:panelGrid>

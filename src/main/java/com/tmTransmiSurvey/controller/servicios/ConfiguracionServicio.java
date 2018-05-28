@@ -109,6 +109,12 @@ public class ConfiguracionServicio {
         return false;
     }
 
+    public boolean usuarioNoExiste(String usuario) {
+        Usuario usuario1 = usuarioDao.encontrarUsuarioByNombreUsuario(usuario);
+        if(usuario1==null) return true;
+        return false;
+    }
+
     public void deleteModo(Modo modoSelected) {
         modoDao.deleteModo(modoSelected);
     }

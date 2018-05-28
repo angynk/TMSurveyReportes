@@ -23,6 +23,7 @@ public class ConfigUsuariosView {
     private long roleID;
     private Usuario usuarioSelected;
     private Usuario usuarioNuevo;
+    private String nuevaContrasena;
 
     @ManagedProperty(value="#{ConfigService}")
     private ConfiguracionServicio configuracionServicio;
@@ -57,24 +58,54 @@ public class ConfigUsuariosView {
 
     }
 
+    public void actualizarPass(){
+        if(nuevaContrasena!=null){
+            if(!nuevaContrasena.equals("")){
+                usuarioSelected.setContrasena(Util.md5(nuevaContrasena));
+                configuracionServicio.updateUsuario(usuarioSelected);
+                messagesView.info(Messages.MENSAJE_EXITOSA,Messages.ACTUALIZACION_USUARIO);
+            }
+        }else{
+            messagesView.error(Messages.MENSAJE_FALLIDA,"Digite la nueva contraseña");
+        }
+
+    }
+
     public void crearNuevoUsuario(){
         usuarioNuevo = new Usuario();
     }
 
     public void crearUsuario(){
         if(usuarioNuevo!= null){
-            Role nuevoRol = configuracionServicio.getRoleById(roleID);
-            if(nuevoRol!=null){
-                usuarioNuevo.setRole(nuevoRol);
-                usuarioNuevo.setActivo(true);
-                usuarioNuevo.setContrasena(Util.md5(usuarioNuevo.getContrasena()));
-                configuracionServicio.addUsuario(usuarioNuevo);
-                messagesView.info(Messages.MENSAJE_EXITOSA,Messages.CREACION_USUARIO);
-                usuariosRecords = configuracionServicio.getUsuarioAll();
+            if(datosCompletos()){
+                Role nuevoRol = configuracionServicio.getRoleById(roleID);
+                if(nuevoRol!=null){
+                    if(configuracionServicio.usuarioNoExiste(usuarioNuevo.getUsuario())){
+                        usuarioNuevo.setRole(nuevoRol);
+                        usuarioNuevo.setActivo(true);
+                        usuarioNuevo.setContrasena(Util.md5(usuarioNuevo.getContrasena()));
+                        configuracionServicio.addUsuario(usuarioNuevo);
+                        messagesView.info(Messages.MENSAJE_EXITOSA,Messages.CREACION_USUARIO);
+                        usuariosRecords = configuracionServicio.getUsuarioAll();
+                    }else{
+                        messagesView.error(Messages.MENSAJE_FALLIDA,"Ya existe un usuario con ese nombre de usuario");
+                    }
+
+                }
+            }else{
+                messagesView.error(Messages.MENSAJE_FALLIDA,"Complete todos los campos");
             }
 
 
+
         }
+    }
+
+    private boolean datosCompletos() {
+
+        if(!usuarioNuevo.getUsuario().equals("") && !usuarioNuevo.getArea().equals("") && !usuarioNuevo.getEmail().equals("")
+                && !usuarioNuevo.getContrasena().equals("") ) return true;
+        return false;
     }
 
     public void cancelar(){
@@ -151,5 +182,13 @@ public class ConfigUsuariosView {
 
     public void setRoleID(long roleID) {
         this.roleID = roleID;
+    }
+
+    public String getNuevaContrasena() {
+        return nuevaContrasena;
+    }
+
+    public void setNuevaContrasena(String nuevaContrasena) {
+        this.nuevaContrasena = nuevaContrasena;
     }
 }

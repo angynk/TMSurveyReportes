@@ -31,6 +31,9 @@ public class Usuario {
     @Column(name = "area")
     private String area;
 
+    @Column(name = "email")
+    private String email;
+
     public Usuario() {
     }
 
@@ -88,5 +91,13 @@ public class Usuario {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
