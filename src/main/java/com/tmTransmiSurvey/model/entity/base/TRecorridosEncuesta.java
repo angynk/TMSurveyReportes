@@ -26,6 +26,8 @@ public class TRecorridosEncuesta implements Serializable {
     private String servicio;
     @Column(name = "num_bus")
     private String num_bus;
+    @Column(name = "observacion")
+    private String observacion;
     @Column(name = "recorrido")
     private int recorrido;
     @Column(name = "aforador")
@@ -111,5 +113,13 @@ public class TRecorridosEncuesta implements Serializable {
 
     public void setRecorrido(int recorrido) {
         this.recorrido = recorrido;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 }

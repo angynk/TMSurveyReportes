@@ -26,7 +26,7 @@ public class CargaDatosBean {
 
     private UploadedFile file;
     private boolean cargaVisible;
-    private Modo modo;
+    private String modo;
     private List<Modo> modos;
     private String tipoDato;
     private List<String> tipoDatos;
@@ -55,9 +55,9 @@ public class CargaDatosBean {
         if(file!=null){
             try {
                 String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-                cargaDatosServicios.procesarFile(nombre, modo.getAbreviatura());
+                cargaDatosServicios.procesarFile(nombre, modo);
                 cargaVisible = false;
-                ProcessorUtils.updateAPIServicios(modo.getAbreviatura());
+                ProcessorUtils.updateAPIServicios(modo);
                 messagesView.info("Carga de Información Exitosa","");
             } catch (IOException e) {
                 messagesView.error("Error en la carga del archivo",e.getMessage());
@@ -103,11 +103,11 @@ public class CargaDatosBean {
         this.cargaVisible = cargaVisible;
     }
 
-    public Modo getModo() {
+    public String getModo() {
         return modo;
     }
 
-    public void setModo(Modo modo) {
+    public void setModo(String modo) {
         this.modo = modo;
     }
 

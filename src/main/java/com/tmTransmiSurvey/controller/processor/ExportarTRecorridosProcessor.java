@@ -76,6 +76,7 @@ public class ExportarTRecorridosProcessor {
 
     private int crearRowsRegistros(List<RegistroTRecorridos> registros, TRecorridosEncuesta encuesta, int rows, HSSFSheet worksheet) {
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+        int row = 1 ;
         for(RegistroTRecorridos registro : registros){
             Row rowInfo1 = worksheet.createRow(rows);
             ExcelUtilProcessor.createCellResultados(rowInfo1,sdfDate.format(encuesta.getFecha_encuesta()), EncuestaTRecorridoDEF.col_fecha);
@@ -89,6 +90,10 @@ public class ExportarTRecorridosProcessor {
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getHora_salida(), EncuestaTRecorridoDEF.col_hora_salida);
             ExcelUtilProcessor.createCellResultados(rowInfo1, Util.convertBooleanToString(registro.isPrimera_zon_destino()), EncuestaTRecorridoDEF.col_primer_zona_destino);
             ExcelUtilProcessor.createCellResultados(rowInfo1,registro.getObservacion(), EncuestaTRecorridoDEF.col_observacion);
+            if(row==1){
+                ExcelUtilProcessor.createCellResultados(rowInfo1,encuesta.getObservacion(), EncuestaTRecorridoDEF.col_observacion_general);
+            }
+            row++;
             rows++;
         }
         return rows;
@@ -108,6 +113,7 @@ public class ExportarTRecorridosProcessor {
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaTRecorridoDEF.horaSalida, EncuestaTRecorridoDEF.col_hora_salida);
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaTRecorridoDEF.primerZonaDestino, EncuestaTRecorridoDEF.col_primer_zona_destino);
         ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaTRecorridoDEF.observacion, EncuestaTRecorridoDEF.col_observacion);
+        ExcelUtilProcessor.createCellResultados(rowInfo1, EncuestaTRecorridoDEF.observacion_general, EncuestaTRecorridoDEF.col_observacion_general);
 
     }
 

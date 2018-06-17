@@ -17,6 +17,7 @@ public class EncuestaTRecorridoDEF {
     public static int col_hora_salida = 8;
     public static int col_primer_zona_destino = 9;
     public static int col_observacion = 10;
+    public static int col_observacion_general = 11;
 
 
     //Valores Defecto
@@ -31,6 +32,7 @@ public class EncuestaTRecorridoDEF {
     public static String horaSalida = "Hora Salida";
     public static String primerZonaDestino = "Es primera en Zona Destino";
     public static String observacion = "Observaciones";
+    public static String observacion_general = "Observacion general";
 
 
 

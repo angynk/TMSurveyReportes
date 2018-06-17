@@ -18,7 +18,7 @@
                     <h:panelGrid columns="2" style="margin-bottom:10px;margin-top: 10px" cellpadding="5" cellspacing="15">
                         <p:outputLabel value="Modo:"  />
                         <p:selectOneMenu  value="#{cargaBean.modo}" style="width:125px">
-                            <f:selectItems value="#{cargaBean.modos}" var="modo"  itemLabel="#{modo.nombre}" itemValue="#{modo}" />
+                            <f:selectItems value="#{cargaBean.modos}" var="modo"  itemLabel="#{modo.nombre}" itemValue="#{modo.abreviatura}" />
                         </p:selectOneMenu>
                         <p:outputLabel value="Seleccione el archivo:"  />
                         <p:fileUpload value="#{cargaBean.file}" mode="simple"
