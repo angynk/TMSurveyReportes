@@ -187,7 +187,7 @@ public class ConfigServiciosBean {
 
     public void agregarEstacion(){
         servicioEstacionNuevo = new ServicioEstacion();
-        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(Util.findModo(modo)));
+        estacionesRecords = convertStringList (exportarDatosProcessor.encontrarTodosLasEstaciones(modoObjeto.getAbreviatura()));
     }
 
     private List<String> convertStringList(List<Estacion> estaciones) {
