@@ -117,9 +117,14 @@ public class ConfigServiciosBean {
     }
 
     public void eliminarEstacion(){
-        servicioEstacionServicio.eliminarServicioEstacion(servicioEstacionSeleccionado);
-        messagesView.info("Proceso Exitoso","La estación fue eliminada");
-        serviciosEstacionesRecords =servicioEstacionServicio.estacionesDelServicio(servicioSeleccionado);
+        if(servicioEstacionSeleccionado!=null){
+            servicioEstacionServicio.eliminarServicioEstacion(servicioEstacionSeleccionado);
+            messagesView.info("Proceso Exitoso","La estación fue eliminada");
+            serviciosEstacionesRecords =servicioEstacionServicio.estacionesDelServicio(servicioSeleccionado);
+        }else{
+            messagesView.error("Proceso Fallido","Seleccione la estación a eliminar");
+        }
+
     }
 
     public void crearNuevoServicioEstacion(){
